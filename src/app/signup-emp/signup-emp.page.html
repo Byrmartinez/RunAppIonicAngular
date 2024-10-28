@@ -1,0 +1,39 @@
+<ion-content class="ion-padding">
+  <ion-img></ion-img>
+
+  <ion-item class="ion-margin-top">
+    <ion-label position="floating" class="signup-label">Nombre empresa</ion-label>
+    <ion-input class="signup-input" [(ngModel)]="modeloNombreEmpresa"></ion-input>
+    <ion-icon class="ion-align-self-center" slot="end" name="business-outline"></ion-icon>
+  </ion-item>
+
+  <ion-item class="ion-margin-top">
+    <ion-label position="floating" class="signup-label">Email empresa</ion-label>
+    <ion-input class="signup-input" [(ngModel)]="modeloCorreoEmpresa"></ion-input>
+    <ion-icon class="ion-align-self-center" slot="end" name="mail-outline"></ion-icon>
+  </ion-item>
+
+  <ion-item class="ion-margin-top">
+    <ion-label class="signup-label">Plan</ion-label>
+    <ion-select [(ngModel)]="modeloPlan">
+      <ion-select-option value="semanal">Semanal</ion-select-option>
+      <ion-select-option value="mensual">Mensual</ion-select-option>
+      <ion-select-option value="anual">Anual</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-button expand="block" fill="outline" class="ion-margin-top" (click)="registrarEmpresa()">Registrarse</ion-button>
+
+  <!-- Botón de Iniciar Sesión -->
+  <ion-button expand="block" fill="outline" color="light" class="ion-margin-top" routerLink="/login">
+    <ion-icon name="log-in-outline" slot="start"></ion-icon>
+    Iniciar Sesión
+  </ion-button>
+
+  <div class="socialMedia">
+    <h6>Síguenos en nuestras redes</h6>
+    <ion-icon name="earth-outline"></ion-icon>
+    <ion-icon name="logo-instagram"></ion-icon>
+    <ion-icon name="logo-google"></ion-icon>
+  </div>
+</ion-content>

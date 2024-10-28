@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Wallet</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="toggleMenu()">
+        Menú
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- Información de la wallet -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Total de Viajes</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{ totalViajes }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Saldo</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{ saldo | currency }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Deuda</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{ deuda | currency }}</p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<!-- Menú desplegable -->
+<ion-list *ngIf="mostrarMenu" class="menu-list">
+  <ion-item (click)="navigate('perfil')">Perfil</ion-item>
+  <ion-item (click)="navigate('contacto')">Contacto</ion-item>
+  <ion-item (click)="navigate('faq')">Preguntas Frecuentes</ion-item>
+  <ion-item (click)="cerrarSesion()">Cerrar Sesión</ion-item>
+</ion-list>
+
+<!-- Menú de navegación inferior -->
+<ion-footer>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="currentSegment">
+      <ion-segment-button value="home" (click)="navigate('home')">
+        <ion-label>Home</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="wallet" (click)="navigate('wallet')">
+        <ion-label>Wallet</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="indicadores" (click)="navigate('indicadores')">
+        <ion-label>Indicadores</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="mi-cuenta" (click)="navigate('myacc')">
+        <ion-label>Mi cuenta</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-footer>

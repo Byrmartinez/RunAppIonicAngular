@@ -1,0 +1,7 @@
+{
+  "name": "runapp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

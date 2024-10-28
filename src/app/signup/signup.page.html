@@ -1,0 +1,54 @@
+<ion-content class="ion-padding">
+  <ion-img></ion-img>
+
+  <ion-item class="ion-margin-top">
+    <ion-label position="floating" class="signup-label">Nombre</ion-label>
+    <ion-input class="signup-input" [(ngModel)]="modeloNombre"></ion-input>
+    <ion-icon class="ion-align-self-center" slot="end" name="person"></ion-icon>
+  </ion-item>
+
+  <ion-item class="ion-margin-top">
+    <ion-label position="floating" class="signup-label">Correo Electrónico</ion-label>
+    <ion-input class="signup-input" [(ngModel)]="modeloCorreo"></ion-input>
+    <ion-icon class="ion-align-self-center" slot="end" name="mail"></ion-icon>
+  </ion-item>
+
+  <ion-item class="ion-margin-top">
+    <ion-label position="floating" class="signup-label">Teléfono</ion-label>
+    <ion-input class="signup-input" type="tel" [(ngModel)]="modeloTelefono"></ion-input>
+    <ion-icon class="ion-align-self-center" slot="end" name="call-outline"></ion-icon>
+  </ion-item>
+
+  <ion-item class="ion-margin-top">
+    <ion-label position="floating" class="signup-label">Contraseña</ion-label>
+    <ion-input class="signup-input" [(ngModel)]="modeloContrasena" ></ion-input>
+    <ion-icon class="ion-align-self-center" slot="end" name="eye-outline"></ion-icon>
+  </ion-item>
+
+  <!-- Texto añadido para seleccionar tipo de usuario -->
+  <ion-text class="ion-margin-top">
+    <h3 class="tipo-usuario-text">Escoge tu tipo de usuario</h3>
+  </ion-text>
+
+  <!-- Botones Rider y Empresa -->
+  <ion-row class="ion-margin-top">
+    <ion-col>
+      <ion-button expand="block" fill="solid" color="primary" (click)="validarRegistro('rider')">
+        Soy Rider
+      </ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button expand="block" fill="solid" color="primary" (click)="validarRegistro('empresa')">
+        Soy Empresa
+      </ion-button>
+    </ion-col>
+  </ion-row>
+
+  <!-- Social Media Links -->
+  <div class="socialMedia">
+    <h6>Síguenos en nuestras redes</h6>
+    <ion-icon name="earth-outline"></ion-icon>
+    <ion-icon name="logo-instagram"></ion-icon>
+    <ion-icon name="logo-google"></ion-icon>
+  </div>
+</ion-content>

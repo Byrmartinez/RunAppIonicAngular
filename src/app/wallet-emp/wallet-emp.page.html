@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Wallet Empresa</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <!-- Total envíos -->
+  <ion-item>
+    <ion-label>Total envíos:</ion-label>
+    <ion-text>{{ totalEnvios }}</ion-text>
+  </ion-item>
+
+  <!-- Envíos restantes -->
+  <ion-item>
+    <ion-label>Envíos restantes:</ion-label>
+    <ion-text>{{ enviosRestantes }}</ion-text>
+  </ion-item>
+
+  <!-- Deuda -->
+  <ion-item>
+    <ion-label>Deuda:</ion-label>
+    <ion-text>{{ deuda }}</ion-text>
+  </ion-item>
+
+  <!-- Botón para renovar plan -->
+  <ion-button expand="block" color="primary" (click)="renovarPlan()">Renueva tu Plan</ion-button>
+
+  
+
+</ion-content>
+
+
+

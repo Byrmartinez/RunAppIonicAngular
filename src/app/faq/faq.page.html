@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Preguntas frecuentes</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="toggleMenu()">
+        Menú
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="faq-section">
+    <h2>Preguntas más comunes</h2>
+    
+    <div class="faq-item">
+      <h3>¿Cuál es el tiempo de entrega?</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Cómo puedo realizar un seguimiento de mi pedido?</h3>
+      <p>Curabitur suscipit suscipit tellus. Phasellus accumsan, elit sed interdum.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Qué métodos de pago aceptan?</h3>
+      <p>Nullam at nisl ut velit cursus vulputate. Sed bibendum, magna vitae ultricies.</p>
+    </div>
+
+  </div>
+</ion-content>
+
+<!-- Menú desplegable -->
+<ion-list *ngIf="mostrarMenu" class="menu-list">
+  <ion-item (click)="navigate('perfil')">Perfil</ion-item>
+  <ion-item (click)="navigate('contacto')">Contacto</ion-item>
+  <ion-item (click)="navigate('preguntas-frecuentes')">Preguntas Frecuentes</ion-item>
+  <ion-item (click)="cerrarSesion()">Cerrar Sesión</ion-item>
+</ion-list>
+
+<!-- Menú de navegación inferior -->
+<ion-footer>
+  <ion-toolbar>
+    <ion-segment>
+      <ion-segment-button value="home" (click)="navigate('home')">
+        <ion-label>Home</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="wallet" (click)="navigate('wallet')">
+        <ion-label>Wallet</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="indicadores" (click)="navigate('indicadores')">
+        <ion-label>Indicadores</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="mi-cuenta" (click)="navigate('mi-cuenta')">
+        <ion-label>Mi cuenta</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-footer>

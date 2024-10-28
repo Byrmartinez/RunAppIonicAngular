@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>RUN-APP</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="toggleMenu()">
+        Menú
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <!-- Logo -->
+  <ion-img src="/assets/logo.png" class="logo"></ion-img>
+
+  <!-- Botón para crear un envío -->
+  <ion-button expand="block" fill="outline" color="primary" class="crear-envio-btn" (click)="irACrearEnvio()">
+    Crear envío
+  </ion-button>
+
+  <!-- Historial de envíos -->
+  <div class="pedido-lista">
+    <ion-card *ngFor="let envio of historialEnvios">
+      <ion-card-header>
+        <ion-card-title>{{envio.nombre}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>{{envio.fecha}} - {{envio.estado}}</p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+</ion-content>
+
+<!-- Menú desplegable -->
+<ion-list *ngIf="mostrarMenu" class="menu-list">
+  <ion-item (click)="navigate('perfil')">Perfil</ion-item>
+  <ion-item (click)="navigate('contacto')">Contacto</ion-item>
+  <ion-item (click)="navigate('faq')">Preguntas Frecuentes</ion-item>
+  <ion-item (click)="cerrarSesion()">Cerrar Sesión</ion-item>
+</ion-list>
+
+<!-- Menú de navegación inferior -->
+<ion-footer>
+  <ion-toolbar>
+    <ion-segment>
+      <ion-segment-button value="home" (click)="navigate('home-emp')">
+        <ion-label>Home</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="wallet" (click)="navigate('wallet-emp')">
+        <ion-label>Wallet</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="indicadores" (click)="navigate('indicadores')">
+        <ion-label>Indicadores</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="mi-cuenta" (click)="navigate('myacc')">
+        <ion-label>Mi cuenta</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-footer>

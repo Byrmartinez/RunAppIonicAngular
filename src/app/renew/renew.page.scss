@@ -1,0 +1,40 @@
+ion-header {
+    --background: white;
+  }
+  
+  ion-content {
+    h2 {
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+  
+    ion-item {
+      --background: white;
+      --color: black;
+    }
+  
+    ion-button {
+      --background: #8c52ff;
+      --color: white;
+    }
+  }
+  
+  /* Menú desplegable */
+  .menu-list {
+    ion-item {
+      --background: white;
+      --color: black;
+    }
+  }
+  
+  ion-footer {
+    ion-toolbar {
+      --background: #8c52ff;
+    }
+  
+    ion-segment-button {
+      --color: black;
+      --indicator-color: black;
+    }
+  }
+  

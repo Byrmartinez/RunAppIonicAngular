@@ -1,0 +1,38 @@
+.ion-padding {
+    --ion-background-color: #000000;
+    display: flex;
+  }
+  
+  html {
+    background-color: #000000;
+  }
+  
+  body {
+    font-family: "Poppins", sans-serif;
+    height: 100vh;
+  }
+  
+  .signup-label {
+    color: rgb(233, 233, 233);
+  }
+  
+  .signup-input {
+    color: #fff;
+    border-radius: 5px;
+  }
+  
+  ion-button {
+    --background: #8c52ff;
+    --color: #000000;
+  }
+  
+  .mt {
+    margin-top: 60px;
+  }
+  
+  ion-item {
+    ion-icon {
+      color: #fff;
+    }
+  }
+  
