@@ -19,6 +19,12 @@ export class HomePage implements OnInit {
   body = {};
   mostrarMenu = false; // Para controlar la visibilidad del menú
   estado: string = "";
+  //nuevo
+  pendingCount = 0;
+  acceptedCount = 0;
+  inTransitCount = 0;
+  deliveredCount = 0;
+  //nuevo
 
   constructor(private router: Router, private api: ApiRestService, private autenthicationService: AutenthicationService) { }
 
@@ -30,6 +36,7 @@ export class HomePage implements OnInit {
     }, (error) => {
       console.log(error);
     });
+    this.updateEnviosCount();
   }
 
   doRefresh(event: any) {
@@ -39,13 +46,19 @@ export class HomePage implements OnInit {
     }, (error) => {
       console.log(error);
     });
+    this.updateEnviosCount();
     console.log('Begin async operation');
     setTimeout(() => {
       console.log('Async operation has ended');
       event.target.complete();
     }, 2000);
   }
-
+  updateEnviosCount() {
+    this.pendingCount = this.envios.filter(envio => envio.estado === 'pendiente').length;
+    this.acceptedCount = this.envios.filter(envio => envio.estado === 'aceptado').length;
+    this.inTransitCount = this.envios.filter(envio => envio.estado === 'enCamino').length;
+    this.deliveredCount = this.envios.filter(envio => envio.estado === 'entregado').length;
+  }
   //aceptarEnvio(id: number) {
   //console.log(`Envio ${id} aceptado`);
   // Lógica para aceptar el envío (ejemplo: llamada a una API)

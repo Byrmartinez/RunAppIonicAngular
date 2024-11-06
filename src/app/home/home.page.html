@@ -1,295 +1,3 @@
-<!--ion-header>
-  <ion-toolbar>
-    <ion-title>RUN-APP</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="toggleMenu()">
-        Menú
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content class="ion-padding">
-  <ion-content class="background">
-    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-      <ion-refresher-content></ion-refresher-content>
-    </ion-refresher>
-    <div *ngFor="let envio of envios">
-
-      <ion-card *ngIf="envio.estado === 'pendiente'" [routerLink]="['envio/', envio.id]" class="envio-card">
-        <img alt="Imagen de Envío" src="https://ionicframework.com/docs/img/demos/card-media.png" class="card-image" />
-
-        <ion-card-header>
-          <ion-card-subtitle class="estado">{{ envio.estado | titlecase }}</ion-card-subtitle>
-          <ion-card-title class="distancia">
-            Distancia: <b>{{ envio.distanciaKM }} Km</b>
-          </ion-card-title>
-        </ion-card-header>
-
-        <ion-card-content>
-          <ion-grid>
-            <ion-row>
-              <ion-col size="12" class="content-label">
-                <ion-icon name="location-outline" class="icon"></ion-icon>
-                <b>Origen:</b> {{ envio.direccionOrigen }}
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col size="12" class="content-label">
-                <ion-icon name="flag-outline" class="icon"></ion-icon>
-                <b>Destino:</b> {{ envio.direccionDestino }}
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col size="12" class="content-label id-info">
-                <ion-icon name="pricetag-outline" class="icon"></ion-icon>
-                <b>ID:</b> {{ envio.id }}
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-card-content>
-      </ion-card>
-
-    </div>
-
-
-
-
-  </ion-content>
-
-  
-  <ion-list *ngIf="mostrarMenu" class="menu-list">
-    <ion-item (click)="navigate('perfil')">Perfil</ion-item>
-    <ion-item (click)="navigate('contacto')">Contacto</ion-item>
-    <ion-item (click)="navigate('faq')">Preguntas Frecuentes</ion-item>
-    <ion-item (click)="logout()">Cerrar Sesión</ion-item>
-  </ion-list>
-
-  <ion-footer>
-    <ion-toolbar>
-      <ion-segment>
-        <ion-segment-button value="home" (click)="navigate('home')">
-          <ion-label>Home</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="wallet" (click)="navigate('wallet')">
-          <ion-label>Wallet</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="indicadores" (click)="navigate('indicadores')">
-          <ion-label>Indicadores</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="mi-cuenta" (click)="navigate('myacc')">
-          <ion-label>Mi cuenta</ion-label>
-        </ion-segment-button>
-      </ion-segment>
-    </ion-toolbar>
-  </ion-footer-->
-<!--ion-header>
-  <ion-toolbar>
-    <ion-title>RUN-APP</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="toggleMenu()">
-        Menú
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content class="ion-padding">
-  <ion-content class="background">
-    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-      <ion-refresher-content></ion-refresher-content>
-    </ion-refresher>
-
-    
-    <ion-list *ngIf="envios.length > 0">
-      <ion-item-divider>
-        <ion-label>Envíos Pendientes</ion-label>
-      </ion-item-divider>
-      <div *ngFor="let envio of envios">
-        <ion-card *ngIf="envio.estado === 'pendiente'" [routerLink]="['envio/', envio.id]" class="envio-card">
-          <img alt="Imagen de Envío" src="https://ionicframework.com/docs/img/demos/card-media.png"
-            class="card-image" />
-          <ion-card-header>
-            <ion-card-subtitle class="estado">{{ envio.estado | titlecase }}</ion-card-subtitle>
-            <ion-card-title class="distancia">Distancia: <b>{{ envio.distanciaKM }} Km</b></ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            <ion-grid>
-              <ion-row>
-                <ion-col size="12" class="content-label">
-                  <ion-icon name="location-outline" class="icon"></ion-icon>
-                  <b>Origen:</b> {{ envio.direccionOrigen }}
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col size="12" class="content-label">
-                  <ion-icon name="flag-outline" class="icon"></ion-icon>
-                  <b>Destino:</b> {{ envio.direccionDestino }}
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col size="12" class="content-label id-info">
-                  <ion-icon name="pricetag-outline" class="icon"></ion-icon>
-                  <b>ID:</b> {{ envio.id }}
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-card-content>
-          <ion-button expand="full">Aceptar</ion-button>
-        </ion-card>
-      </div>
-    </ion-list>
-
-    
-    <ion-list *ngIf="envios.length > 0">
-      <ion-item-divider>
-        <ion-label>Envíos Aceptados</ion-label>
-      </ion-item-divider>
-      <div *ngFor="let envio of envios">
-        <ion-card *ngIf="envio.estado === 'aceptado'" class="envio-card">
-          <img alt="Imagen de Envío" src="https://ionicframework.com/docs/img/demos/card-media.png"
-            class="card-image" />
-          <ion-card-header>
-            <ion-card-subtitle class="estado">{{ envio.estado | titlecase }}</ion-card-subtitle>
-            <ion-card-title class="distancia">Distancia: <b>{{ envio.distanciaKM }} Km</b></ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            <ion-grid>
-              <ion-row>
-                <ion-col size="12" class="content-label">
-                  <ion-icon name="location-outline" class="icon"></ion-icon>
-                  <b>Origen:</b> {{ envio.direccionOrigen }}
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col size="12" class="content-label">
-                  <ion-icon name="flag-outline" class="icon"></ion-icon>
-                  <b>Destino:</b> {{ envio.direccionDestino }}
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col size="12" class="content-label id-info">
-                  <ion-icon name="pricetag-outline" class="icon"></ion-icon>
-                  <b>ID:</b> {{ envio.id }}
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-card-content>
-          <ion-button expand="full">Comenzar</ion-button>
-        </ion-card>
-      </div>
-    </ion-list>
-
-    
-    <ion-list *ngIf="envios.length > 0">
-      <ion-item-divider>
-        <ion-label>Envíos en Camino</ion-label>
-      </ion-item-divider>
-      <div *ngFor="let envio of envios">
-        <ion-card *ngIf="envio.estado === 'en camino'" class="envio-card">
-          <img alt="Imagen de Envío" src="https://ionicframework.com/docs/img/demos/card-media.png"
-            class="card-image" />
-          <ion-card-header>
-            <ion-card-subtitle class="estado">{{ envio.estado | titlecase }}</ion-card-subtitle>
-            <ion-card-title class="distancia">Distancia: <b>{{ envio.distanciaKM }} Km</b></ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            <ion-grid>
-              <ion-row>
-                <ion-col size="12" class="content-label">
-                  <ion-icon name="location-outline" class="icon"></ion-icon>
-                  <b>Origen:</b> {{ envio.direccionOrigen }}
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col size="12" class="content-label">
-                  <ion-icon name="flag-outline" class="icon"></ion-icon>
-                  <b>Destino:</b> {{ envio.direccionDestino }}
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col size="12" class="content-label id-info">
-                  <ion-icon name="pricetag-outline" class="icon"></ion-icon>
-                  <b>ID:</b> {{ envio.id }}
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-card-content>
-          <ion-button expand="full">Entregar</ion-button>
-        </ion-card>
-      </div>
-    </ion-list>
-
-    
-    <ion-list *ngIf="envios.length > 0">
-      <ion-item-divider>
-        <ion-label>Envíos Entregados</ion-label>
-      </ion-item-divider>
-      <div *ngFor="let envio of envios">
-        <ion-card *ngIf="envio.estado === 'entregado'" class="envio-card">
-          <img alt="Imagen de Envío" src="https://ionicframework.com/docs/img/demos/card-media.png"
-            class="card-image" />
-          <ion-card-header>
-            <ion-card-subtitle class="estado">{{ envio.estado | titlecase }}</ion-card-subtitle>
-            <ion-card-title class="distancia">Distancia: <b>{{ envio.distanciaKM }} Km</b></ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            <ion-grid>
-              <ion-row>
-                <ion-col size="12" class="content-label">
-                  <ion-icon name="location-outline" class="icon"></ion-icon>
-                  <b>Origen:</b> {{ envio.direccionOrigen }}
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col size="12" class="content-label">
-                  <ion-icon name="flag-outline" class="icon"></ion-icon>
-                  <b>Destino:</b> {{ envio.direccionDestino }}
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col size="12" class="content-label id-info">
-                  <ion-icon name="pricetag-outline" class="icon"></ion-icon>
-                  <b>ID:</b> {{ envio.id }}
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-card-content>
-        </ion-card>
-      </div>
-    </ion-list>
-
-  </ion-content>
-
-
-
-  <ion-list *ngIf="mostrarMenu" class="menu-list">
-    <ion-item (click)="navigate('perfil')">Perfil</ion-item>
-    <ion-item (click)="navigate('contacto')">Contacto</ion-item>
-    <ion-item (click)="navigate('faq')">Preguntas Frecuentes</ion-item>
-    <ion-item (click)="logout()">Cerrar Sesión</ion-item>
-  </ion-list>
-
-  <ion-footer>
-    <ion-toolbar>
-      <ion-segment>
-        <ion-segment-button value="home" (click)="navigate('home')">
-          <ion-label>Home</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="wallet" (click)="navigate('wallet')">
-          <ion-label>Wallet</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="indicadores" (click)="navigate('indicadores')">
-          <ion-label>Indicadores</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="mi-cuenta" (click)="navigate('myacc')">
-          <ion-label>Mi cuenta</ion-label>
-        </ion-segment-button>
-      </ion-segment>
-    </ion-toolbar>
-  </ion-footer>
-</ion-content-->
-
 <ion-header>
   <ion-toolbar>
     <ion-title>RUN-APP</ion-title>
@@ -298,6 +6,7 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
 
 <ion-content class="ion-padding">
 
@@ -326,42 +35,51 @@
     <ion-item-divider>
       <ion-label>Envíos Pendientes</ion-label>
     </ion-item-divider>
-    <div *ngFor="let envio of envios">
-      <ion-card *ngIf="envio.estado === 'pendiente'" [routerLink]="['envio/', envio.id]" class="envio-card">
-        <!-- Contenido del card de envío pendiente -->
-        <img alt="Imagen de Envío" src="https://ionicframework.com/docs/img/demos/card-media.png" class="card-image" />
+    <div *ngIf="pendingCount > 0; else noPendingMessage">
+      <div *ngFor="let envio of envios">
+        <ion-card *ngIf="envio.estado === 'pendiente'" [routerLink]="['envio/', envio.id]" class="envio-card">
+          <!-- Contenido del card de envío pendiente -->
+          <img alt="Imagen de Envío" src="https://ionicframework.com/docs/img/demos/card-media.png"
+            class="card-image" />
 
-        <ion-card-header>
-          <ion-card-subtitle class="estado">{{ envio.estado | titlecase }}</ion-card-subtitle>
-          <ion-card-title class="distancia">
-            Distancia: <b>{{ envio.distanciaKM }} Km</b>
-          </ion-card-title>
-        </ion-card-header>
+          <ion-card-header>
+            <ion-card-subtitle class="estado">{{ envio.estado | titlecase }}</ion-card-subtitle>
+            <ion-card-title class="distancia">
+              Distancia: <b>{{ envio.distanciaKM }} Km</b>
+            </ion-card-title>
+          </ion-card-header>
 
-        <ion-card-content>
-          <ion-grid>
-            <ion-row>
-              <ion-col size="12" class="content-label">
-                <ion-icon name="location-outline" class="icon"></ion-icon>
-                <b>Origen:</b> {{ envio.direccionOrigen }}
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col size="12" class="content-label">
-                <ion-icon name="flag-outline" class="icon"></ion-icon>
-                <b>Destino:</b> {{ envio.direccionDestino }}
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col size="12" class="content-label id-info">
-                <ion-icon name="pricetag-outline" class="icon"></ion-icon>
-                <b>ID:</b> {{ envio.id }}
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-card-content>
-      </ion-card>
+          <ion-card-content>
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12" class="content-label">
+                  <ion-icon name="location-outline" class="icon"></ion-icon>
+                  <b>Origen:</b> {{ envio.direccionOrigen }}
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12" class="content-label">
+                  <ion-icon name="flag-outline" class="icon"></ion-icon>
+                  <b>Destino:</b> {{ envio.direccionDestino }}
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12" class="content-label id-info">
+                  <ion-icon name="pricetag-outline" class="icon"></ion-icon>
+                  <b>ID:</b> {{ envio.id }}
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+      </div>
+
     </div>
+    <ng-template #noPendingMessage>
+      <ion-item>
+        <ion-label>No hay envíos pendientes</ion-label>
+      </ion-item>
+    </ng-template>
   </ion-list>
 
   <!-- Sección de Envíos Aceptados -->
@@ -369,43 +87,51 @@
     <ion-item-divider>
       <ion-label>Envíos Aceptados</ion-label>
     </ion-item-divider>
-    <div *ngFor="let envio of envios">
-      <ion-card *ngIf="envio.estado === 'aceptado'" [routerLink]="['envio/', envio.id]" class="envio-card">
-        <!-- Contenido del card de envío aceptado -->
-        <img alt="Imagen de Envío" src="https://ionicframework.com/docs/img/demos/card-media.png" class="card-image" />
+    <div *ngIf="acceptedCount > 0; else noAcceptedMessage">
+      <div *ngFor="let envio of envios">
+        <ion-card *ngIf="envio.estado === 'aceptado'" [routerLink]="['envio/', envio.id]" class="envio-card">
+          <!-- Contenido del card de envío aceptado -->
+          <img alt="Imagen de Envío" src="https://ionicframework.com/docs/img/demos/card-media.png"
+            class="card-image" />
 
-        <ion-card-header>
-          <ion-card-subtitle class="estado">{{ envio.estado | titlecase }}</ion-card-subtitle>
-          <ion-card-title class="distancia">
-            Distancia: <b>{{ envio.distanciaKM }} Km</b>
-          </ion-card-title>
-        </ion-card-header>
+          <ion-card-header>
+            <ion-card-subtitle class="estado">{{ envio.estado | titlecase }}</ion-card-subtitle>
+            <ion-card-title class="distancia">
+              Distancia: <b>{{ envio.distanciaKM }} Km</b>
+            </ion-card-title>
+          </ion-card-header>
 
-        <ion-card-content>
-          <ion-grid>
-            <ion-row>
-              <ion-col size="12" class="content-label">
-                <ion-icon name="location-outline" class="icon"></ion-icon>
-                <b>Origen:</b> {{ envio.direccionOrigen }}
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col size="12" class="content-label">
-                <ion-icon name="flag-outline" class="icon"></ion-icon>
-                <b>Destino:</b> {{ envio.direccionDestino }}
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col size="12" class="content-label id-info">
-                <ion-icon name="pricetag-outline" class="icon"></ion-icon>
-                <b>ID:</b> {{ envio.id }}
-              </ion-col>
-            </ion-row>
-          </ion-grid>
+          <ion-card-content>
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12" class="content-label">
+                  <ion-icon name="location-outline" class="icon"></ion-icon>
+                  <b>Origen:</b> {{ envio.direccionOrigen }}
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12" class="content-label">
+                  <ion-icon name="flag-outline" class="icon"></ion-icon>
+                  <b>Destino:</b> {{ envio.direccionDestino }}
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12" class="content-label id-info">
+                  <ion-icon name="pricetag-outline" class="icon"></ion-icon>
+                  <b>ID:</b> {{ envio.id }}
+                </ion-col>
+              </ion-row>
+            </ion-grid>
 
-        </ion-card-content>
-      </ion-card>
+          </ion-card-content>
+        </ion-card>
+      </div>
     </div>
+    <ng-template #noAcceptedMessage>
+      <ion-item>
+        <ion-label>No hay envíos Aceptados</ion-label>
+      </ion-item>
+    </ng-template>
   </ion-list>
 
   <!-- Sección de Envíos en Camino -->
@@ -413,43 +139,51 @@
     <ion-item-divider>
       <ion-label>Envíos en Camino</ion-label>
     </ion-item-divider>
-    <div *ngFor="let envio of envios">
-      <ion-card *ngIf="envio.estado === 'enCamino'" [routerLink]="['envio/', envio.id]" class="envio-card">
-        <!-- Contenido del card de envío en camino -->
-        <img alt="Imagen de Envío" src="https://ionicframework.com/docs/img/demos/card-media.png" class="card-image" />
+    <div *ngIf="inTransitCount > 0; else noInTransitMessage">
+      <div *ngFor="let envio of envios">
+        <ion-card *ngIf="envio.estado === 'enCamino'" [routerLink]="['envio/', envio.id]" class="envio-card">
+          <!-- Contenido del card de envío en camino -->
+          <img alt="Imagen de Envío" src="https://ionicframework.com/docs/img/demos/card-media.png"
+            class="card-image" />
 
-        <ion-card-header>
-          <ion-card-subtitle class="estado">{{ envio.estado | titlecase }}</ion-card-subtitle>
-          <ion-card-title class="distancia">
-            Distancia: <b>{{ envio.distanciaKM }} Km</b>
-          </ion-card-title>
-        </ion-card-header>
+          <ion-card-header>
+            <ion-card-subtitle class="estado">{{ envio.estado | titlecase }}</ion-card-subtitle>
+            <ion-card-title class="distancia">
+              Distancia: <b>{{ envio.distanciaKM }} Km</b>
+            </ion-card-title>
+          </ion-card-header>
 
-        <ion-card-content>
-          <ion-grid>
-            <ion-row>
-              <ion-col size="12" class="content-label">
-                <ion-icon name="location-outline" class="icon"></ion-icon>
-                <b>Origen:</b> {{ envio.direccionOrigen }}
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col size="12" class="content-label">
-                <ion-icon name="flag-outline" class="icon"></ion-icon>
-                <b>Destino:</b> {{ envio.direccionDestino }}
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col size="12" class="content-label id-info">
-                <ion-icon name="pricetag-outline" class="icon"></ion-icon>
-                <b>ID:</b> {{ envio.id }}
-              </ion-col>
-            </ion-row>
-          </ion-grid>
+          <ion-card-content>
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12" class="content-label">
+                  <ion-icon name="location-outline" class="icon"></ion-icon>
+                  <b>Origen:</b> {{ envio.direccionOrigen }}
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12" class="content-label">
+                  <ion-icon name="flag-outline" class="icon"></ion-icon>
+                  <b>Destino:</b> {{ envio.direccionDestino }}
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12" class="content-label id-info">
+                  <ion-icon name="pricetag-outline" class="icon"></ion-icon>
+                  <b>ID:</b> {{ envio.id }}
+                </ion-col>
+              </ion-row>
+            </ion-grid>
 
-        </ion-card-content>
-      </ion-card>
+          </ion-card-content>
+        </ion-card>
+      </div>
     </div>
+    <ng-template #noInTransitMessage>
+      <ion-item>
+        <ion-label>No hay envíos En Camino</ion-label>
+      </ion-item>
+    </ng-template>
   </ion-list>
 
   <!-- Sección de Envíos Entregados -->
@@ -457,42 +191,50 @@
     <ion-item-divider>
       <ion-label>Envíos Entregados</ion-label>
     </ion-item-divider>
-    <div *ngFor="let envio of envios">
-      <ion-card *ngIf="envio.estado === 'entregado'" class="envio-card">
-        <!-- Contenido del card de envío entregado -->
-        <img alt="Imagen de Envío" src="https://ionicframework.com/docs/img/demos/card-media.png" class="card-image" />
+    <div *ngIf="deliveredCount > 0; else noDeliveredCountMessage">
+      <div *ngFor="let envio of envios">
+        <ion-card *ngIf="envio.estado === 'entregado'" class="envio-card">
+          <!-- Contenido del card de envío entregado -->
+          <img alt="Imagen de Envío" src="https://ionicframework.com/docs/img/demos/card-media.png"
+            class="card-image" />
 
-        <ion-card-header>
-          <ion-card-subtitle class="estado">{{ envio.estado | titlecase }}</ion-card-subtitle>
-          <ion-card-title class="distancia">
-            Distancia: <b>{{ envio.distanciaKM }} Km</b>
-          </ion-card-title>
-        </ion-card-header>
+          <ion-card-header>
+            <ion-card-subtitle class="estado">{{ envio.estado | titlecase }}</ion-card-subtitle>
+            <ion-card-title class="distancia">
+              Distancia: <b>{{ envio.distanciaKM }} Km</b>
+            </ion-card-title>
+          </ion-card-header>
 
-        <ion-card-content>
-          <ion-grid>
-            <ion-row>
-              <ion-col size="12" class="content-label">
-                <ion-icon name="location-outline" class="icon"></ion-icon>
-                <b>Origen:</b> {{ envio.direccionOrigen }}
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col size="12" class="content-label">
-                <ion-icon name="flag-outline" class="icon"></ion-icon>
-                <b>Destino:</b> {{ envio.direccionDestino }}
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col size="12" class="content-label id-info">
-                <ion-icon name="pricetag-outline" class="icon"></ion-icon>
-                <b>ID:</b> {{ envio.id }}
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-card-content>
-      </ion-card>
+          <ion-card-content>
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12" class="content-label">
+                  <ion-icon name="location-outline" class="icon"></ion-icon>
+                  <b>Origen:</b> {{ envio.direccionOrigen }}
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12" class="content-label">
+                  <ion-icon name="flag-outline" class="icon"></ion-icon>
+                  <b>Destino:</b> {{ envio.direccionDestino }}
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12" class="content-label id-info">
+                  <ion-icon name="pricetag-outline" class="icon"></ion-icon>
+                  <b>ID:</b> {{ envio.id }}
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+      </div>
     </div>
+    <ng-template #noDeliveredCountMessage>
+      <ion-item>
+        <ion-label>No hay envíos En Camino</ion-label>
+      </ion-item>
+    </ng-template>
   </ion-list>
 </ion-content>
 
