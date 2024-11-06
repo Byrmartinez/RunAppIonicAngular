@@ -13,10 +13,10 @@ export class SignupPage implements OnInit {
   modeloCorreo: string = '';
   modeloContrasena: string = '';
   modeloTelefono: string = '';
-  
+
   constructor(private alertController: AlertController, private router: Router) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   // Validación de campos y redirección
   async validarRegistro(tipoCuenta: string) {
@@ -37,7 +37,7 @@ export class SignupPage implements OnInit {
       this.router.navigate(['/signup-emp']);
     }
 
-    
+
   }
 
   // Método para mostrar alertas

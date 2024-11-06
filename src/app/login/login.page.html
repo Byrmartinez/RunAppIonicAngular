@@ -1,17 +1,20 @@
 <ion-content class="ion-padding">
   <ion-img src="/assets/logo.png"></ion-img>
+
   <ion-item fill="undefined" class="ion-margin-top">
     <ion-label position="floating" class="login-label">Correo Electrónico</ion-label>
-    <ion-input class="login-input"></ion-input>
+    <ion-input [(ngModel)]="email" class="login-input"></ion-input>
     <ion-icon class="ion-align-self-center" slot="end" name="mail"></ion-icon>
   </ion-item>
+
   <ion-item class="ion-margin-top">
     <ion-label position="floating" class="login-label">Contraseña</ion-label>
-    <ion-input [type]="type ? 'password' : 'text'" [(ngModel)]="modeloContrasena" class="login-input" name="password"></ion-input>
-    <ion-icon class="ion-align-self-center" slot="end" name="eye-outline" (click)="changeType()" ></ion-icon>
+    <ion-input [type]="type ? 'password' : 'text'" [(ngModel)]="password" class="login-input"
+      name="password"></ion-input>
+    <ion-icon class="ion-align-self-center" slot="end" name="eye-outline" (click)="changeType()"></ion-icon>
   </ion-item>
-  
-  <ion-button expand="block" fill="#ee2926" class="ion-margin-top mt" routerLink="/home" >Ingresar</ion-button>
+
+  <ion-button expand="block" class="ion-margin-top mt" (click)="login()">Ingresar</ion-button>
   <ion-button expand="block" color="light" fill="outline" class="ion-margin-top" routerLink="/signup">
     <ion-icon name="person-add-outline" slot="start"></ion-icon>
     Crear Nuevo Usuario
@@ -19,9 +22,8 @@
 
   <div class="socialMedia">
     <h6>Siguenos en nuestras redes</h6>
-    <ion-icon name="earth-outline" ></ion-icon>
-    <ion-icon name="logo-instagram" ></ion-icon>
-    <ion-icon name="logo-google" ></ion-icon>
+    <ion-icon name="earth-outline"></ion-icon>
+    <ion-icon name="logo-instagram"></ion-icon>
+    <ion-icon name="logo-google"></ion-icon>
   </div>
-
 </ion-content>

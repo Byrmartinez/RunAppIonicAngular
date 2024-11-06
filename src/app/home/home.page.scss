@@ -3,13 +3,15 @@ ion-header {
 }
 
 ion-button {
-  --background: #8c52ff; /* Amarillo para el botón "Menú" */
+  --background: #8c52ff;
+  /* Amarillo para el botón "Menú" */
   --color: black;
 }
 
 ion-content {
   ion-card {
     background-color: #ffffff;
+
     ion-card-header {
       ion-card-title {
         font-size: 18px;
@@ -40,7 +42,8 @@ ion-content {
 
 ion-footer {
   ion-toolbar {
-    --background: #8c52ff; /* Barra inferior amarilla */
+    --background: #8c52ff;
+    /* Barra inferior amarilla */
   }
 
   ion-segment-button {

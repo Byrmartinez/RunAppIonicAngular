@@ -1,0 +1,53 @@
+ion-header {
+    --background: white;
+}
+
+ion-button {
+    --background: #8c52ff;
+    /* Amarillo para el botón "Menú" */
+    --color: black;
+}
+
+ion-content {
+    ion-card {
+        background-color: #ffffff;
+
+        ion-card-header {
+            ion-card-title {
+                font-size: 18px;
+                color: #333;
+            }
+        }
+
+        ion-card-content {
+            p {
+                color: #888;
+            }
+
+            ion-button {
+                --background: #a8b8ff;
+                --color: white;
+            }
+        }
+    }
+}
+
+/* Menú desplegable */
+.menu-list {
+    ion-item {
+        --background: white;
+        --color: black;
+    }
+}
+
+ion-footer {
+    ion-toolbar {
+        --background: #8c52ff;
+        /* Barra inferior amarilla */
+    }
+
+    ion-segment-button {
+        --color: black;
+        --indicator-color: black;
+    }
+}

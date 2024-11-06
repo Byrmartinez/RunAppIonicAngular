@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AutenthicationService } from '../services/autenthication.service';
 
 @Component({
   selector: 'app-contacto',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 export class ContactoPage {
   mostrarMenu = false; // Para controlar la visibilidad del menú
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private autenthicationService: AutenthicationService) { }
 
   toggleMenu() {
     this.mostrarMenu = !this.mostrarMenu; // Alterna el menú desplegable
@@ -20,8 +21,7 @@ export class ContactoPage {
     this.router.navigate([`/${page}`]);
   }
 
-  cerrarSesion() {
-    console.log('Sesión cerrada');
-    // Lógica para cerrar sesión
+  logout() {
+    this.autenthicationService.logout();
   }
 }

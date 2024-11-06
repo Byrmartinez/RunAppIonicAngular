@@ -1,20 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
 import { IonicModule } from '@ionic/angular';
-
-import { EnvioPageRoutingModule } from './envio-routing.module';
-
-import { EnvioPage } from './envio.page';
+import { FirstloadPageRoutingModule } from './firstload-routing.module';
+import { FirstloadPage } from './firstload.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    EnvioPageRoutingModule
+    FirstloadPageRoutingModule
   ],
-  declarations: [EnvioPage]
+  declarations: [FirstloadPage]
 })
-export class EnvioPageModule {}
+export class FirstloadPageModule {}

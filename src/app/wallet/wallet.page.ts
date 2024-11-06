@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router, NavigationEnd } from '@angular/router';
+import { AutenthicationService } from '../services/autenthication.service';
 
 @Component({
   selector: 'app-wallet',
@@ -14,7 +15,7 @@ export class WalletPage implements OnInit {
   mostrarMenu: boolean = false;
   currentSegment: string = 'wallet'; // Valor predeterminado es 'wallet'
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private autenthicationService: AutenthicationService) {
     // Escuchar los cambios de ruta para actualizar el segmento activo
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
@@ -50,8 +51,8 @@ export class WalletPage implements OnInit {
     this.router.navigate([`/${page}`]);
   }
 
-  cerrarSesion() {
-    console.log('Cerrando sesión');
+  logout() {
+    this.autenthicationService.logout();
   }
 
   // Método para actualizar el segmento activo basado en la ruta actual

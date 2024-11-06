@@ -1,0 +1,51 @@
+ion-header {
+    --background: white;
+}
+
+ion-button {
+    --background: #8c52ff;
+    /* Amarillo para el botón "Menú" */
+    --color: black;
+}
+
+.contact-info {
+    text-align: center;
+    margin-top: 20px;
+
+    h2 {
+        font-size: 20px;
+        color: #333;
+        margin-bottom: 15px;
+    }
+
+    p {
+        color: #666;
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    a {
+        color: #8c52ff; // Color que coincide con el diseño de la aplicación
+        text-decoration: underline;
+    }
+}
+
+/* Menú desplegable */
+.menu-list {
+    ion-item {
+        --background: white;
+        --color: black;
+    }
+}
+
+ion-footer {
+    ion-toolbar {
+        --background: #8c52ff;
+        /* Barra inferior amarilla */
+    }
+
+    ion-segment-button {
+        --color: black;
+        --indicator-color: black;
+    }
+}

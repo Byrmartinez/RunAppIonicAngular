@@ -1,13 +1,46 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>indicadores</ion-title>
+    <ion-title>INDICADORES</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="toggleMenu()">
+        Menú
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+<ion-content class="ion-padding">
+  <ion-content class="background">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+  </ion-content>
+
+  <!-- Menú desplegable -->
+  <ion-list *ngIf="mostrarMenu" class="menu-list">
+    <ion-item (click)="navigate('perfil')">Perfil</ion-item>
+    <ion-item (click)="navigate('contacto')">Contacto</ion-item>
+    <ion-item (click)="navigate('faq')">Preguntas Frecuentes</ion-item>
+    <ion-item (click)="logout()">Cerrar Sesión</ion-item>
+  </ion-list>
+
+  <!-- Menú de navegación inferior -->
+  <ion-footer>
     <ion-toolbar>
-      <ion-title size="large">indicadores</ion-title>
+      <ion-segment>
+        <ion-segment-button value="home" (click)="navigate('home')">
+          <ion-label>Home</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="wallet" (click)="navigate('wallet')">
+          <ion-label>Wallet</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="indicadores" (click)="navigate('indicadores')">
+          <ion-label>Indicadores</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="mi-cuenta" (click)="navigate('myacc')">
+          <ion-label>Mi cuenta</ion-label>
+        </ion-segment-button>
+      </ion-segment>
     </ion-toolbar>
-  </ion-header>
-</ion-content>
+  </ion-footer>
