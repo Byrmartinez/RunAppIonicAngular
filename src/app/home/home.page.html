@@ -31,11 +31,11 @@
   </ion-segment>
 
   <!-- Sección de Envíos Pendientes -->
-  <ion-list *ngIf="selectedTab === 'pendientes' && envios.length > 0">
+  <ion-list *ngIf="selectedTab === 'pendientes'">
     <ion-item-divider>
       <ion-label>Envíos Pendientes</ion-label>
     </ion-item-divider>
-    <div *ngIf="pendingCount > 0; else noPendingMessage">
+    <div *ngIf="envios && envios.length > 0 && pendingCount > 0; else noPendingMessage">
       <div *ngFor="let envio of envios">
         <ion-card *ngIf="envio.estado === 'pendiente'" [routerLink]="['envio/', envio.id]" class="envio-card">
           <!-- Contenido del card de envío pendiente -->
@@ -83,11 +83,11 @@
   </ion-list>
 
   <!-- Sección de Envíos Aceptados -->
-  <ion-list *ngIf="selectedTab === 'aceptados' && envios.length > 0">
+  <ion-list *ngIf="selectedTab === 'aceptados'">
     <ion-item-divider>
       <ion-label>Envíos Aceptados</ion-label>
     </ion-item-divider>
-    <div *ngIf="acceptedCount > 0; else noAcceptedMessage">
+    <div *ngIf="envios && envios.length > 0 && acceptedCount > 0; else noAcceptedMessage">
       <div *ngFor="let envio of envios">
         <ion-card *ngIf="envio.estado === 'aceptado'" [routerLink]="['envio/', envio.id]" class="envio-card">
           <!-- Contenido del card de envío aceptado -->
@@ -135,11 +135,11 @@
   </ion-list>
 
   <!-- Sección de Envíos en Camino -->
-  <ion-list *ngIf="selectedTab === 'enCamino' && envios.length > 0">
+  <ion-list *ngIf="selectedTab === 'enCamino'">
     <ion-item-divider>
       <ion-label>Envíos en Camino</ion-label>
     </ion-item-divider>
-    <div *ngIf="inTransitCount > 0; else noInTransitMessage">
+    <div *ngIf="envios && envios.length > 0 && inTransitCount > 0; else noInTransitMessage">
       <div *ngFor="let envio of envios">
         <ion-card *ngIf="envio.estado === 'enCamino'" [routerLink]="['envio/', envio.id]" class="envio-card">
           <!-- Contenido del card de envío en camino -->
@@ -187,11 +187,11 @@
   </ion-list>
 
   <!-- Sección de Envíos Entregados -->
-  <ion-list *ngIf="selectedTab === 'entregados' && envios.length > 0">
+  <ion-list *ngIf="selectedTab === 'entregados'">
     <ion-item-divider>
       <ion-label>Envíos Entregados</ion-label>
     </ion-item-divider>
-    <div *ngIf="deliveredCount > 0; else noDeliveredCountMessage">
+    <div *ngIf="envios && envios.length > 0 && deliveredCount > 0; else noDeliveredCountMessage ">
       <div *ngFor="let envio of envios">
         <ion-card *ngIf="envio.estado === 'entregado'" class="envio-card">
           <!-- Contenido del card de envío entregado -->

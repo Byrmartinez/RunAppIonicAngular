@@ -8,9 +8,9 @@ import { AlertController } from '@ionic/angular';
 })
 export class SignupRiderPage implements OnInit {
 
-  modeloTipoVehiculo: string = '';
-  modeloPlaca: string = '';
-  modeloModeloVehiculo: string = '';
+  TipoVehiculo: string = '';
+  Patente: string = '';
+  ModeloVehiculo: string = '';
 
   constructor(private alertController: AlertController) { }
 
@@ -18,8 +18,14 @@ export class SignupRiderPage implements OnInit {
 
   // Método para registrar al rider
   async registrarRider() {
-    if (this.modeloTipoVehiculo.trim() === '' || this.modeloPlaca.trim() === '' || this.modeloModeloVehiculo.trim() === '') {
+    if (this.TipoVehiculo.trim() === '' || this.Patente.trim() === '' || this.ModeloVehiculo.trim() === '') {
       this.presentAlert('Error', 'Todos los campos son obligatorios.');
+      return;
+    }
+    // Validación de formato de la placa (3 letras seguidas de 2 números)
+    const placaPattern = /^[A-Za-z]{3}[0-9]{2}$/;
+    if (!placaPattern.test(this.Patente)) {
+      this.presentAlert('Error', 'La placa debe tener el formato de 3 letras seguidas de 2 números (ej. ABC12).');
       return;
     }
 

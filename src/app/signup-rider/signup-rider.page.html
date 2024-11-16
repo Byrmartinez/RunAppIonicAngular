@@ -1,20 +1,20 @@
 <ion-content class="ion-padding">
   <ion-item class="ion-margin-top">
     <ion-label position="floating" class="signup-label">Tipo de Vehículo</ion-label>
-    <ion-select class="signup-input" [(ngModel)]="modeloTipoVehiculo" interface="popover">
+    <ion-select class="signup-input" [(ngModel)]="TipoVehiculo" interface="popover">
       <ion-select-option value="moto">Moto</ion-select-option>
       <ion-select-option value="automovil" disabled>Automóvil</ion-select-option>
     </ion-select>
   </ion-item>
 
   <ion-item class="ion-margin-top">
-    <ion-label position="floating" class="signup-label">Placa</ion-label>
-    <ion-input class="signup-input" [(ngModel)]="modeloPlaca"></ion-input>
+    <ion-label position="floating" class="signup-label">Patente</ion-label>
+    <ion-input class="signup-input" [(ngModel)]="Patente"></ion-input>
   </ion-item>
 
   <ion-item class="ion-margin-top">
     <ion-label position="floating" class="signup-label">Modelo Vehículo</ion-label>
-    <ion-input class="signup-input" [(ngModel)]="modeloModeloVehiculo"></ion-input>
+    <ion-input class="signup-input" [(ngModel)]="ModeloVehiculo"></ion-input>
   </ion-item>
 
   <ion-button expand="block" class="ion-margin-top mt" (click)="registrarRider()">Registrarse</ion-button>
