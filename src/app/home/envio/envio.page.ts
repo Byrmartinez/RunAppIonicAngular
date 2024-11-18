@@ -6,6 +6,7 @@ import { AutenthicationService } from 'src/app/services/autenthication.service';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-envio',
@@ -13,6 +14,7 @@ import { Storage } from '@ionic/storage-angular';
   styleUrls: ['./envio.page.scss'],
 })
 export class EnvioPage implements OnInit {
+  riderIdCookie: any;
   estado: any;
   envio: any; // o simplemente 'envio: Envio;'
   id: any;
@@ -20,7 +22,7 @@ export class EnvioPage implements OnInit {
   usuario = [];
   body = {};
   mostrarMenu = false; // Para controlar la visibilidad del menú
-  constructor(private storage: Storage, private toastController: ToastController, private router: Router, private autenthicationService: AutenthicationService, private activateRoute: ActivatedRoute, private api: ApiRestService) {
+  constructor(private cookieService: CookieService, private storage: Storage, private toastController: ToastController, private router: Router, private autenthicationService: AutenthicationService, private activateRoute: ActivatedRoute, private api: ApiRestService) {
     this.storage.create();
   }
 
@@ -28,9 +30,10 @@ export class EnvioPage implements OnInit {
 
     this.id = this.activateRoute.snapshot.paramMap.get("id");
     console.log("leyendo id para pasar a enviopage..id", this.id);
-    this.getUserId()
-    this.userId = this.getUserId();
-    console.log("aqui trato de traer el usuario id" + this.userId)
+    let cookieValue = this.cookieService.get('idRider');
+    console.log("este es el contenido de la cockie: " + cookieValue);
+    this.riderIdCookie = this.cookieService.get('idRider');
+    console.log("este es el contenido de la riderId: " + this.riderIdCookie);
     this.loadEnvio();
     console.log(localStorage.getItem('USER_DATA'));
     console.log(this.storage.get('email'));
@@ -42,7 +45,7 @@ export class EnvioPage implements OnInit {
 
   }
 
-  async getUserId() {
+  /*async getUserId() {
     try {
       const id2 = await this.storage.get('id');
       this.userId = id2; // Aquí debes obtener el id en string
@@ -50,7 +53,7 @@ export class EnvioPage implements OnInit {
     } catch (error) {
       console.error("Error al obtener el ID:", error);
     }
-  }
+  }*/
 
   loadEnvio() {
     this.api.getEnvioById(this.id).subscribe((res) => {
@@ -72,7 +75,7 @@ export class EnvioPage implements OnInit {
   }
 
   aceptarEnvio() {
-    this.body = { id: this.id, estado: "aceptado", usuarioId: this.userId };
+    this.body = { id: this.id, estado: "aceptado", riderId: this.riderIdCookie };
     this.api.updateEnvios(this.body).subscribe((success) => {
       console.log(success);
       this.showToast("Envío aceptado");
@@ -83,7 +86,7 @@ export class EnvioPage implements OnInit {
     });
   };
   comenzarEnvio() {
-    this.body = { id: this.id, estado: "enCamino", usuarioId: this.userId };
+    this.body = { id: this.id, estado: "enCamino", riderId: this.riderIdCookie };
     this.api.updateEnvios(this.body).subscribe((success) => {
       console.log(success);
       this.showToast("Envío en camino");
@@ -94,7 +97,7 @@ export class EnvioPage implements OnInit {
     });
   };
   entregarEnvio() {
-    this.body = { id: this.id, estado: "entregado", usuarioId: this.userId };
+    this.body = { id: this.id, estado: "entregado", riderId: this.riderIdCookie };
     this.api.updateEnvios(this.body).subscribe((success) => {
       console.log(success);
       this.showToast("Envío entregado");

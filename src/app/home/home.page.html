@@ -36,7 +36,7 @@
       <ion-label>Envíos Pendientes</ion-label>
     </ion-item-divider>
     <div *ngIf="envios && envios.length > 0 && pendingCount > 0; else noPendingMessage">
-      <div *ngFor="let envio of envios">
+      <div *ngFor="let envio of enviosPendientes">
         <ion-card *ngIf="envio.estado === 'pendiente'" [routerLink]="['envio/', envio.id]" class="envio-card">
           <!-- Contenido del card de envío pendiente -->
           <img alt="Imagen de Envío" src="https://ionicframework.com/docs/img/demos/card-media.png"
@@ -88,7 +88,7 @@
       <ion-label>Envíos Aceptados</ion-label>
     </ion-item-divider>
     <div *ngIf="envios && envios.length > 0 && acceptedCount > 0; else noAcceptedMessage">
-      <div *ngFor="let envio of envios">
+      <div *ngFor="let envio of enviosAceptados">
         <ion-card *ngIf="envio.estado === 'aceptado'" [routerLink]="['envio/', envio.id]" class="envio-card">
           <!-- Contenido del card de envío aceptado -->
           <img alt="Imagen de Envío" src="https://ionicframework.com/docs/img/demos/card-media.png"
@@ -140,7 +140,7 @@
       <ion-label>Envíos en Camino</ion-label>
     </ion-item-divider>
     <div *ngIf="envios && envios.length > 0 && inTransitCount > 0; else noInTransitMessage">
-      <div *ngFor="let envio of envios">
+      <div *ngFor="let envio of enviosEncamino">
         <ion-card *ngIf="envio.estado === 'enCamino'" [routerLink]="['envio/', envio.id]" class="envio-card">
           <!-- Contenido del card de envío en camino -->
           <img alt="Imagen de Envío" src="https://ionicframework.com/docs/img/demos/card-media.png"
@@ -192,7 +192,7 @@
       <ion-label>Envíos Entregados</ion-label>
     </ion-item-divider>
     <div *ngIf="envios && envios.length > 0 && deliveredCount > 0; else noDeliveredCountMessage ">
-      <div *ngFor="let envio of envios">
+      <div *ngFor="let envio of enviosEntregados">
         <ion-card *ngIf="envio.estado === 'entregado'" class="envio-card">
           <!-- Contenido del card de envío entregado -->
           <img alt="Imagen de Envío" src="https://ionicframework.com/docs/img/demos/card-media.png"

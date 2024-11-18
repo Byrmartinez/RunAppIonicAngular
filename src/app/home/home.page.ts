@@ -5,6 +5,7 @@ import { AutenthicationService } from '../services/autenthication.service';
 import { Envio } from '../models/envio.model';
 import { ChangeDetectorRef } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Component({
@@ -17,9 +18,14 @@ export class HomePage implements OnInit, OnDestroy {
   private routeSub: Subscription | undefined;
   selectedTab: string = 'pendientes';
   envios: Envio[] = [];
+  enviosPendientes: Envio[] = [];
+  enviosAceptados: Envio[] = [];
+  enviosEncamino: Envio[] = [];
+  enviosEntregados: Envio[] = [];
   id: any
   envio: any; // o simplemente 'envio: Envio;'
   userId: any;
+  riderId: any;
   usuario = [];
   body = {};
   mostrarMenu = false; // Para controlar la visibilidad del menú
@@ -31,7 +37,7 @@ export class HomePage implements OnInit, OnDestroy {
   deliveredCount = 0;
   //nuevo
 
-  constructor(private cd: ChangeDetectorRef, private router: Router, private api: ApiRestService, private autenthicationService: AutenthicationService) { }
+  constructor(private cookieService: CookieService, private cd: ChangeDetectorRef, private router: Router, private api: ApiRestService, private autenthicationService: AutenthicationService) { }
 
   async ngOnInit() {
 
@@ -43,7 +49,10 @@ export class HomePage implements OnInit, OnDestroy {
     this.refreshInterval = setInterval(() => {
       this.cargarEnvios();
     }, 5000);
-
+    let cookieValue = this.cookieService.get('idRider');
+    console.log("este es el contenido de la cockie: " + cookieValue);
+    this.riderId = this.cookieService.get('idRider');
+    console.log("este es el contenido de la riderId: " + this.riderId);
   }
   cargarEnvios() {
     this.api.getEnvios().subscribe((res: any[]) => {
@@ -73,10 +82,21 @@ export class HomePage implements OnInit, OnDestroy {
     }
   }
   updateEnviosCount() {
-    this.pendingCount = this.envios.filter(envio => envio.estado === 'pendiente').length;
-    this.acceptedCount = this.envios.filter(envio => envio.estado === 'aceptado').length;
-    this.inTransitCount = this.envios.filter(envio => envio.estado === 'enCamino').length;
-    this.deliveredCount = this.envios.filter(envio => envio.estado === 'entregado').length;
+    this.pendingCount = this.envios.filter(envio => envio.estado === 'pendiente' && envio.usuarioId !== this.riderId).length;
+    this.enviosPendientes = this.envios.filter(envio => envio.estado === 'pendiente' && envio.usuarioId !== this.riderId);
+
+    this.acceptedCount = this.envios.filter(envio => envio.estado === 'aceptado' && envio.riderId === this.riderId).length;
+    this.enviosAceptados = this.envios.filter(envio => envio.estado === 'aceptado' && envio.riderId === this.riderId);
+
+    this.inTransitCount = this.envios.filter(envio => envio.estado === 'enCamino' && envio.riderId === this.riderId).length;
+    this.enviosEncamino = this.envios.filter(envio => envio.estado === 'enCamino' && envio.riderId === this.riderId);
+
+    this.deliveredCount = this.envios.filter(envio => envio.estado === 'entregado' && envio.riderId === this.riderId).length;
+    this.enviosEntregados = this.envios.filter(envio => envio.estado === 'entregado' && envio.riderId === this.riderId);
+    console.log("estos son los pendingCount: " + this.pendingCount)
+    console.log("estos son los acceptedCount: " + this.acceptedCount)
+    console.log("estos son los inTransitCount: " + this.inTransitCount)
+    console.log("estos son los deliveredCount: " + this.deliveredCount)
   }
   //aceptarEnvio(id: number) {
   //console.log(`Envio ${id} aceptado`);

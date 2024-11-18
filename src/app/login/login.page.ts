@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage-angular';
 import { BehaviorSubject } from 'rxjs';
 import { AutenthicationService } from '../services/autenthication.service';
+import { CookieService } from 'ngx-cookie-service';
 
 
 
@@ -26,6 +27,7 @@ export class LoginPage implements OnInit {
   authState = new BehaviorSubject(false);
 
   constructor(
+    private cookieService: CookieService,
     private alertController: AlertController,
     public navController: NavController,
     public menuCtrl: MenuController,
@@ -62,6 +64,11 @@ export class LoginPage implements OnInit {
         this.idUsuario = response.id
         console.log('Login exitosooooooo:', response);
         console.log('response id:', response.id, this.idUsuario);
+        this.cookieService.set('idRider', this.idUsuario);
+        let cookieValue = this.cookieService.get('idRider');
+        console.log("este es el contenido de la cockie: " + cookieValue); // Muestra el valor de la cookie
+
+
         // Almacenar las credenciales para mantener la sesión
         await this.storage.set('email', this.email);
         await this.storage.set('password', this.password);

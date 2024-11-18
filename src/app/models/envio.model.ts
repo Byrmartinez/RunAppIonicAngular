@@ -3,6 +3,7 @@
 export class Envio {
     id: string;
     usuarioId: string;
+    riderId: string;
     direccionOrigen: string;
     direccionDestino: string;
     descripcion: string;
@@ -18,6 +19,7 @@ export class Envio {
     constructor(data?: any) {
         this.id = data.id;
         this.usuarioId = data.usuarioId;
+        this.riderId = data.riderId;
         this.direccionOrigen = data.direccionOrigen;
         this.direccionDestino = data.direccionDestino;
         this.descripcion = data.descripcion;
