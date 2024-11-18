@@ -9,17 +9,18 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-header>
+<!--ion-header>
   <ion-toolbar>
     <ion-title>DETALLES</ion-title>
     <ion-buttons slot="end">
-      <ion-back-button defaultHref="home" color="primary" size="large"></ion-back-button>
+      <ion-back-button defaultHref="home" color="primary" size="large"
+        (click)="actualizarContadorSalida()"></ion-back-button>
       VOLVER
     </ion-buttons>
     <div><br></div>
 
   </ion-toolbar>
-</ion-header>
+</ion-header-->
 <ion-content class="ion-padding">
 
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
@@ -27,10 +28,22 @@
   </ion-refresher>
 
   <ng-container *ngIf="envio.estado === 'pendiente'">
+    <ion-toolbar>
+      <ion-title>DETALLES</ion-title>
+      <ion-buttons slot="end">
+        <ion-back-button defaultHref="home" color="primary" size="large"
+          (click)="actualizarContadorSalida()"></ion-back-button>
+        VOLVER
+      </ion-buttons>
+      <div><br></div>
+
+    </ion-toolbar>
     <ion-card color="primary">
       <img alt="Imagen de Envío" src="https://ionicframework.com/docs/img/demos/card-media.png" />
       <ion-card-header>
         <ion-card-subtitle>Estado: {{ envio.estado }}</ion-card-subtitle>
+        <div><br></div>
+        <ion-card-subtitle>Hay {{ contadorActualEntrada }} Riders revisando este envio</ion-card-subtitle>
         <ion-card-title>
           Descripción: <b>{{ envio.descripcion }}</b>
         </ion-card-title>
@@ -66,7 +79,17 @@
       </ion-card-content>
     </ion-card>
   </ng-container>
+
   <ng-container *ngIf="envio.estado === 'aceptado'">
+    <ion-toolbar>
+      <ion-title>DETALLES</ion-title>
+      <ion-buttons slot="end">
+        <ion-back-button defaultHref="home" color="primary" size="large"></ion-back-button>
+        VOLVER
+      </ion-buttons>
+      <div><br></div>
+
+    </ion-toolbar>
     <ion-card color="primary">
       <img alt="Imagen de Envío" src="https://ionicframework.com/docs/img/demos/card-media.png" />
       <ion-card-header>
@@ -107,6 +130,15 @@
     </ion-card>
   </ng-container>
   <ng-container *ngIf="envio.estado === 'enCamino'">
+    <ion-toolbar>
+      <ion-title>DETALLES</ion-title>
+      <ion-buttons slot="end">
+        <ion-back-button defaultHref="home" color="primary" size="large"></ion-back-button>
+        VOLVER
+      </ion-buttons>
+      <div><br></div>
+
+    </ion-toolbar>
     <ion-card color="primary">
       <img alt="Imagen de Envío" src="https://ionicframework.com/docs/img/demos/card-media.png" />
       <ion-card-header>

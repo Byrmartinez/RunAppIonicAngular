@@ -17,6 +17,9 @@ export class EnvioPage implements OnInit {
   riderIdCookie: any;
   estado: any;
   envio: any; // o simplemente 'envio: Envio;'
+  envioActual: any; // o simplemente 'envio: Envio;'
+  contadorActualEntrada: any; // o simplemente 'envio: Envio;'
+  contadorActualSalida: any; // o simplemente 'envio: Envio;'
   id: any;
   userId: any;
   usuario = [];
@@ -30,6 +33,7 @@ export class EnvioPage implements OnInit {
 
     this.id = this.activateRoute.snapshot.paramMap.get("id");
     console.log("leyendo id para pasar a enviopage..id", this.id);
+    this.actualizarContadorEntrada();
     let cookieValue = this.cookieService.get('idRider');
     console.log("este es el contenido de la cockie: " + cookieValue);
     this.riderIdCookie = this.cookieService.get('idRider');
@@ -74,6 +78,71 @@ export class EnvioPage implements OnInit {
     await toast.present();
   }
 
+  actualizarContadorEntrada() {
+    // Obtener el valor actual del contador desde el servidor
+    this.api.getEnvioById(this.id).subscribe(
+      (res) => {
+        this.envioActual = new Envio(res);
+
+        // Verificar si el estado es "pendiente"
+        if (this.envioActual.estado === 'pendiente') {
+          this.contadorActualEntrada = this.envioActual.contador;
+          console.log("Contador actual antes de incrementar: " + this.contadorActualEntrada);
+
+          // Incrementar el contador y actualizar en el servidor
+          this.contadorActualEntrada = Number(this.contadorActualEntrada) + 1;
+          console.log("Contador actual DESPUÉS de incrementar: " + this.contadorActualEntrada);
+
+          this.body = { id: this.id, contador: this.contadorActualEntrada };
+          this.api.updateEnvios(this.body).subscribe(
+            (success) => {
+              console.log(success);
+              this.showToast("Contador actualizado +1");
+              this.loadEnvio(); // Cargar datos actualizados
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+        } else {
+          console.log("El estado no es 'pendiente', no se incrementa el contador.");
+        }
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+  }
+  actualizarContadorSalida() {
+    // Obtener el valor actual del contador desde el servidor
+    this.api.getEnvioById(this.id).subscribe(
+      (res) => {
+        this.envioActual = new Envio(res);
+        this.contadorActualSalida = this.envioActual.contador;
+
+        console.log("Contador actual antes de decrementar: " + this.contadorActualSalida);
+
+        // Decrementar el contador y actualizar en el servidor
+        this.contadorActualSalida = Number(this.contadorActualSalida) - 1;
+        console.log("Contador actual despuess de decrementar: " + this.contadorActualSalida);
+
+        this.body = { id: this.id, contador: this.contadorActualSalida };
+        this.api.updateEnvios(this.body).subscribe(
+          (success) => {
+            console.log(success);
+            this.showToast("Contador actualizado -1");
+            this.loadEnvio(); // Cargar datos actualizados
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+  };
   aceptarEnvio() {
     this.body = { id: this.id, estado: "aceptado", riderId: this.riderIdCookie };
     this.api.updateEnvios(this.body).subscribe((success) => {
