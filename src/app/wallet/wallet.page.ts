@@ -1,49 +1,138 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit, OnDestroy } from '@angular/core'; // Importar OnInit
 import { Router, NavigationEnd } from '@angular/router';
+import { ApiRestService } from '../services/api-rest.service';
 import { AutenthicationService } from '../services/autenthication.service';
+import { Envio } from '../models/envio.model';
+import { ChangeDetectorRef } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-wallet',
   templateUrl: './wallet.page.html',
   styleUrls: ['./wallet.page.scss'],
 })
-export class WalletPage implements OnInit {
-  totalViajes: number = 0;
-  saldo: number = 0;
-  deuda: number = 0;
-  mostrarMenu: boolean = false;
-  currentSegment: string = 'wallet'; // Valor predeterminado es 'wallet'
+export class WalletPage implements OnInit, OnDestroy {
+  private refreshInterval: any;
+  private routeSub: Subscription | undefined;
+  selectedTab: string = 'pendientes';
+  envios: Envio[] = [];
+  enviosPendientes: Envio[] = [];
+  enviosAceptados: Envio[] = [];
+  enviosEncamino: Envio[] = [];
+  enviosEntregados: Envio[] = [];
+  id: any
+  envio: any; // o simplemente 'envio: Envio;'
+  userId: any;
+  riderId: any;
+  usuario = [];
+  body = {};
+  mostrarMenu = false; // Para controlar la visibilidad del menú
+  estado: string = "";
+  //nuevo
+  pendingCount = 0;
+  acceptedCount = 0;
+  inTransitCount = 0;
+  deliveredCount = 0;
+  //nuevo
+  saldo: any;
+  deuda: any;
+  response = [];
 
-  constructor(private http: HttpClient, private router: Router, private autenthicationService: AutenthicationService) {
-    // Escuchar los cambios de ruta para actualizar el segmento activo
-    this.router.events.subscribe(event => {
+
+  constructor(private cookieService: CookieService, private cd: ChangeDetectorRef, private router: Router, private api: ApiRestService, private autenthicationService: AutenthicationService) { }
+
+  ngOnInit() {
+    this.cargarDatos();
+    this.routeSub = this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.updateSegment();
+        this.cargarEnvios();
       }
+    });
+    this.refreshInterval = setInterval(() => {
+      this.cargarEnvios();
+    }, 5000);
+    let cookieValue = this.cookieService.get('idRider');
+    console.log("este es el contenido de la cockie: " + cookieValue);
+    this.riderId = this.cookieService.get('idRider');
+    console.log("este es el contenido de la riderId: " + this.riderId);
+  }
+
+  // Método para cargar datos desde la base de datos (dummy en este caso)
+  cargarDatos() {
+    let cookieValue = this.cookieService.get('idRider');
+    console.log("este es el contenido de la cockie dentro de cargar datos: " + cookieValue);
+    this.riderId = this.cookieService.get('idRider');
+    console.log("el ridferid antes de la consulta es> " + this.riderId)
+    this.api.getDatosRidersById(this.riderId).subscribe((response) => {
+      this.saldo = response.saldo;
+      console.log("el saldo despues de la consulta es> " + this.saldo)
+      console.log("el saldo despues de la consulta es> " + this.response)
+      this.deuda = response.deuda;
+      console.log("la deuda despues de la consulta es> " + this.deuda)
+
+
+    }, (error) => {
+      console.log(error);
+    });
+    // Aquí harías la solicitud a la base de datos
+  }
+
+  // Método para redirigir a la página de renovación
+  renovarPlan() {
+    this.router.navigate(['/renew']);
+  }
+  cargarEnvios() {
+    this.api.getEnvios().subscribe((res: any[]) => {
+      this.envios = res.map(data => new Envio(data));
+      console.log(this.envios)
+      this.updateEnviosCount();
+      this.cd.detectChanges();
+
+    }, (error) => {
+      console.log(error);
     });
   }
 
-  ngOnInit() {
-    this.getWalletData();
-    this.updateSegment(); // Asegura que el segmento correcto esté activo al iniciar
+  doRefresh(event: any) {
+    this.cargarEnvios();
+    this.updateEnviosCount();
+    console.log('Begin async operation');
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
   }
-
-  // Método para obtener los datos de la base de datos
-  getWalletData() {
-    this.http.get('https://api.tuservidor.com/wallet')
-      .subscribe((data: any) => {
-        this.totalViajes = data.totalViajes;
-        this.saldo = data.saldo;
-        this.deuda = data.deuda;
-      }, error => {
-        console.error('Error al obtener los datos del wallet:', error);
-      });
+  ngOnDestroy() {
+    // Desuscribirse para evitar fugas de memoria
+    if (this.routeSub) {
+      this.routeSub.unsubscribe();
+    }
   }
+  updateEnviosCount() {
+    this.pendingCount = this.envios.filter(envio => envio.estado === 'pendiente' && envio.usuarioId === this.riderId).length;
+    this.enviosPendientes = this.envios.filter(envio => envio.estado === 'pendiente' && envio.usuarioId === this.riderId);
 
-  // Métodos de navegación
+    this.acceptedCount = this.envios.filter(envio => envio.estado === 'aceptado' && envio.usuarioId === this.riderId).length;
+    this.enviosAceptados = this.envios.filter(envio => envio.estado === 'aceptado' && envio.usuarioId === this.riderId);
+
+    this.inTransitCount = this.envios.filter(envio => envio.estado === 'enCamino' && envio.usuarioId === this.riderId).length;
+    this.enviosEncamino = this.envios.filter(envio => envio.estado === 'enCamino' && envio.usuarioId === this.riderId);
+
+    this.deliveredCount = this.envios.filter(envio => envio.estado === 'entregado' && envio.usuarioId === this.riderId).length;
+    this.enviosEntregados = this.envios.filter(envio => envio.estado === 'entregado' && envio.usuarioId === this.riderId);
+    console.log("estos son los pendingCount: " + this.pendingCount)
+    console.log("estos son los acceptedCount: " + this.acceptedCount)
+    console.log("estos son los inTransitCount: " + this.inTransitCount)
+    console.log("estos son los deliveredCount: " + this.deliveredCount)
+  }
+  //aceptarEnvio(id: number) {
+  //console.log(`Envio ${id} aceptado`);
+  // Lógica para aceptar el envío (ejemplo: llamada a una API)
+  //}
+
   toggleMenu() {
-    this.mostrarMenu = !this.mostrarMenu;
+    this.mostrarMenu = !this.mostrarMenu; // Alterna el menú desplegable
   }
 
   navigate(page: string) {
@@ -55,17 +144,4 @@ export class WalletPage implements OnInit {
     this.autenthicationService.logout();
   }
 
-  // Método para actualizar el segmento activo basado en la ruta actual
-  updateSegment() {
-    const url = this.router.url;
-    if (url.includes('/home')) {
-      this.currentSegment = 'home';
-    } else if (url.includes('/wallet')) {
-      this.currentSegment = 'wallet';
-    } else if (url.includes('/indicadores')) {
-      this.currentSegment = 'indicadores';
-    } else if (url.includes('/myacc')) {
-      this.currentSegment = 'mi-cuenta';
-    }
-  }
 }

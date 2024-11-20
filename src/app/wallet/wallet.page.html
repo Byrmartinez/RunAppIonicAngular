@@ -1,17 +1,297 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Wallet</ion-title>
+    <ion-title>RUN-APP</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="toggleMenu()">
-        Menú
-      </ion-button>
+      <ion-button (click)="toggleMenu()">Menú</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
+
 <ion-content class="ion-padding">
-  <!-- Información de la wallet -->
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-card>
+    <ion-card-header>
+      <ion-card-title>Envios Entregados</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{ deliveredCount }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Saldo</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{ saldo }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Deuda</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{ deuda }}</p>
+    </ion-card-content>
+  </ion-card>
+  <!-- Tabs for Envíos -->
+  <ion-segment [(ngModel)]="selectedTab">
+    <ion-segment-button value="pendientes">
+      <ion-label>Pendientes</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="aceptados">
+      <ion-label>Aceptados</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="enCamino">
+      <ion-label>En Camino</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="entregados">
+      <ion-label>Entregados</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <!-- Sección de Envíos Pendientes -->
+  <ion-list *ngIf="selectedTab === 'pendientes'">
+    <ion-item-divider>
+      <ion-label>Envíos Pendientes</ion-label>
+    </ion-item-divider>
+    <div *ngIf="envios && envios.length > 0 && pendingCount > 0; else noPendingMessage">
+      <div *ngFor="let envio of enviosPendientes">
+        <ion-card *ngIf="envio.estado === 'pendiente'" class="envio-card">
+          <!-- Contenido del card de envío pendiente -->
+          <img alt="Imagen de Envío" src="https://ionicframework.com/docs/img/demos/card-media.png"
+            class="card-image" />
+
+          <ion-card-header>
+            <ion-card-subtitle class="estado">{{ envio.estado | titlecase }}</ion-card-subtitle>
+            <ion-card-title class="distancia">
+              Distancia: <b>{{ envio.distanciaKM }} Km</b>
+            </ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12" class="content-label">
+                  <ion-icon name="location-outline" class="icon"></ion-icon>
+                  <b>Origen:</b> {{ envio.direccionOrigen }}
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12" class="content-label">
+                  <ion-icon name="flag-outline" class="icon"></ion-icon>
+                  <b>Destino:</b> {{ envio.direccionDestino }}
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12" class="content-label id-info">
+                  <ion-icon name="pricetag-outline" class="icon"></ion-icon>
+                  <b>ID:</b> {{ envio.id }}
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+      </div>
+
+    </div>
+    <ng-template #noPendingMessage>
+      <ion-item>
+        <ion-label>No hay envíos pendientes</ion-label>
+      </ion-item>
+    </ng-template>
+  </ion-list>
+
+  <!-- Sección de Envíos Aceptados -->
+  <ion-list *ngIf="selectedTab === 'aceptados'">
+    <ion-item-divider>
+      <ion-label>Envíos Aceptados</ion-label>
+    </ion-item-divider>
+    <div *ngIf="envios && envios.length > 0 && acceptedCount > 0; else noAcceptedMessage">
+      <div *ngFor="let envio of enviosAceptados">
+        <ion-card *ngIf="envio.estado === 'aceptado'" class="envio-card">
+          <!-- Contenido del card de envío aceptado -->
+          <img alt="Imagen de Envío" src="https://ionicframework.com/docs/img/demos/card-media.png"
+            class="card-image" />
+
+          <ion-card-header>
+            <ion-card-subtitle class="estado">{{ envio.estado | titlecase }}</ion-card-subtitle>
+            <ion-card-title class="distancia">
+              Distancia: <b>{{ envio.distanciaKM }} Km</b>
+            </ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12" class="content-label">
+                  <ion-icon name="location-outline" class="icon"></ion-icon>
+                  <b>Origen:</b> {{ envio.direccionOrigen }}
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12" class="content-label">
+                  <ion-icon name="flag-outline" class="icon"></ion-icon>
+                  <b>Destino:</b> {{ envio.direccionDestino }}
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12" class="content-label id-info">
+                  <ion-icon name="pricetag-outline" class="icon"></ion-icon>
+                  <b>ID:</b> {{ envio.id }}
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </div>
+    <ng-template #noAcceptedMessage>
+      <ion-item>
+        <ion-label>No hay envíos Aceptados</ion-label>
+      </ion-item>
+    </ng-template>
+  </ion-list>
+
+  <!-- Sección de Envíos en Camino -->
+  <ion-list *ngIf="selectedTab === 'enCamino'">
+    <ion-item-divider>
+      <ion-label>Envíos en Camino</ion-label>
+    </ion-item-divider>
+    <div *ngIf="envios && envios.length > 0 && inTransitCount > 0; else noInTransitMessage">
+      <div *ngFor="let envio of enviosEncamino">
+        <ion-card *ngIf="envio.estado === 'enCamino'" class="envio-card">
+          <!-- Contenido del card de envío en camino -->
+          <img alt="Imagen de Envío" src="https://ionicframework.com/docs/img/demos/card-media.png"
+            class="card-image" />
+
+          <ion-card-header>
+            <ion-card-subtitle class="estado">{{ envio.estado | titlecase }}</ion-card-subtitle>
+            <ion-card-title class="distancia">
+              Distancia: <b>{{ envio.distanciaKM }} Km</b>
+            </ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12" class="content-label">
+                  <ion-icon name="location-outline" class="icon"></ion-icon>
+                  <b>Origen:</b> {{ envio.direccionOrigen }}
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12" class="content-label">
+                  <ion-icon name="flag-outline" class="icon"></ion-icon>
+                  <b>Destino:</b> {{ envio.direccionDestino }}
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12" class="content-label id-info">
+                  <ion-icon name="pricetag-outline" class="icon"></ion-icon>
+                  <b>ID:</b> {{ envio.id }}
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </div>
+    <ng-template #noInTransitMessage>
+      <ion-item>
+        <ion-label>No hay envíos En Camino</ion-label>
+      </ion-item>
+    </ng-template>
+  </ion-list>
+
+  <!-- Sección de Envíos Entregados -->
+  <ion-list *ngIf="selectedTab === 'entregados'">
+    <ion-item-divider>
+      <ion-label>Envíos Entregados</ion-label>
+    </ion-item-divider>
+    <div *ngIf="envios && envios.length > 0 && deliveredCount > 0; else noDeliveredCountMessage ">
+      <div *ngFor="let envio of enviosEntregados">
+        <ion-card *ngIf="envio.estado === 'entregado'" class="envio-card">
+          <!-- Contenido del card de envío entregado -->
+          <img alt="Imagen de Envío" src="https://ionicframework.com/docs/img/demos/card-media.png"
+            class="card-image" />
+
+          <ion-card-header>
+            <ion-card-subtitle class="estado">{{ envio.estado | titlecase }}</ion-card-subtitle>
+            <ion-card-title class="distancia">
+              Distancia: <b>{{ envio.distanciaKM }} Km</b>
+            </ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12" class="content-label">
+                  <ion-icon name="location-outline" class="icon"></ion-icon>
+                  <b>Origen:</b> {{ envio.direccionOrigen }}
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12" class="content-label">
+                  <ion-icon name="flag-outline" class="icon"></ion-icon>
+                  <b>Destino:</b> {{ envio.direccionDestino }}
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12" class="content-label id-info">
+                  <ion-icon name="pricetag-outline" class="icon"></ion-icon>
+                  <b>ID:</b> {{ envio.id }}
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </div>
+    <ng-template #noDeliveredCountMessage>
+      <ion-item>
+        <ion-label>No hay envíos En Camino</ion-label>
+      </ion-item>
+    </ng-template>
+  </ion-list>
+</ion-content>
+
+<!-- Menú y Footer -->
+<ion-list *ngIf="mostrarMenu" class="menu-list">
+  <ion-item (click)="navigate('perfil')">Perfil</ion-item>
+  <ion-item (click)="navigate('contacto')">Contacto</ion-item>
+  <ion-item (click)="navigate('faq')">Preguntas Frecuentes</ion-item>
+  <ion-item (click)="logout()">Cerrar Sesión</ion-item>
+</ion-list>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-segment>
+      <ion-segment-button value="home" (click)="navigate('home')">
+        <ion-label>Home</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="wallet" (click)="navigate('wallet')">
+        <ion-label>Wallet</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="indicadores" (click)="navigate('indicadores')">
+        <ion-label>Indicadores</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="mi-cuenta" (click)="navigate('myacc')">
+        <ion-label>Mi cuenta</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-footer>
+
+
+<!--ion-card>
     <ion-card-header>
       <ion-card-title>Total de Viajes</ion-card-title>
     </ion-card-header>
@@ -37,32 +317,4 @@
       <p>{{ deuda | currency }}</p>
     </ion-card-content>
   </ion-card>
-</ion-content>
-
-<!-- Menú desplegable -->
-<ion-list *ngIf="mostrarMenu" class="menu-list">
-  <ion-item (click)="navigate('perfil')">Perfil</ion-item>
-  <ion-item (click)="navigate('contacto')">Contacto</ion-item>
-  <ion-item (click)="navigate('faq')">Preguntas Frecuentes</ion-item>
-  <ion-item (click)="logout()">Cerrar Sesión</ion-item>
-</ion-list>
-
-<!-- Menú de navegación inferior -->
-<ion-footer>
-  <ion-toolbar>
-    <ion-segment [(ngModel)]="currentSegment">
-      <ion-segment-button value="home" (click)="navigate('home')">
-        <ion-label>Home</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="wallet" (click)="navigate('wallet')">
-        <ion-label>Wallet</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="indicadores" (click)="navigate('indicadores')">
-        <ion-label>Indicadores</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="mi-cuenta" (click)="navigate('myacc')">
-        <ion-label>Mi cuenta</ion-label>
-      </ion-segment-button>
-    </ion-segment>
-  </ion-toolbar>
-</ion-footer>
+</ion-content-->

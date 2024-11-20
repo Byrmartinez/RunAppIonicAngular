@@ -18,6 +18,7 @@ export class ApiRestService {
   apiUrlUsuarios = 'http://localhost:3000/usuarios';
   apiUrlEnvios = 'http://localhost:3000/envios';
   apiUrlDatosRider = 'http://localhost:3000/datos_riders';
+  apiUrlDatospyme = 'http://localhost:3000/datos_pymes';
   constructor(private http: HttpClient) {
 
   }
@@ -26,7 +27,7 @@ export class ApiRestService {
       retry(3));
   }
   getUsuarioById(id: string): Observable<any> {
-    return this.http.get(this.apiUrlUsuarios + id).pipe(
+    return this.http.get(this.apiUrlUsuarios + "?id=" + id).pipe(
       retry(3)
     );
   }
@@ -93,6 +94,27 @@ export class ApiRestService {
   }
   deleteDatosRider(id: string): Observable<any> {
     return this.http.delete(this.apiUrlDatosRider + '/' + id)
+      .pipe(retry(3));
+  }
+  getDatosPymes(): Observable<any> {
+    return this.http.get(this.apiUrlDatospyme).pipe(
+      retry(3));
+  }
+  getDatosPymesById(id: string): Observable<any> {
+    return this.http.get(this.apiUrlDatospyme + "?id=" + id).pipe(
+      retry(3)
+    );
+  }
+  updateDatosPyme(body: any): Observable<any> {
+    return this.http.put(this.apiUrlDatospyme, body)
+      .pipe(retry(3));
+  }
+  createDatosPyme(body: any): Observable<any> {
+    return this.http.post(this.apiUrlDatospyme, body)
+      .pipe(retry(3));
+  }
+  deleteDatosPyme(id: string): Observable<any> {
+    return this.http.delete(this.apiUrlDatospyme + '/' + id)
       .pipe(retry(3));
   }
 

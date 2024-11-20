@@ -30,6 +30,6 @@ export class WalletEmpPage implements OnInit {
   renovarPlan() {
     this.router.navigate(['/renew']);
   }
-  
+
 
 }
