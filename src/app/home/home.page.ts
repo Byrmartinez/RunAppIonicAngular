@@ -37,9 +37,14 @@ export class HomePage implements OnInit, OnDestroy {
   deliveredCount = 0;
   //nuevo
 
+
   constructor(private cookieService: CookieService, private cd: ChangeDetectorRef, private router: Router, private api: ApiRestService, private autenthicationService: AutenthicationService) { }
 
   async ngOnInit() {
+    const hiddenAncestor = document.querySelector('[aria-hidden="true"]');
+    if (hiddenAncestor) {
+      hiddenAncestor.removeAttribute('aria-hidden');
+    }
 
     this.routeSub = this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -114,6 +119,15 @@ export class HomePage implements OnInit, OnDestroy {
 
   logout() {
     this.autenthicationService.logout();
+  }
+
+
+
+
+
+
+  navigateToShipment() {
+    this.navigate('shipment');
   }
 }
 

@@ -51,3 +51,20 @@ ion-footer {
     --indicator-color: black;
   }
 }
+
+ion-fab {
+  --background: var(--ion-color-primary);
+  --color: white;
+}
+
+
+
+.form {
+  --color: #ffffff;
+  --background-color: #af0d0d;
+}
+
+ion-modal {
+  --color: #ffffff;
+  --background-color: #af0d0d;
+}

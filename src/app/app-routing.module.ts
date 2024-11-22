@@ -87,6 +87,11 @@ const routes: Routes = [
     loadChildren: () => import('./renew/renew.module').then(m => m.RenewPageModule),
     canActivate: [AuthService]
   },
+  {
+    path: 'shipment',
+    loadChildren: () => import('./shipment/shipment.module').then(m => m.ShipmentPageModule),
+    canActivate: [AuthService]
+  },
 ];
 
 @NgModule({

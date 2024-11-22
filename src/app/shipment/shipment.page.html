@@ -1,0 +1,87 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Crear Envío</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-buttons slot="end">
+  <ion-back-button defaultHref="home" color="primary" size="large"></ion-back-button>
+  VOLVER
+</ion-buttons>
+
+<ion-content class="ion-padding">
+  <!-- Mapa de Google -->
+  <!--div id="map" class="map">Ingresa las direcciones</div-->
+  <div id="map" class="map">
+    <div class="loading">
+      <p>Ingresa el Origen y Destino por favor...</p>
+      <div class="spinner"></div>
+    </div>
+  </div>
+  <div *ngIf="direccionOrigen && direccionDestino && distanciaFinal">
+    <ion-label>
+      La distancia es: {{ distanciaFinal }} Km
+    </ion-label>
+  </div>
+  <!-- Input para dirección de origen -->
+  <ion-item>
+    <ion-label>ORIGEN</ion-label>
+    <input id="origin-input" [(ngModel)]="direccionOrigen" placeholder="Ingresa dirección Origen" />
+  </ion-item>
+
+
+  <!-- Botón para usar ubicación actual como origen -->
+  <ion-button expand="block" color="tertiary" (click)="usarUbicacionActual()">Usar Ubicación Actual</ion-button>
+
+  <!-- Input para dirección de destino -->
+  <ion-item>
+    <ion-label>DESTINO</ion-label>
+    <input id="destination-input" [(ngModel)]="direccionDestino" placeholder="Ingresa dirección Destino" />
+  </ion-item>
+  <!-- Campo de descripción -->
+  <ion-item>
+    <ion-label>Descripción:</ion-label>
+    <textarea maxlength="200" placeholder="Describe el envío..." [(ngModel)]="descripcion"></textarea>
+  </ion-item>
+
+  <!-- Selección de tipo de envío -->
+  <ion-item>
+    <ion-label>Tipo de Envío:</ion-label>
+    <select [(ngModel)]="tipo_envio">
+      <option value="documento">Documento</option>
+      <option value="caja_pequena" [disabled]="tipo_envio === 'documento'">Caja Pequeña</option>
+    </select>
+  </ion-item>
+  <!-- Campo de costo inicial SUGERIDO-->
+  <ion-item>
+    <ion-label>Valor Sugerido:</ion-label>
+    <ion-label> {{ costoSugerido }}</ion-label>
+  </ion-item>
+  <!-- Campo de costo inicial -->
+  <ion-item>
+    <ion-label>Valor Inicial:</ion-label>
+    <input type="number" [(ngModel)]="costo">
+  </ion-item>
+
+  <!-- Montos relacionados -->
+  <ion-item>
+    <ion-label>Comisión App:</ion-label>
+    <ion-label> {{ comision_aplicacion }}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label>Comisión Rider:</ion-label>
+    <ion-label> {{ comision_rider }}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label>Valor Final:</ion-label>
+    <div><br></div>
+    <ion-label> {{ valorFinal }}</ion-label>
+  </ion-item>
+
+
+
+
+
+  <!-- Botón para crear el envío -->
+  <ion-button expand="block" color="secondary" (click)="crearEnvio()">Crear Envío</ion-button>
+</ion-content>
