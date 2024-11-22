@@ -1,22 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { WalletPage } from './wallet.page';
+import { EnvioPage } from './envio.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: WalletPage
-  },
-  {
-    path: 'envio/:id',
-    loadChildren: () => import('./envio/envio.module').then(m => m.EnvioPageModule)
+    component: EnvioPage
   }
-
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class WalletPageRoutingModule { }
+export class EnvioPageRoutingModule {}

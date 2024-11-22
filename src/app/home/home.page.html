@@ -42,9 +42,6 @@
       <div *ngFor="let envio of enviosPendientes">
         <ion-card *ngIf="envio.estado === 'pendiente'" [routerLink]="['envio/', envio.id]" class="envio-card">
           <!-- Contenido del card de envío pendiente -->
-          <img alt="Imagen de Envío" src="https://ionicframework.com/docs/img/demos/card-media.png"
-            class="card-image" />
-
           <ion-card-header>
             <ion-card-subtitle class="estado">{{ envio.estado | titlecase }}</ion-card-subtitle>
             <ion-card-title class="distancia">
@@ -69,7 +66,7 @@
               <ion-row>
                 <ion-col size="12" class="content-label id-info">
                   <ion-icon name="pricetag-outline" class="icon"></ion-icon>
-                  <b>ID:</b> {{ envio.id }}
+                  <b>VALOR : </b> {{ envio.valorFinal }}
                 </ion-col>
               </ion-row>
             </ion-grid>
@@ -94,9 +91,6 @@
       <div *ngFor="let envio of enviosAceptados">
         <ion-card *ngIf="envio.estado === 'aceptado'" [routerLink]="['envio/', envio.id]" class="envio-card">
           <!-- Contenido del card de envío aceptado -->
-          <img alt="Imagen de Envío" src="https://ionicframework.com/docs/img/demos/card-media.png"
-            class="card-image" />
-
           <ion-card-header>
             <ion-card-subtitle class="estado">{{ envio.estado | titlecase }}</ion-card-subtitle>
             <ion-card-title class="distancia">
@@ -121,7 +115,7 @@
               <ion-row>
                 <ion-col size="12" class="content-label id-info">
                   <ion-icon name="pricetag-outline" class="icon"></ion-icon>
-                  <b>ID:</b> {{ envio.id }}
+                  <b>VALOR : </b> {{ envio.valorFinal }}
                 </ion-col>
               </ion-row>
             </ion-grid>
@@ -146,8 +140,6 @@
       <div *ngFor="let envio of enviosEncamino">
         <ion-card *ngIf="envio.estado === 'enCamino'" [routerLink]="['envio/', envio.id]" class="envio-card">
           <!-- Contenido del card de envío en camino -->
-          <img alt="Imagen de Envío" src="https://ionicframework.com/docs/img/demos/card-media.png"
-            class="card-image" />
 
           <ion-card-header>
             <ion-card-subtitle class="estado">{{ envio.estado | titlecase }}</ion-card-subtitle>
@@ -173,7 +165,7 @@
               <ion-row>
                 <ion-col size="12" class="content-label id-info">
                   <ion-icon name="pricetag-outline" class="icon"></ion-icon>
-                  <b>ID:</b> {{ envio.id }}
+                  <b>VALOR : </b> {{ envio.valorFinal }}
                 </ion-col>
               </ion-row>
             </ion-grid>
@@ -198,9 +190,6 @@
       <div *ngFor="let envio of enviosEntregados">
         <ion-card *ngIf="envio.estado === 'entregado'" class="envio-card">
           <!-- Contenido del card de envío entregado -->
-          <img alt="Imagen de Envío" src="https://ionicframework.com/docs/img/demos/card-media.png"
-            class="card-image" />
-
           <ion-card-header>
             <ion-card-subtitle class="estado">{{ envio.estado | titlecase }}</ion-card-subtitle>
             <ion-card-title class="distancia">
@@ -225,7 +214,7 @@
               <ion-row>
                 <ion-col size="12" class="content-label id-info">
                   <ion-icon name="pricetag-outline" class="icon"></ion-icon>
-                  <b>ID:</b> {{ envio.id }}
+                  <b>VALOR : </b> {{ envio.valorFinal }}
                 </ion-col>
               </ion-row>
             </ion-grid>

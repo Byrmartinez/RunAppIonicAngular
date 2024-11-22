@@ -19,6 +19,8 @@ export class ApiRestService {
   apiUrlEnvios = 'http://localhost:3000/envios';
   apiUrlDatosRider = 'http://localhost:3000/datos_riders';
   apiUrlDatospyme = 'http://localhost:3000/datos_pymes';
+  apiUrlHistorialExitos = 'http://localhost:3000/historial_exitos';
+  apiUrlHistorialCancelados = 'http://localhost:3000/historial_cancelados';
   constructor(private http: HttpClient) {
 
   }
@@ -115,6 +117,48 @@ export class ApiRestService {
   }
   deleteDatosPyme(id: string): Observable<any> {
     return this.http.delete(this.apiUrlDatospyme + '/' + id)
+      .pipe(retry(3));
+  }
+  getDatosHistorialExitos(): Observable<any> {
+    return this.http.get(this.apiUrlHistorialExitos).pipe(
+      retry(3));
+  }
+  getDatosHistorialExitosById(id: string): Observable<any> {
+    return this.http.get(this.apiUrlHistorialExitos + "?id=" + id).pipe(
+      retry(3)
+    );
+  }
+  updateHistorialExitos(body: any): Observable<any> {
+    return this.http.put(this.apiUrlHistorialExitos, body)
+      .pipe(retry(3));
+  }
+  createHistorialExitos(body: any): Observable<any> {
+    return this.http.post(this.apiUrlHistorialExitos, body)
+      .pipe(retry(3));
+  }
+  deleteHistorialExitos(id: string): Observable<any> {
+    return this.http.delete(this.apiUrlHistorialExitos + '/' + id)
+      .pipe(retry(3));
+  }
+  getDatosHistorialCancelados(): Observable<any> {
+    return this.http.get(this.apiUrlHistorialCancelados).pipe(
+      retry(3));
+  }
+  getDatosHistorialCanceladosById(id: string): Observable<any> {
+    return this.http.get(this.apiUrlHistorialCancelados + "?id=" + id).pipe(
+      retry(3)
+    );
+  }
+  updateHistorialCancelados(body: any): Observable<any> {
+    return this.http.put(this.apiUrlHistorialCancelados, body)
+      .pipe(retry(3));
+  }
+  createHistorialCancelados(body: any): Observable<any> {
+    return this.http.post(this.apiUrlHistorialCancelados, body)
+      .pipe(retry(3));
+  }
+  deleteHistorialCancelados(id: string): Observable<any> {
+    return this.http.delete(this.apiUrlHistorialCancelados + '/' + id)
       .pipe(retry(3));
   }
 

@@ -6,6 +6,7 @@ import { Envio } from '../models/envio.model';
 import { ChangeDetectorRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-wallet',
@@ -13,6 +14,9 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./wallet.page.scss'],
 })
 export class WalletPage implements OnInit, OnDestroy {
+  mostrarFormularioConfirmar: boolean = false;
+  calificacion: number = 3; // Valor inicial de calificación
+  comentario: string = '';
   private refreshInterval: any;
   private routeSub: Subscription | undefined;
   selectedTab: string = 'pendientes';
@@ -27,6 +31,7 @@ export class WalletPage implements OnInit, OnDestroy {
   riderId: any;
   usuario = [];
   body = {};
+  body2 = {};
   mostrarMenu = false; // Para controlar la visibilidad del menú
   estado: string = "";
   //nuevo
@@ -40,7 +45,7 @@ export class WalletPage implements OnInit, OnDestroy {
   response = [];
 
 
-  constructor(private cookieService: CookieService, private cd: ChangeDetectorRef, private router: Router, private api: ApiRestService, private autenthicationService: AutenthicationService) { }
+  constructor(private alertController: AlertController, private cookieService: CookieService, private cd: ChangeDetectorRef, private router: Router, private api: ApiRestService, private autenthicationService: AutenthicationService) { }
 
   ngOnInit() {
     this.cargarDatos();
@@ -143,5 +148,60 @@ export class WalletPage implements OnInit, OnDestroy {
   logout() {
     this.autenthicationService.logout();
   }
+  toggleFormularioConfirmar() {
+    this.mostrarFormularioConfirmar = !this.mostrarFormularioConfirmar;
+  }
 
+
+
+
+  // Método para mostrar alertas
+  async presentAlert(header: string, message: string) {
+    const alert = await this.alertController.create({
+      header: header,
+      message: message,
+      buttons: ['OK'],
+    });
+
+    await alert.present();
+  }
+  // Método para confirmar el pedido
+  confirmarEnvio() {
+    if (!this.comentario.trim()) {
+      this.presentAlert("Error", 'Por favor, escribe un comentario sobre tu experiencia.');
+      return;
+    }
+
+
+    this.body2 = { envioId: this.id, usuarioId: this.riderId, riderId: this.envio.riderId, calificacion: this.calificacion, comentario: this.comentario };
+    this.api.createHistorialExitos(this.body2).subscribe((success) => {
+      console.log(success);
+
+
+
+      this.presentAlert("Cancelado", "Envío cancelado");
+      this.cargarEnvios();
+      this.router.navigate(['wallet']);
+
+
+      // Reinicia el formulario
+
+      console.log('Calificación:', this.calificacion);
+      console.log('Comentario:', this.comentario);
+
+
+      // Opcional: Ocultar el formulario después de confirmar
+      this.mostrarFormularioConfirmar = false;
+
+      // Redirigir al home o a otra vista
+      // Ejemplo:
+      // this.router.navigate(['/home']);
+    }, (error) => {
+      console.log(error);
+    });
+
+    // Método para guardar los datos
+
+
+  }
 }

@@ -62,10 +62,9 @@
     </ion-item-divider>
     <div *ngIf="envios && envios.length > 0 && pendingCount > 0; else noPendingMessage">
       <div *ngFor="let envio of enviosPendientes">
-        <ion-card *ngIf="envio.estado === 'pendiente'" class="envio-card">
+        <ion-card *ngIf="envio.estado === 'pendiente'" class="envio-card" [routerLink]="['envio/', envio.id]">
           <!-- Contenido del card de envío pendiente -->
-          <img alt="Imagen de Envío" src="https://ionicframework.com/docs/img/demos/card-media.png"
-            class="card-image" />
+
 
           <ion-card-header>
             <ion-card-subtitle class="estado">{{ envio.estado | titlecase }}</ion-card-subtitle>
@@ -114,10 +113,9 @@
     </ion-item-divider>
     <div *ngIf="envios && envios.length > 0 && acceptedCount > 0; else noAcceptedMessage">
       <div *ngFor="let envio of enviosAceptados">
-        <ion-card *ngIf="envio.estado === 'aceptado'" class="envio-card">
+        <ion-card *ngIf="envio.estado === 'aceptado'" class="envio-card" [routerLink]="['envio/', envio.id]">
           <!-- Contenido del card de envío aceptado -->
-          <img alt="Imagen de Envío" src="https://ionicframework.com/docs/img/demos/card-media.png"
-            class="card-image" />
+
 
           <ion-card-header>
             <ion-card-subtitle class="estado">{{ envio.estado | titlecase }}</ion-card-subtitle>
@@ -166,10 +164,9 @@
     </ion-item-divider>
     <div *ngIf="envios && envios.length > 0 && inTransitCount > 0; else noInTransitMessage">
       <div *ngFor="let envio of enviosEncamino">
-        <ion-card *ngIf="envio.estado === 'enCamino'" class="envio-card">
+        <ion-card *ngIf="envio.estado === 'enCamino'" class="envio-card" [routerLink]="['envio/', envio.id]">
           <!-- Contenido del card de envío en camino -->
-          <img alt="Imagen de Envío" src="https://ionicframework.com/docs/img/demos/card-media.png"
-            class="card-image" />
+
 
           <ion-card-header>
             <ion-card-subtitle class="estado">{{ envio.estado | titlecase }}</ion-card-subtitle>
@@ -220,8 +217,7 @@
       <div *ngFor="let envio of enviosEntregados">
         <ion-card *ngIf="envio.estado === 'entregado'" class="envio-card">
           <!-- Contenido del card de envío entregado -->
-          <img alt="Imagen de Envío" src="https://ionicframework.com/docs/img/demos/card-media.png"
-            class="card-image" />
+
 
           <ion-card-header>
             <ion-card-subtitle class="estado">{{ envio.estado | titlecase }}</ion-card-subtitle>
@@ -251,6 +247,34 @@
                 </ion-col>
               </ion-row>
             </ion-grid>
+            <ion-button expand="block" color="success" size="large" shape="round" (click)="toggleFormularioConfirmar()">
+              CONFIRMAR PEDIDO
+            </ion-button>
+
+            <!-- Div que se muestra u oculta -->
+            <div *ngIf="mostrarFormularioConfirmar" class="formulario-confirmar">
+              <!-- Calificación con estrellas -->
+              <ion-item>
+                <ion-label>Calificación</ion-label>
+                <ion-range min="1" max="5" snaps="true" step="1" [(ngModel)]="calificacion">
+                  <ion-icon slot="start" name="star-outline"></ion-icon>
+                  <ion-icon slot="end" name="star"></ion-icon>
+                </ion-range>
+                <div>
+                  <ion-label>Calificación: {{ calificacion }} estrella(s)</ion-label>
+                </div>
+              </ion-item>
+
+              <!-- Comentario -->
+              <ion-item>
+                <ion-label position="floating">Comentario</ion-label>
+                <ion-textarea [(ngModel)]="comentario"></ion-textarea>
+              </ion-item>
+
+              <!-- Botón para confirmar -->
+              <ion-button expand="block" color="success" (click)="confirmarEnvio()">Confirmar</ion-button>
+            </div>
+            <div><br><br></div>
           </ion-card-content>
         </ion-card>
       </div>
