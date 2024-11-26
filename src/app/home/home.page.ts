@@ -41,19 +41,34 @@ export class HomePage implements OnInit, OnDestroy {
   constructor(private cookieService: CookieService, private cd: ChangeDetectorRef, private router: Router, private api: ApiRestService, private autenthicationService: AutenthicationService) { }
 
   async ngOnInit() {
+    this.iniciarCargaDeEnvios();
     const hiddenAncestor = document.querySelector('[aria-hidden="true"]');
     if (hiddenAncestor) {
       hiddenAncestor.removeAttribute('aria-hidden');
     }
-
     this.routeSub = this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        // Verifica si la ruta actual es la de envíos
+        if (this.router.url === '/home') {
+          this.iniciarCargaDeEnvios();
+        } else {
+          this.detenerCargaDeEnvios();
+        }
+      }
+    });
+    /*this.routeSub = this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.cargarEnvios();
       }
     });
     this.refreshInterval = setInterval(() => {
       this.cargarEnvios();
-    }, 5000);
+    }, 5000);*/
+
+
+
+
+
     let cookieValue = this.cookieService.get('idRider');
     console.log("este es el contenido de la cockie: " + cookieValue);
     this.riderId = this.cookieService.get('idRider');
@@ -82,10 +97,27 @@ export class HomePage implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
     // Desuscribirse para evitar fugas de memoria
+    this.detenerCargaDeEnvios();
     if (this.routeSub) {
       this.routeSub.unsubscribe();
     }
   }
+  iniciarCargaDeEnvios(): void {
+    this.cargarEnvios(); // Carga inicial
+    if (!this.refreshInterval) {
+      this.refreshInterval = setInterval(() => {
+        this.cargarEnvios();
+      }, 5000);
+    }
+  }
+
+  detenerCargaDeEnvios(): void {
+    if (this.refreshInterval) {
+      clearInterval(this.refreshInterval);
+      this.refreshInterval = null;
+    }
+  }
+
   updateEnviosCount() {
     this.pendingCount = this.envios.filter(envio => envio.estado === 'pendiente' && envio.usuarioId !== this.riderId).length;
     this.enviosPendientes = this.envios.filter(envio => envio.estado === 'pendiente' && envio.usuarioId !== this.riderId);

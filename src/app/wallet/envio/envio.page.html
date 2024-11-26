@@ -9,18 +9,7 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<!--ion-header>
-  <ion-toolbar>
-    <ion-title>DETALLES</ion-title>
-    <ion-buttons slot="end">
-      <ion-back-button defaultHref="home" color="primary" size="large"
-        (click)="actualizarContadorSalida()"></ion-back-button>
-      VOLVER
-    </ion-buttons>
-    <div><br></div>
 
-  </ion-toolbar>
-</ion-header-->
 <ion-content class="ion-padding">
 
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
@@ -220,6 +209,96 @@
             <b>Valor:</b> ${{ envio.valorFinal }}
           </ion-label>
         </ion-item>
+
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+  <ng-container *ngIf="envio.estado === 'entregado'">
+    <ion-toolbar>
+      <ion-title>DETALLES</ion-title>
+      <ion-buttons slot="end">
+        <ion-back-button defaultHref="home" color="primary" size="large"></ion-back-button>
+        VOLVER
+      </ion-buttons>
+      <div><br></div>
+
+    </ion-toolbar>
+    <ion-card color="primary">
+      <div id="map" class="map">
+        <div class="loading">
+          <p>Cargando...</p>
+          <div class="spinner"></div>
+        </div>
+      </div>
+
+      <ion-card-header>
+        <ion-card-subtitle>Estado: {{ envio.estado }}</ion-card-subtitle>
+        <ion-card-title>
+          Descripción: <b>{{ envio.descripcion }}</b>
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+
+        <ion-item lines="none">
+          <ion-icon name="location-outline" slot="start"></ion-icon>
+          <ion-label>
+            <b>Desde:</b> {{ envio.direccionOrigen }}
+          </ion-label>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-icon name="flag-outline" slot="start"></ion-icon>
+          <ion-label>
+            <b>Hasta:</b> {{ envio.direccionDestino }}
+          </ion-label>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-icon name="document-text-outline" slot="start"></ion-icon>
+          <ion-label>
+            <b>Tipo de Envío:</b> {{ envio.tipoEnvio }}
+          </ion-label>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-icon name="cash-outline" slot="start"></ion-icon>
+          <ion-label>
+            <b>Valor:</b> ${{ envio.valorFinal }}
+          </ion-label>
+        </ion-item>
+        <div *ngIf="confirmado === true">
+          <ion-label>
+            <b> Ya haz confirmado este envio!</b>
+          </ion-label>
+        </div>
+        <div *ngIf="confirmado === false">
+          <ion-button expand="block" color="success" size="large" shape="round" (click)="toggleFormularioConfirmar()">
+            CONFIRMAR PEDIDO
+          </ion-button>
+        </div>
+
+
+        <!-- Div que se muestra u oculta -->
+        <div *ngIf="mostrarFormularioConfirmar" class="formulario-confirmar">
+          <!-- Calificación con estrellas -->
+          <ion-item>
+            <ion-label>Calificación</ion-label>
+            <ion-range min="1" max="5" snaps="true" step="1" [(ngModel)]="calificacion">
+              <ion-icon slot="start" name="star-outline"></ion-icon>
+              <ion-icon slot="end" name="star"></ion-icon>
+            </ion-range>
+            <div>
+              <ion-label>Calificación: {{ calificacion }} estrella(s)</ion-label>
+            </div>
+          </ion-item>
+
+          <!-- Comentario -->
+          <ion-item>
+            <ion-label position="floating">Comentario</ion-label>
+            <ion-textarea [(ngModel)]="comentario"></ion-textarea>
+          </ion-item>
+
+          <!-- Botón para confirmar -->
+          <ion-button expand="block" color="success" (click)="confirmarEnvio()">Confirmar</ion-button>
+        </div>
+        <div><br><br></div>
 
       </ion-card-content>
     </ion-card>

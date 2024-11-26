@@ -58,6 +58,10 @@ export class EnvioPage implements OnInit {
 
   mostrarFormularioCancelar: boolean = false;
   motivoCancelacion: string = '';
+  mostrarFormularioConfirmar: boolean = false;
+  calificacion: number = 3; // Valor inicial de calificación
+  comentario: string = '';
+  confirmado: boolean = false;
 
 
 
@@ -80,6 +84,12 @@ export class EnvioPage implements OnInit {
     console.log(this.storage.get('email'));
     console.log(this.storage.get('password'));
     console.log(this.storage.get('id'));
+    this.api.getDatosHistorialExitosById(this.id).subscribe((res) => {
+      this.confirmado = true;
+
+    }, (error: any) => {
+      console.log(error);
+    });
 
 
 
@@ -95,6 +105,7 @@ export class EnvioPage implements OnInit {
     this.api.getEnvioById(this.id).subscribe((res) => {
       //console.log("esta es la res de by id" + res)
       this.envio = new Envio(res);
+      this.riderId = this.envio.riderId;
       //console.log("esta es la res de by id" + this.envio)
     }, (error: any) => {
       console.log(error);
@@ -253,8 +264,9 @@ export class EnvioPage implements OnInit {
     this.body = { id: this.id, estado: "cancelado", riderId: this.riderIdCookie };
     this.api.updateEnvios(this.body).subscribe((success) => {
       console.log(success);
-      this.body2 = { envioId: this.id, usuarioId: this.riderIdCookie, riderId: this.envio.riderId, motivoCancelacionRIder: "", motivoCancelacionGenerador: this.motivoCancelacion };
-      this.api.createHistorialCancelados(this.body).subscribe((success) => {
+      this.body2 = { envioId: this.id, usuarioId: this.riderIdCookie, riderId: this.envio.riderId, motivoCancelacionRider: "", motivoCancelacionGenerador: this.motivoCancelacion };
+      console.log("este es el body en cancelacion:" + this.body2)
+      this.api.createHistorialCancelados(this.body2).subscribe((success) => {
         console.log(success);
 
 
@@ -270,7 +282,7 @@ export class EnvioPage implements OnInit {
     });
     // Reinicia el formulario
     this.mostrarFormularioCancelar = false;
-    this.motivoCancelacion = '';
+
   };
   // Método para mostrar alertas
   async presentAlert(header: string, message: string) {
@@ -308,7 +320,49 @@ export class EnvioPage implements OnInit {
   logout() {
     this.autenthicationService.logout();
   }
+  // Método para confirmar el pedido
+  confirmarEnvio() {
+    if (!this.comentario.trim()) {
+      this.presentAlert("Error", 'Por favor, escribe un comentario sobre tu experiencia.');
+      return;
+    }
 
+
+    this.body2 = { envioId: this.id, usuarioId: this.envio.usuarioId, riderId: this.envio.riderId, calificacion: this.calificacion, comentario: this.comentario };
+
+    this.api.createHistorialExitos(this.body2).subscribe((success) => {
+      console.log(success);
+
+
+
+      this.presentAlert("Confirmado", "Envío confirmado");
+      this.loadEnvio();
+      this.router.navigate(['wallet']);
+
+
+      // Reinicia el formulario
+
+      console.log('Calificación:', this.calificacion);
+      console.log('Comentario:', this.comentario);
+
+
+      // Opcional: Ocultar el formulario después de confirmar
+      this.mostrarFormularioConfirmar = false;
+
+      // Redirigir al home o a otra vista
+      // Ejemplo:
+      // this.router.navigate(['/home']);
+    }, (error) => {
+      console.log(error);
+    });
+
+    // Método para guardar los datos
+
+
+  }
+  toggleFormularioConfirmar() {
+    this.mostrarFormularioConfirmar = !this.mostrarFormularioConfirmar;
+  }
 
 
 }

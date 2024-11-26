@@ -90,7 +90,7 @@
               <ion-row>
                 <ion-col size="12" class="content-label id-info">
                   <ion-icon name="pricetag-outline" class="icon"></ion-icon>
-                  <b>ID:</b> {{ envio.id }}
+                  <b>Descripción:</b> {{ envio.descripcion }}
                 </ion-col>
               </ion-row>
             </ion-grid>
@@ -215,12 +215,12 @@
     </ion-item-divider>
     <div *ngIf="envios && envios.length > 0 && deliveredCount > 0; else noDeliveredCountMessage ">
       <div *ngFor="let envio of enviosEntregados">
-        <ion-card *ngIf="envio.estado === 'entregado'" class="envio-card">
+        <ion-card *ngIf="envio.estado === 'entregado'" class="envio-card" [routerLink]="['envio/', envio.id]">
           <!-- Contenido del card de envío entregado -->
 
 
           <ion-card-header>
-            <ion-card-subtitle class="estado">{{ envio.estado | titlecase }}</ion-card-subtitle>
+            <ion-card-subtitle class=" estado">{{ envio.estado | titlecase }}</ion-card-subtitle>
             <ion-card-title class="distancia">
               Distancia: <b>{{ envio.distanciaKM }} Km</b>
             </ion-card-title>
@@ -247,41 +247,14 @@
                 </ion-col>
               </ion-row>
             </ion-grid>
-            <ion-button expand="block" color="success" size="large" shape="round" (click)="toggleFormularioConfirmar()">
-              CONFIRMAR PEDIDO
-            </ion-button>
 
-            <!-- Div que se muestra u oculta -->
-            <div *ngIf="mostrarFormularioConfirmar" class="formulario-confirmar">
-              <!-- Calificación con estrellas -->
-              <ion-item>
-                <ion-label>Calificación</ion-label>
-                <ion-range min="1" max="5" snaps="true" step="1" [(ngModel)]="calificacion">
-                  <ion-icon slot="start" name="star-outline"></ion-icon>
-                  <ion-icon slot="end" name="star"></ion-icon>
-                </ion-range>
-                <div>
-                  <ion-label>Calificación: {{ calificacion }} estrella(s)</ion-label>
-                </div>
-              </ion-item>
-
-              <!-- Comentario -->
-              <ion-item>
-                <ion-label position="floating">Comentario</ion-label>
-                <ion-textarea [(ngModel)]="comentario"></ion-textarea>
-              </ion-item>
-
-              <!-- Botón para confirmar -->
-              <ion-button expand="block" color="success" (click)="confirmarEnvio()">Confirmar</ion-button>
-            </div>
-            <div><br><br></div>
           </ion-card-content>
         </ion-card>
       </div>
     </div>
     <ng-template #noDeliveredCountMessage>
       <ion-item>
-        <ion-label>No hay envíos En Camino</ion-label>
+        <ion-label>No hay envíos Entregados</ion-label>
       </ion-item>
     </ng-template>
   </ion-list>

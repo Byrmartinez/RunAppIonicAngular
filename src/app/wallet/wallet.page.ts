@@ -14,9 +14,7 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./wallet.page.scss'],
 })
 export class WalletPage implements OnInit, OnDestroy {
-  mostrarFormularioConfirmar: boolean = false;
-  calificacion: number = 3; // Valor inicial de calificación
-  comentario: string = '';
+
   private refreshInterval: any;
   private routeSub: Subscription | undefined;
   selectedTab: string = 'pendientes';
@@ -48,15 +46,18 @@ export class WalletPage implements OnInit, OnDestroy {
   constructor(private alertController: AlertController, private cookieService: CookieService, private cd: ChangeDetectorRef, private router: Router, private api: ApiRestService, private autenthicationService: AutenthicationService) { }
 
   ngOnInit() {
+    this.iniciarCargaDeEnvios();
     this.cargarDatos();
     this.routeSub = this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.cargarEnvios();
+        // Verifica si la ruta actual es la de envíos
+        if (this.router.url === '/wallet') {
+          this.iniciarCargaDeEnvios();
+        } else {
+          this.detenerCargaDeEnvios();
+        }
       }
     });
-    this.refreshInterval = setInterval(() => {
-      this.cargarEnvios();
-    }, 5000);
     let cookieValue = this.cookieService.get('idRider');
     console.log("este es el contenido de la cockie: " + cookieValue);
     this.riderId = this.cookieService.get('idRider');
@@ -110,8 +111,24 @@ export class WalletPage implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
     // Desuscribirse para evitar fugas de memoria
+    this.detenerCargaDeEnvios();
     if (this.routeSub) {
       this.routeSub.unsubscribe();
+    }
+  }
+  iniciarCargaDeEnvios(): void {
+    this.cargarEnvios(); // Carga inicial
+    if (!this.refreshInterval) {
+      this.refreshInterval = setInterval(() => {
+        this.cargarEnvios();
+      }, 5000);
+    }
+  }
+
+  detenerCargaDeEnvios(): void {
+    if (this.refreshInterval) {
+      clearInterval(this.refreshInterval);
+      this.refreshInterval = null;
     }
   }
   updateEnviosCount() {
@@ -148,9 +165,7 @@ export class WalletPage implements OnInit, OnDestroy {
   logout() {
     this.autenthicationService.logout();
   }
-  toggleFormularioConfirmar() {
-    this.mostrarFormularioConfirmar = !this.mostrarFormularioConfirmar;
-  }
+
 
 
 
@@ -165,43 +180,5 @@ export class WalletPage implements OnInit, OnDestroy {
 
     await alert.present();
   }
-  // Método para confirmar el pedido
-  confirmarEnvio() {
-    if (!this.comentario.trim()) {
-      this.presentAlert("Error", 'Por favor, escribe un comentario sobre tu experiencia.');
-      return;
-    }
 
-
-    this.body2 = { envioId: this.id, usuarioId: this.riderId, riderId: this.envio.riderId, calificacion: this.calificacion, comentario: this.comentario };
-    this.api.createHistorialExitos(this.body2).subscribe((success) => {
-      console.log(success);
-
-
-
-      this.presentAlert("Cancelado", "Envío cancelado");
-      this.cargarEnvios();
-      this.router.navigate(['wallet']);
-
-
-      // Reinicia el formulario
-
-      console.log('Calificación:', this.calificacion);
-      console.log('Comentario:', this.comentario);
-
-
-      // Opcional: Ocultar el formulario después de confirmar
-      this.mostrarFormularioConfirmar = false;
-
-      // Redirigir al home o a otra vista
-      // Ejemplo:
-      // this.router.navigate(['/home']);
-    }, (error) => {
-      console.log(error);
-    });
-
-    // Método para guardar los datos
-
-
-  }
 }
