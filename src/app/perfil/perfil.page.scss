@@ -38,14 +38,29 @@ ion-button {
     }
 }
 
+
+/* Barra inferior con fondo morado claro */
 ion-footer {
     ion-toolbar {
-        --background: #8c52ff;
-        /* Barra inferior amarilla */
+        --background: #1200af;
+        /* Mantén el morado claro */
     }
 
     ion-segment-button {
-        --color: black;
+        --color: white;
         --indicator-color: black;
+        /* Indicador oscuro para los botones */
     }
+}
+
+.logoicono {
+    width: 70px;
+}
+
+.burger {
+    font-size: 45px;
+}
+
+.logo {
+    width: 70px;
 }

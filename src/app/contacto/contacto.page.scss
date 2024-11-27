@@ -1,49 +1,79 @@
 ion-header {
-    --background: white;
+  --background: white;
+}
+
+ion-button {
+  --background: #8c52ff;
+  /* Amarillo para el botón "Menú" */
+  --color: black;
+}
+
+.contact-info {
+  border-radius: 25px;
+  background: whitesmoke;
+  text-align: center;
+  margin-top: 20px;
+
+  h2 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 15px;
   }
-  
-  ion-button {
-    --background: #8c52ff; /* Amarillo para el botón "Menú" */
+
+  p {
+    color: #666;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  a {
+    color: #8c52ff; // Color que coincide con el diseño de la aplicación
+    text-decoration: underline;
+  }
+}
+
+/* Menú desplegable */
+.menu-list {
+  ion-item {
+    --background: white;
     --color: black;
   }
-  .contact-info {
-    text-align: center;
-    margin-top: 20px;
-  
-    h2 {
-      font-size: 20px;
-      color: #333;
-      margin-bottom: 15px;
-    }
-  
-    p {
-      color: #666;
-      font-size: 16px;
-      margin-bottom: 10px;
-    }
-  
-    a {
-      color: #8c52ff; // Color que coincide con el diseño de la aplicación
-      text-decoration: underline;
-    }
+}
+
+ion-footer {
+  ion-toolbar {
+    --background: #8c52ff;
+    /* Barra inferior amarilla */
   }
-  
-  /* Menú desplegable */
-  .menu-list {
-    ion-item {
-      --background: white;
-      --color: black;
-    }
+
+  ion-segment-button {
+    --color: black;
+    --indicator-color: black;
   }
-  
-  ion-footer {
-    ion-toolbar {
-      --background: #8c52ff; /* Barra inferior amarilla */
-    }
-  
-    ion-segment-button {
-      --color: black;
-      --indicator-color: black;
-    }
+}
+
+/* Barra inferior con fondo morado claro */
+ion-footer {
+  ion-toolbar {
+    --background: #1200af;
+    /* Mantén el morado claro */
   }
-  
+
+  ion-segment-button {
+    --color: white;
+    --indicator-color: black;
+    /* Indicador oscuro para los botones */
+  }
+}
+
+.logoicono {
+  width: 70px;
+}
+
+.burger {
+  font-size: 45px;
+}
+
+.logo {
+  width: 70px;
+}

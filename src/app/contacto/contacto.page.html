@@ -1,10 +1,8 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Contacto Run-APP</ion-title>
+    <ion-img class="logo round" src="../../assets/LOGO3.png"></ion-img>
     <ion-buttons slot="end">
-      <ion-button (click)="toggleMenu()">
-        Menú
-      </ion-button>
+      <ion-button (click)="toggleMenu()"><ion-icon name="menu" class="burger"></ion-icon></ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -12,10 +10,52 @@
 <ion-content class="ion-padding">
   <div class="contact-info">
     <h2>¿No puedes encontrar la respuesta que necesitas en la sección de preguntas frecuentes?</h2>
-    <p>Envíanos un correo electrónico a <a href="mailto:hola&#64;runapp.com">hola&#64;runapp.com</a></p>
-    <p>Nuestros horarios de atención son de 9:00-18:00 de lunes a viernes.</p>
+    <p>
+      Estamos aquí para ayudarte. Puedes contactarnos de las siguientes maneras:
+    </p>
+
+    <h3>Correo Electrónico</h3>
+    <p>
+      Envíanos un correo a <a href="mailto:hola&#64;runapp.com">hola&#64;runapp.com</a>, y uno de nuestros agentes te
+      responderá en menos de 24 horas hábiles.
+    </p>
+
+    <h3>Atención por WhatsApp</h3>
+    <p>
+      También puedes escribirnos por WhatsApp al número <strong>+56 9 8765 4321</strong>. Nuestro equipo está disponible
+      de lunes a viernes de 9:00 a 18:00 para responder tus dudas o brindarte soporte.
+    </p>
+
+    <h3>Línea Telefónica</h3>
+    <p>
+      Si prefieres hablar con uno de nuestros representantes, puedes llamarnos al <strong>+56 2 1234 5678</strong>.
+      Estamos disponibles en el mismo horario de atención para ayudarte con tus necesidades.
+    </p>
+
+    <h3>Soporte en la Aplicación</h3>
+    <p>
+      Para una solución más rápida, visita la sección de "Ayuda" en nuestra aplicación, donde podrás reportar problemas,
+      solicitar asistencia, o revisar nuestras guías de uso.
+    </p>
+
+    <h3>Redes Sociales</h3>
+    <p>
+      Síguenos en nuestras redes sociales para obtener actualizaciones, ofertas, y más información. También puedes
+      enviarnos un mensaje directo en:
+
+      <li><a href="https://facebook.com/runapp" target="_blank">Facebook</a></li>
+      <li><a href="https://instagram.com/runapp" target="_blank">Instagram</a></li>
+      <li><a href="https://twitter.com/runapp" target="_blank">Twitter</a></li>
+
+    </p>
+
+    <p>
+      **Horario de atención:** De lunes a viernes de 9:00 a 18:00 horas (GMT-4). Respetamos los feriados nacionales y es
+      posible que nuestros tiempos de respuesta sean más largos en estos días.
+    </p>
   </div>
 </ion-content>
+
 
 <!-- Menú desplegable -->
 <ion-list *ngIf="mostrarMenu" class="menu-list">
@@ -25,18 +65,21 @@
   <ion-item (click)="logout()">Cerrar Sesión</ion-item>
 </ion-list>
 
-<!-- Menú de navegación inferior -->
 <ion-footer>
   <ion-toolbar>
     <ion-segment>
       <ion-segment-button value="home" (click)="navigate('home')">
-        <ion-label>Home</ion-label>
+        <ion-icon name="home"></ion-icon>
       </ion-segment-button>
       <ion-segment-button value="wallet" (click)="navigate('wallet')">
-        <ion-label>Wallet</ion-label>
+        <ion-icon name="wallet"></ion-icon>
       </ion-segment-button>
       <ion-segment-button value="indicadores" (click)="navigate('indicadores')">
-        <ion-label>Indicadores</ion-label>
+        <ion-icon name="analytics"></ion-icon>
       </ion-segment-button>
       <ion-segment-button value="mi-cuenta" (click)="navigate('myacc')">
-        <ion-label>Mi Cuenta</ion-label>
+        <ion-icon name="person"></ion-icon>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-footer>

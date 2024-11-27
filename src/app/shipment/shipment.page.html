@@ -14,8 +14,12 @@
   <!--div id="map" class="map">Ingresa las direcciones</div-->
   <div id="map" class="map">
     <div class="loading">
-      <p>Ingresa el Origen y Destino por favor...</p>
-      <div class="spinner"></div>
+      <div class="spinner-container">
+        <div class="spinner"></div>
+        <div><br></div>
+        <p>. Ingresa el Origen y Destino por favor...</p>
+      </div>
+      <div><br></div>
     </div>
   </div>
   <div *ngIf="direccionOrigen && direccionDestino && distanciaFinal">

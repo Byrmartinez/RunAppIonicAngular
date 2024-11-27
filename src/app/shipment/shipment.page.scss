@@ -121,6 +121,16 @@ ion-content {
                 margin-bottom: 10px;
             }
 
+            .spinner-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                /* Ajusta según el tamaño deseado del contenedor */
+                width: 100vw;
+                /* Ajusta según el tamaño deseado del contenedor */
+            }
+
             .spinner {
                 width: 30px;
                 height: 30px;
@@ -128,6 +138,7 @@ ion-content {
                 border-top: 4px solid #3498db; // Spinner en azul claro
                 border-radius: 50%;
                 animation: spin 1s linear infinite;
+                text-align: center;
             }
 
             @keyframes spin {

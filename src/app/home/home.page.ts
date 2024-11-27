@@ -35,6 +35,7 @@ export class HomePage implements OnInit, OnDestroy {
   acceptedCount = 0;
   inTransitCount = 0;
   deliveredCount = 0;
+
   //nuevo
 
 

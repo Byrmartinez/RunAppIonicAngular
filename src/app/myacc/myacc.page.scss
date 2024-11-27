@@ -32,6 +32,18 @@ ion-content {
         }
 
         ion-card-content {
+            ion-list {
+                background: whitesmoke;
+                color: black;
+
+                ion-item {
+                    background: whitesmoke;
+                    color: black;
+                }
+            }
+
+
+
             p {
                 color: #777;
                 /* Texto más claro */
@@ -86,4 +98,100 @@ ion-fab {
 
 .burger {
     font-size: 45px;
+}
+
+/* Estilo general del avatar */
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-section ion-avatar {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+    border: 2px solid #3498db;
+}
+
+.profile-section h2 {
+    font-size: 1.4em;
+    margin: 5px 0;
+    color: #333;
+}
+
+.profile-section .email {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.9em;
+    color: #777;
+}
+
+/* Estilo para los elementos del ion-list */
+ion-list {
+    margin-top: 10px;
+}
+
+ion-item {
+    --border-color: #ccc;
+    --color: #fff9f9;
+}
+
+ion-item ion-icon {
+    color: #3498db;
+}
+
+.centrar {
+    width: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fondoTexto {
+    background: whitesmoke;
+    color: black;
+}
+
+ion-item {
+    --background: #ffffff; // Fondo blanco para cada item
+    --border-color: #ddd; // Bordes sutiles y claros
+    margin-bottom: 15px; // Espacio entre cada item
+
+    ion-label {
+        background: #ffffff;
+        font-size: 16px;
+        color: #000000; // Color gris oscuro para las etiquetas
+    }
+}
+
+.fondo1 {
+
+    width: 80px;
+    height: 200px;
+    color: white;
+}
+
+.fondograd {
+    border-radius: 15px 50px;
+    background: rgb(2, 0, 36);
+    background: radial-gradient(circle, rgba(2, 0, 36, 1) 0%, rgba(25, 118, 191, 1) 66%, rgba(0, 212, 255, 1) 100%);
+}
+
+.textoBlanco {
+    color: white;
+}
+
+.textoGrande {
+    font-size: x-large;
+}
+
+.labelMenu {
+    background: white;
+}
+
+.logo {
+    width: 70px;
 }

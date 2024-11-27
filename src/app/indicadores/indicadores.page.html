@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-img src="/assets/logo.png" class="logoicono"></ion-img>
+    <ion-img class="logo" src="../../assets/LOGO3.png"></ion-img>
     <ion-buttons slot="end">
       <ion-button (click)="toggleMenu()"><ion-icon name="menu" class="burger"></ion-icon></ion-button>
     </ion-buttons>
@@ -14,28 +14,28 @@
     </ion-refresher>
     <ion-card>
       <ion-card-header>
-        <ion-card-title>Estadisticas</ion-card-title>
+        <ion-card-title>ESTADISTICAS</ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <div class="summary">
           <div>
             <ion-icon name="hourglass-outline"></ion-icon>
-            <p>Pendientes</p>
+            <p>PENDIENTES</p>
             <h2>{{ pendingCount }}</h2>
           </div>
           <div>
             <ion-icon name="checkmark-circle-outline"></ion-icon>
-            <p>Aceptados</p>
+            <p>ACEPTADOS</p>
             <h2>{{ acceptedCount }}</h2>
           </div>
           <div>
             <ion-icon name="car-outline"></ion-icon>
-            <p>En Camino</p>
+            <p>EN CAMINO</p>
             <h2>{{ inTransitCount }}</h2>
           </div>
           <div>
             <ion-icon name="checkmark-done-outline"></ion-icon>
-            <p>Entregados</p>
+            <p>ENTREGADOS</p>
             <h2>{{ deliveredCount }}</h2>
           </div>
         </div>
@@ -44,23 +44,23 @@
 
     <ion-card>
       <ion-card-header>
-        <ion-card-title>Gráficos</ion-card-title>
+        <ion-card-title>GRÁFICOS</ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <div>
-          <h4>Ganancias Totales</h4>
+          <h2>GANANCIAS POR INTERVALO</h2>
           <canvas id="gananciasChart"></canvas>
         </div>
         <div>
-          <h4>Ganancias por fechas</h4>
+          <h2>GANANCIAS TOTALES</h2>
           <canvas id="gananciasChartdsm"></canvas>
         </div>
-        <h3>Indicadores</h3>
+        <h2>INDICADORES</h2>
         <div>
           <canvas id="enviosChart"></canvas>
         </div>
         <div>
-          <h4>Envíos por Fecha</h4>
+          <h2>ENVIOS POR INTERVALO</h2>
           <canvas id="enviosFechaChart"></canvas>
         </div>
       </ion-card-content>
@@ -70,31 +70,32 @@
 
 
   </ion-content>
+</ion-content>
 
-  <!-- Menú desplegable -->
-  <ion-list *ngIf="mostrarMenu" class="menu-list">
-    <ion-item (click)="navigate('perfil')">Perfil</ion-item>
-    <ion-item (click)="navigate('contacto')">Contacto</ion-item>
-    <ion-item (click)="navigate('faq')">Preguntas Frecuentes</ion-item>
-    <ion-item (click)="logout()">Cerrar Sesión</ion-item>
-  </ion-list>
+<!-- Menú desplegable -->
+<ion-list *ngIf="mostrarMenu" class="menu-list">
+  <ion-item (click)="navigate('myacc')">Perfil</ion-item>
+  <ion-item (click)="navigate('contacto')">Contacto</ion-item>
+  <ion-item (click)="navigate('faq')">Preguntas Frecuentes</ion-item>
+  <ion-item (click)="logout()">Cerrar Sesión</ion-item>
+</ion-list>
 
-  <!-- Menú de navegación inferior -->
-  <ion-footer>
-    <ion-toolbar>
-      <ion-segment>
-        <ion-segment-button value="home" (click)="navigate('home')">
-          <ion-icon name="home"></ion-icon>
-        </ion-segment-button>
-        <ion-segment-button value="wallet" (click)="navigate('wallet')">
-          <ion-icon name="wallet"></ion-icon>
-        </ion-segment-button>
-        <ion-segment-button value="indicadores" (click)="navigate('indicadores')">
-          <ion-icon name="analytics"></ion-icon>
-        </ion-segment-button>
-        <ion-segment-button value="mi-cuenta" (click)="navigate('myacc')">
-          <ion-icon name="person"></ion-icon>
-        </ion-segment-button>
-      </ion-segment>
-    </ion-toolbar>
-  </ion-footer>
+<!-- Menú de navegación inferior -->
+<ion-footer>
+  <ion-toolbar>
+    <ion-segment>
+      <ion-segment-button value="home" (click)="navigate('home')">
+        <ion-icon name="home"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="wallet" (click)="navigate('wallet')">
+        <ion-icon name="wallet"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="indicadores" (click)="navigate('indicadores')">
+        <ion-icon name="analytics"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="mi-cuenta" (click)="navigate('myacc')">
+        <ion-icon name="person"></ion-icon>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-footer>

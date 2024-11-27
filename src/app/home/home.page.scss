@@ -5,7 +5,7 @@ ion-header {
 
 /* Botón con fondo claro y texto blanco */
 ion-button {
-  --background: #3b9aff;
+  --background: #ffffff;
   /* Mantén el color morado claro */
   --color: #ffffff;
   /* Texto blanco */
@@ -16,6 +16,7 @@ ion-content {
 
 
   ion-card {
+    font-size: 25px;
     background-color: #ffffff;
     /* Fondo blanco */
     border-radius: 10px;
@@ -26,14 +27,14 @@ ion-content {
     ion-card-header {
       ion-card-title {
         font-size: 18px;
-        color: #ffffff;
+        color: #000000;
         /* Título con un tono gris claro */
       }
     }
 
     ion-card-content {
       p {
-        color: #777;
+        color: #ffffff;
         /* Texto más claro */
       }
 
@@ -124,8 +125,33 @@ ion-modal {
 
 .logoicono {
   width: 70px;
+
 }
 
 .burger {
   font-size: 45px;
+}
+
+.fondoBlack {
+  background: black;
+}
+
+.texto1 {
+  color: #ffffff;
+  font-size: 20px;
+}
+
+.texto2 {
+  color: #ff8888;
+  font-size: 30px;
+}
+
+.logo {
+  width: 70px;
+}
+
+.back1 {
+  border-radius: 15px 50px;
+  background: rgb(238, 174, 202);
+  background: linear-gradient(90deg, rgba(238, 174, 202, 1) 0%, rgba(0, 7, 15, 1) 0%, rgba(121, 140, 255, 1) 67%);
 }

@@ -1,0 +1,47 @@
+.fondograd {
+    background: rgb(2, 0, 36);
+    background: linear-gradient(180deg, rgba(2, 0, 36, 1) 0%, rgba(0, 0, 0, 1) 30%, rgba(0, 212, 255, 1) 100%);
+    /* Fondo degradado */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.first-load-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.logo {
+    width: 150px;
+    /* Tamaño de la imagen */
+    height: 150px;
+    border-radius: 50%;
+    /* Hace la imagen circular */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    /* Sombra para resaltar */
+    animation: zoomIn 1.5s ease-in-out;
+    /* Animación */
+}
+
+/* Animación zoom */
+@keyframes zoomIn {
+    0% {
+        transform: scale(0.5);
+        /* Comienza más pequeño */
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        /* Tamaño original */
+        opacity: 1;
+    }
+}
+
+.round {
+    border-radius: 15px 50px;
+}

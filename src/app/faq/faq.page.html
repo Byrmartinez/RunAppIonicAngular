@@ -1,39 +1,78 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Preguntas frecuentes</ion-title>
+    <ion-img class="logo round" src="../../assets/LOGO3.png"></ion-img>
     <ion-buttons slot="end">
-      <ion-button (click)="toggleMenu()">
-        Menú
-      </ion-button>
+      <ion-button (click)="toggleMenu()"><ion-icon name="menu" class="burger"></ion-icon></ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
+
 <ion-content class="ion-padding">
-  <div class="faq-section">
+  <div class="faq-section borde1">
     <h2>Preguntas más comunes</h2>
 
     <div class="faq-item">
       <h3>¿Cuál es el tiempo de entrega?</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum.</p>
+      <p>
+        El tiempo de entrega varía según la ubicación y el tipo de servicio seleccionado. Generalmente, los envíos
+        locales se entregan en menos de 2 horas, mientras que los envíos interurbanos pueden tardar hasta 24 horas.
+        Puedes consultar tiempos estimados específicos en el detalle de tu pedido.
+      </p>
     </div>
 
     <div class="faq-item">
       <h3>¿Cómo puedo realizar un seguimiento de mi pedido?</h3>
-      <p>Curabitur suscipit suscipit tellus. Phasellus accumsan, elit sed interdum.</p>
+      <p>
+        Para realizar un seguimiento de tu pedido, ingresa a la aplicación y selecciona la wallet. Allí el estado actual
+        del envio. Además, recibirás notificaciones automáticas con actualizaciones importantes.
+      </p>
     </div>
 
     <div class="faq-item">
       <h3>¿Qué métodos de pago aceptan?</h3>
-      <p>Nullam at nisl ut velit cursus vulputate. Sed bibendum, magna vitae ultricies.</p>
+
+      <h3>
+        Pronto aceptaremos una variedad de métodos de pago para tu comodidad, incluyendo:
+      </h3>
+      <p>
+        Tarjetas de crédito y débito (Visa, MasterCard, Amex).
+        Transferencias bancarias directas.
+        Pagos en efectivo al momento de la entrega (en ciertas zonas).
+        Plataformas digitales como PayPal y Mercado Pago.
+      </p>
+      <h3>
+        Por el momento solo se acpetan Transferencias bancarias directas.
+      </h3>
+
+
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Qué hago si tengo un problema con mi pedido?</h3>
+      <p>
+        Si tienes algún inconveniente con tu pedido, contáctanos a través de la sección "Ayuda" en la aplicación.
+        Nuestro equipo de soporte está disponible 24/7 para resolver cualquier problema relacionado con entregas, pagos,
+        o cualquier otra consulta.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Puedo cancelar mi pedido después de haberlo confirmado?</h3>
+      <p>
+        No, solo puedes cancelar cuando el pedido aun siga en estado pendiente. Para hacerlo, dirígete a "wallet" y
+        selecciona la opción "cancelar envio". Si el pedido ya está en proceso, contáctanos directamente para buscar la
+        mejor solución.
+      </p>
     </div>
 
   </div>
 </ion-content>
 
+
 <!-- Menú desplegable -->
 <ion-list *ngIf="mostrarMenu" class="menu-list">
-  <ion-item (click)="navigate('perfil')">Perfil</ion-item>
+  <ion-item (click)="navigate('myacc')">Perfil</ion-item>
   <ion-item (click)="navigate('contacto')">Contacto</ion-item>
   <ion-item (click)="navigate('preguntas-frecuentes')">Preguntas Frecuentes</ion-item>
   <ion-item (click)="logout()">Cerrar Sesión</ion-item>
@@ -44,16 +83,16 @@
   <ion-toolbar>
     <ion-segment>
       <ion-segment-button value="home" (click)="navigate('home')">
-        <ion-label>Home</ion-label>
+        <ion-icon name="home"></ion-icon>
       </ion-segment-button>
       <ion-segment-button value="wallet" (click)="navigate('wallet')">
-        <ion-label>Wallet</ion-label>
+        <ion-icon name="wallet"></ion-icon>
       </ion-segment-button>
       <ion-segment-button value="indicadores" (click)="navigate('indicadores')">
-        <ion-label>Indicadores</ion-label>
+        <ion-icon name="analytics"></ion-icon>
       </ion-segment-button>
-      <ion-segment-button value="mi-cuenta" (click)="navigate('mi-cuenta')">
-        <ion-label>Mi cuenta</ion-label>
+      <ion-segment-button value="mi-cuenta" (click)="navigate('myacc')">
+        <ion-icon name="person"></ion-icon>
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>

@@ -1,49 +1,84 @@
 ion-header {
+  --background: white;
+}
+
+.faq-section {
+  background: white;
+  text-align: center;
+  margin-top: 20px;
+
+  h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
+  }
+
+  .faq-item {
+    margin: 15px 0;
+
+    h3 {
+      font-size: 18px;
+      color: #8c52ff; // Color para las preguntas
+      margin-bottom: 5px;
+    }
+
+    p {
+      color: #666;
+      font-size: 16px;
+    }
+  }
+}
+
+/* Menú desplegable */
+.menu-list {
+  ion-item {
     --background: white;
+    --color: black;
   }
-  
-  .faq-section {
-    text-align: center;
-    margin-top: 20px;
-  
-    h2 {
-      font-size: 24px;
-      color: #333;
-      margin-bottom: 15px;
-    }
-  
-    .faq-item {
-      margin: 15px 0;
-  
-      h3 {
-        font-size: 18px;
-        color: #8c52ff; // Color para las preguntas
-        margin-bottom: 5px;
-      }
-  
-      p {
-        color: #666;
-        font-size: 16px;
-      }
-    }
+}
+
+ion-footer {
+  ion-toolbar {
+    --background: #8c52ff;
+    /* Barra inferior amarilla */
   }
-  
-  /* Menú desplegable */
-  .menu-list {
-    ion-item {
-      --background: white;
-      --color: black;
-    }
+
+  ion-segment-button {
+    --color: black;
+    --indicator-color: black;
   }
-  
-  ion-footer {
-    ion-toolbar {
-      --background: #8c52ff; /* Barra inferior amarilla */
-    }
-  
-    ion-segment-button {
-      --color: black;
-      --indicator-color: black;
-    }
+}
+
+/* Barra inferior con fondo morado claro */
+ion-footer {
+  ion-toolbar {
+    --background: #1200af;
+    /* Mantén el morado claro */
   }
-  
+
+  ion-segment-button {
+    --color: white;
+    --indicator-color: black;
+    /* Indicador oscuro para los botones */
+  }
+}
+
+.logoicono {
+  width: 70px;
+}
+
+.burger {
+  font-size: 45px;
+}
+
+.logoicono {
+  width: 70px;
+}
+
+.logo {
+  width: 70px;
+}
+
+.borde1 {
+  border-radius: 25px;
+}

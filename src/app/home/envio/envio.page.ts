@@ -53,6 +53,7 @@ export class EnvioPage implements OnInit {
   autocomplete2: any;
   mostrarMapa: boolean = false;
   directionsService = new google.maps.DirectionsService();
+  valorRound: Number = 0;
 
 
 
@@ -98,6 +99,7 @@ export class EnvioPage implements OnInit {
     this.api.getEnvioById(this.id).subscribe((res) => {
       //console.log("esta es la res de by id" + res)
       this.envio = new Envio(res);
+      this.valorRound = Math.round(this.envio.valorFinal);
       //console.log("esta es la res de by id" + this.envio)
     }, (error: any) => {
       console.log(error);

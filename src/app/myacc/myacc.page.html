@@ -1,6 +1,7 @@
 <ion-header>
   <ion-toolbar>
-    <ion-img src="/assets/logo.png" class="logoicono"></ion-img>
+    <ion-img class="logo" src="../../assets/LOGO3.png"></ion-img>
+
     <ion-buttons slot="end">
       <ion-button (click)="toggleMenu()"><ion-icon name="menu" class="burger"></ion-icon></ion-button>
     </ion-buttons>
@@ -12,32 +13,118 @@
     <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
       <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
+    <ion-card>
+      <ion-card-header>
+        <ion-label class="textoGrande">
+          Mi Cuenta
+        </ion-label>
+      </ion-card-header>
+      <ion-card-content class="fondoTexto">
+        <div><br><br></div>
+        <!-- Información del Usuario -->
+        <div class="profile-section fondograd textoBlanco">
+          <div><br><br></div>
+          <ion-avatar class="centrar">
+            <ion-icon name="person" class="logoicono fondo1"></ion-icon>
+          </ion-avatar>
+          <div>
+            <ion-label class="textoBlanco centrar textoGrande">
+              {{ nombre }}
+            </ion-label>
+            <div><br></div>
+            <ion-label class="textoBlanco centrar textoGrande">
+              {{ email }}
+
+            </ion-label>
+          </div>
+
+
+
+        </div>
+        <div class="fondoTexto">
+          <ion-list class="fondoTexto">
+            <ion-item class="fondoTexto textoGrande">
+              <ion-icon slot="start" name="create-outline"></ion-icon>
+              Datos personales :
+            </ion-item>
+            <ion-item class="textoGrande">
+              <ion-icon slot="start" name="person"></ion-icon>
+              Nombre : {{ nombre }}
+            </ion-item>
+            <ion-item class="textoGrande">
+              <ion-icon slot="start" name="mail"></ion-icon>
+              Email : {{ email }}
+            </ion-item>
+            <ion-item class="textoGrande">
+              <ion-icon slot="start" name="call"></ion-icon>
+              Telefono : {{ telefono }}
+            </ion-item>
+            <ion-item class="textoGrande">
+              <ion-icon slot="start" name="pulse"></ion-icon>
+              Estado : {{ estado }}
+            </ion-item>
+            <ion-item class="textoGrande">
+              <ion-icon slot="start" name="bicycle"></ion-icon>
+              Tipo de Vehiculo : {{ tipoVehiculo }}
+            </ion-item>
+            <ion-item class="textoGrande">
+              <ion-icon slot="start" name="browsers"></ion-icon>
+              Patente : {{ patente }}
+            </ion-item>
+            <ion-item class="textoGrande">
+              <ion-icon slot="start" name="hammer"></ion-icon>
+              Modelo : {{ modelo }}
+            </ion-item>
+            <ion-item class="textoGrande">
+              <ion-icon slot="start" name="wallet"></ion-icon>
+              Saldo : {{ saldo }}
+            </ion-item>
+            <ion-item class="textoGrande">
+              <ion-icon slot="start" name="cash"></ion-icon>
+              Deuda : {{ deuda }}
+            </ion-item>
+            <ion-item class="textoGrande">
+              <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
+              Seguridad y Contraseñas
+            </ion-item>
+            <ion-item class="textoGrande">
+              <ion-icon slot="start" name="card-outline"></ion-icon>
+              Datos de Pago
+            </ion-item>
+
+          </ion-list>
+        </div>
+        <!-- Opciones -->
+
+      </ion-card-content>
+    </ion-card>
   </ion-content>
+</ion-content>
 
-  <!-- Menú desplegable -->
-  <ion-list *ngIf="mostrarMenu" class="menu-list">
-    <ion-item (click)="navigate('perfil')">Perfil</ion-item>
-    <ion-item (click)="navigate('contacto')">Contacto</ion-item>
-    <ion-item (click)="navigate('faq')">Preguntas Frecuentes</ion-item>
-    <ion-item (click)="logout()">Cerrar Sesión</ion-item>
-  </ion-list>
+<!-- Menú desplegable -->
+<ion-list *ngIf="mostrarMenu" class="menu-list labelMenu">
+  <ion-item (click)="navigate('myacc')">Perfil</ion-item>
+  <ion-item (click)="navigate('contacto')">Contacto</ion-item>
+  <ion-item (click)="navigate('faq')">Preguntas Frecuentes</ion-item>
+  <ion-item (click)="logout()">Cerrar Sesión</ion-item>
+</ion-list>
 
-  <!-- Menú de navegación inferior -->
-  <ion-footer>
-    <ion-toolbar>
-      <ion-segment>
-        <ion-segment-button value="home" (click)="navigate('home')">
-          <ion-icon name="home"></ion-icon>
-        </ion-segment-button>
-        <ion-segment-button value="wallet" (click)="navigate('wallet')">
-          <ion-icon name="wallet"></ion-icon>
-        </ion-segment-button>
-        <ion-segment-button value="indicadores" (click)="navigate('indicadores')">
-          <ion-icon name="analytics"></ion-icon>
-        </ion-segment-button>
-        <ion-segment-button value="mi-cuenta" (click)="navigate('myacc')">
-          <ion-icon name="person"></ion-icon>
-        </ion-segment-button>
-      </ion-segment>
-    </ion-toolbar>
-  </ion-footer>
+<!-- Menú de navegación inferior -->
+<ion-footer>
+  <ion-toolbar>
+    <ion-segment>
+      <ion-segment-button value="home" (click)="navigate('home')">
+        <ion-icon name="home"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="wallet" (click)="navigate('wallet')">
+        <ion-icon name="wallet"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="indicadores" (click)="navigate('indicadores')">
+        <ion-icon name="analytics"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="mi-cuenta" (click)="navigate('myacc')">
+        <ion-icon name="person"></ion-icon>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-footer>

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-img src="/assets/logo.png" class="logoicono"></ion-img>
+    <ion-img class="logo" src="../../assets/LOGO3.png"></ion-img>
     <ion-buttons slot="end">
       <ion-button (click)="toggleMenu()"><ion-icon name="menu" class="burger"></ion-icon></ion-button>
     </ion-buttons>
@@ -13,27 +13,12 @@
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Envios Entregados</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <p>{{ deliveredCount }}</p>
-    </ion-card-content>
-  </ion-card>
 
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>$</ion-card-title>
-    </ion-card-header>
-
-    <ion-card-content>
-      <p>Saldo Actual: <strong>{{ saldo | currency:'CLP' }}</strong></p>
-      <p>Deuda: <strong>{{ deuda | currency:'CLP' }}</strong></p>
-    </ion-card-content>
-  </ion-card>
   <!-- Tabs for Envíos -->
   <ion-segment [(ngModel)]="selectedTab">
+    <ion-segment-button value="indicador">
+      <ion-icon name="podium-outline" class="iconoBlanco"></ion-icon>
+    </ion-segment-button>
     <ion-segment-button value="pendientes">
       <ion-icon name="hourglass-outline" class="iconoBlanco"></ion-icon>
     </ion-segment-button>
@@ -48,6 +33,34 @@
     </ion-segment-button>
   </ion-segment>
 
+  <!-- Sección de Indicador -->
+  <ion-list *ngIf="selectedTab === 'indicador'">
+    <ion-item-divider>
+      <ion-label>Indicadores</ion-label>
+
+    </ion-item-divider>
+    <ion-card>
+      <ion-card-header class="textoGrande">
+        <ion-card-title class="textoGrande">Envios Entregados</ion-card-title>
+      </ion-card-header>
+      <ion-card-content class="textoGrande">
+        <p>{{ deliveredCount }}</p>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title class="textoGrande">$</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content class="textoGrande">
+        <p>Saldo Actual: <strong>{{ saldo | currency:'CLP' }}</strong></p>
+        <p>Deuda: <strong>{{ deuda | currency:'CLP' }}</strong></p>
+      </ion-card-content>
+    </ion-card>
+
+
+  </ion-list>
   <!-- Sección de Envíos Pendientes -->
   <ion-list *ngIf="selectedTab === 'pendientes'">
     <ion-item-divider>
@@ -56,35 +69,35 @@
     </ion-item-divider>
     <div *ngIf="envios && envios.length > 0 && pendingCount > 0; else noPendingMessage">
       <div *ngFor="let envio of enviosPendientes">
-        <ion-card *ngIf="envio.estado === 'pendiente'" class="envio-card" [routerLink]="['envio/', envio.id]">
+        <ion-card *ngIf="envio.estado === 'pendiente'" class="envio-card back1" [routerLink]="['envio/', envio.id]">
           <!-- Contenido del card de envío pendiente -->
 
 
           <ion-card-header>
-            <ion-card-subtitle class="estado">{{ envio.estado | titlecase }}</ion-card-subtitle>
-            <ion-card-title class="distancia">
-              Distancia: <b>{{ envio.distanciaKM }} Km</b>
-            </ion-card-title>
+            <ion-card-subtitle class="estado texto1">{{ envio.estado | titlecase }}</ion-card-subtitle>
           </ion-card-header>
 
           <ion-card-content>
             <ion-grid>
               <ion-row>
-                <ion-col size="12" class="content-label">
+                <ion-card-title class="texto1">
+                  Distancia: <b>{{ envio.distanciaKM }} Km</b>
+                </ion-card-title>
+                <ion-col size="12" class="content-label texto1">
                   <ion-icon name="location-outline" class="icon"></ion-icon>
                   <b>Origen:</b> {{ envio.direccionOrigen }}
                 </ion-col>
               </ion-row>
               <ion-row>
-                <ion-col size="12" class="content-label">
+                <ion-col size="12" class="content-label texto1">
                   <ion-icon name="flag-outline" class="icon"></ion-icon>
                   <b>Destino:</b> {{ envio.direccionDestino }}
                 </ion-col>
               </ion-row>
               <ion-row>
-                <ion-col size="12" class="content-label id-info">
+                <ion-col size="12" class="content-label id-info texto1">
                   <ion-icon name="pricetag-outline" class="icon"></ion-icon>
-                  <b>Descripción:</b> {{ envio.descripcion }}
+                  <b>VALOR : </b> {{ envio.valorFinal }}
                 </ion-col>
               </ion-row>
             </ion-grid>
@@ -94,7 +107,7 @@
 
     </div>
     <ng-template #noPendingMessage>
-      <ion-item>
+      <ion-item class="texto2">
         <ion-label>No hay envíos pendientes</ion-label>
       </ion-item>
     </ng-template>
@@ -107,45 +120,44 @@
     </ion-item-divider>
     <div *ngIf="envios && envios.length > 0 && acceptedCount > 0; else noAcceptedMessage">
       <div *ngFor="let envio of enviosAceptados">
-        <ion-card *ngIf="envio.estado === 'aceptado'" class="envio-card" [routerLink]="['envio/', envio.id]">
+        <ion-card *ngIf="envio.estado === 'aceptado'" class="envio-card back1" [routerLink]="['envio/', envio.id]">
           <!-- Contenido del card de envío aceptado -->
 
 
           <ion-card-header>
-            <ion-card-subtitle class="estado">{{ envio.estado | titlecase }}</ion-card-subtitle>
-            <ion-card-title class="distancia">
-              Distancia: <b>{{ envio.distanciaKM }} Km</b>
-            </ion-card-title>
+            <ion-card-subtitle class="estado texto1">{{ envio.estado | titlecase }}</ion-card-subtitle>
           </ion-card-header>
 
           <ion-card-content>
             <ion-grid>
               <ion-row>
-                <ion-col size="12" class="content-label">
+                <ion-card-title class="texto1">
+                  Distancia: <b>{{ envio.distanciaKM }} Km</b>
+                </ion-card-title>
+                <ion-col size="12" class="content-label texto1">
                   <ion-icon name="location-outline" class="icon"></ion-icon>
                   <b>Origen:</b> {{ envio.direccionOrigen }}
                 </ion-col>
               </ion-row>
               <ion-row>
-                <ion-col size="12" class="content-label">
+                <ion-col size="12" class="content-label texto1">
                   <ion-icon name="flag-outline" class="icon"></ion-icon>
                   <b>Destino:</b> {{ envio.direccionDestino }}
                 </ion-col>
               </ion-row>
               <ion-row>
-                <ion-col size="12" class="content-label id-info">
+                <ion-col size="12" class="content-label id-info texto1">
                   <ion-icon name="pricetag-outline" class="icon"></ion-icon>
-                  <b>ID:</b> {{ envio.id }}
+                  <b>VALOR : </b> {{ envio.valorFinal }}
                 </ion-col>
               </ion-row>
             </ion-grid>
-
           </ion-card-content>
         </ion-card>
       </div>
     </div>
     <ng-template #noAcceptedMessage>
-      <ion-item>
+      <ion-item class="texto2">
         <ion-label>No hay envíos Aceptados</ion-label>
       </ion-item>
     </ng-template>
@@ -158,46 +170,45 @@
     </ion-item-divider>
     <div *ngIf="envios && envios.length > 0 && inTransitCount > 0; else noInTransitMessage">
       <div *ngFor="let envio of enviosEncamino">
-        <ion-card *ngIf="envio.estado === 'enCamino'" class="envio-card" [routerLink]="['envio/', envio.id]">
+        <ion-card *ngIf="envio.estado === 'enCamino'" class="envio-card back1" [routerLink]="['envio/', envio.id]">
           <!-- Contenido del card de envío en camino -->
 
 
           <ion-card-header>
-            <ion-card-subtitle class="estado">{{ envio.estado | titlecase }}</ion-card-subtitle>
-            <ion-card-title class="distancia">
-              Distancia: <b>{{ envio.distanciaKM }} Km</b>
-            </ion-card-title>
+            <ion-card-subtitle class="estado texto1">{{ envio.estado | titlecase }}</ion-card-subtitle>
           </ion-card-header>
 
           <ion-card-content>
             <ion-grid>
               <ion-row>
-                <ion-col size="12" class="content-label">
+                <ion-card-title class="texto1">
+                  Distancia: <b>{{ envio.distanciaKM }} Km</b>
+                </ion-card-title>
+                <ion-col size="12" class="content-label texto1">
                   <ion-icon name="location-outline" class="icon"></ion-icon>
                   <b>Origen:</b> {{ envio.direccionOrigen }}
                 </ion-col>
               </ion-row>
               <ion-row>
-                <ion-col size="12" class="content-label">
+                <ion-col size="12" class="content-label texto1">
                   <ion-icon name="flag-outline" class="icon"></ion-icon>
                   <b>Destino:</b> {{ envio.direccionDestino }}
                 </ion-col>
               </ion-row>
               <ion-row>
-                <ion-col size="12" class="content-label id-info">
+                <ion-col size="12" class="content-label id-info texto1">
                   <ion-icon name="pricetag-outline" class="icon"></ion-icon>
-                  <b>ID:</b> {{ envio.id }}
+                  <b>VALOR : </b> {{ envio.valorFinal }}
                 </ion-col>
               </ion-row>
             </ion-grid>
-
           </ion-card-content>
         </ion-card>
       </div>
     </div>
     <ng-template #noInTransitMessage>
       <ion-item>
-        <ion-label>No hay envíos En Camino</ion-label>
+        <ion-label class="texto2">No hay envíos En Camino</ion-label>
       </ion-item>
     </ng-template>
   </ion-list>
@@ -209,46 +220,45 @@
     </ion-item-divider>
     <div *ngIf="envios && envios.length > 0 && deliveredCount > 0; else noDeliveredCountMessage ">
       <div *ngFor="let envio of enviosEntregados">
-        <ion-card *ngIf="envio.estado === 'entregado'" class="envio-card" [routerLink]="['envio/', envio.id]">
+        <ion-card *ngIf="envio.estado === 'entregado'" class="envio-card back1" [routerLink]="['envio/', envio.id]">
           <!-- Contenido del card de envío entregado -->
 
 
           <ion-card-header>
-            <ion-card-subtitle class=" estado">{{ envio.estado | titlecase }}</ion-card-subtitle>
-            <ion-card-title class="distancia">
-              Distancia: <b>{{ envio.distanciaKM }} Km</b>
-            </ion-card-title>
+            <ion-card-subtitle class="estado texto1">{{ envio.estado | titlecase }}</ion-card-subtitle>
           </ion-card-header>
 
           <ion-card-content>
             <ion-grid>
               <ion-row>
-                <ion-col size="12" class="content-label">
+                <ion-card-title class="texto1">
+                  Distancia: <b>{{ envio.distanciaKM }} Km</b>
+                </ion-card-title>
+                <ion-col size="12" class="content-label texto1">
                   <ion-icon name="location-outline" class="icon"></ion-icon>
                   <b>Origen:</b> {{ envio.direccionOrigen }}
                 </ion-col>
               </ion-row>
               <ion-row>
-                <ion-col size="12" class="content-label">
+                <ion-col size="12" class="content-label texto1">
                   <ion-icon name="flag-outline" class="icon"></ion-icon>
                   <b>Destino:</b> {{ envio.direccionDestino }}
                 </ion-col>
               </ion-row>
               <ion-row>
-                <ion-col size="12" class="content-label id-info">
+                <ion-col size="12" class="content-label id-info texto1">
                   <ion-icon name="pricetag-outline" class="icon"></ion-icon>
-                  <b>ID:</b> {{ envio.id }}
+                  <b>VALOR : </b> {{ envio.valorFinal }}
                 </ion-col>
               </ion-row>
             </ion-grid>
-
           </ion-card-content>
         </ion-card>
       </div>
     </div>
     <ng-template #noDeliveredCountMessage>
       <ion-item>
-        <ion-label>No hay envíos Entregados</ion-label>
+        <ion-label class="texto2">No hay envíos Entregados</ion-label>
       </ion-item>
     </ng-template>
   </ion-list>
@@ -256,7 +266,7 @@
 
 <!-- Menú y Footer -->
 <ion-list *ngIf="mostrarMenu" class="menu-list">
-  <ion-item (click)="navigate('perfil')">Perfil</ion-item>
+  <ion-item (click)="navigate('myacc')">Perfil</ion-item>
   <ion-item (click)="navigate('contacto')">Contacto</ion-item>
   <ion-item (click)="navigate('faq')">Preguntas Frecuentes</ion-item>
   <ion-item (click)="logout()">Cerrar Sesión</ion-item>
