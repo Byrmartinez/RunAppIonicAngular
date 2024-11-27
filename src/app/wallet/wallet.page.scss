@@ -1,43 +1,93 @@
-.wallet-info {
-  ion-card {
-    background-color: #ffffff;
-    margin-bottom: 15px;
-
-    ion-card-title {
-      font-size: 18px;
-      color: #333;
-    }
-
-    ion-card-content {
-      font-size: 16px;
-      color: #555;
-    }
-  }
-}
-
+/* Establece el fondo blanco para el encabezado */
 ion-header {
   --background: white;
 }
 
+/* Botón con fondo claro y texto blanco */
 ion-button {
-  --background: #8c52ff; /* Color personalizado para el botón "Menú" */
-  --color: white;
+  --background: #3b9aff;
+  /* Mantén el color morado claro */
+  --color: #ffffff;
+  /* Texto blanco */
 }
 
+/* Estilo para el contenido del card */
+ion-content {
+
+
+  ion-card {
+    background-color: #ffffff;
+    /* Fondo blanco */
+    border-radius: 10px;
+    /* Bordes suaves */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Sombra ligera para el card */
+
+    ion-card-header {
+      ion-card-title {
+        font-size: 18px;
+        color: #444;
+        /* Título con un tono gris claro */
+      }
+    }
+
+    ion-card-content {
+      p {
+        color: #777;
+        /* Texto más claro */
+      }
+
+      ion-button {
+        --background: #a8b8ff;
+        /* Fondo del botón con un color suave */
+        --color: white;
+        /* Texto blanco */
+      }
+    }
+  }
+}
+
+/* Menú desplegable con color claro */
 .menu-list {
   ion-item {
     --background: white;
-    --color: black;
+    /* Fondo blanco */
+    --color: #333;
+    /* Texto en gris oscuro */
+    --border-color: #e0e0e0;
+    /* Borde sutil para los ítems */
   }
 }
 
+/* Barra inferior con fondo morado claro */
 ion-footer {
   ion-toolbar {
-    --background: #8c52ff; /* Color de la barra inferior */
+    --background: #1200af;
+    /* Mantén el morado claro */
   }
 
   ion-segment-button {
-    --color: black;
+    --color: white;
     --indicator-color: black;
+    /* Indicador oscuro para los botones */
   }
+}
+
+/* Fab button con color primario */
+ion-fab {
+  --background: var(--ion-color-primary);
+  --color: white;
+  /* Texto blanco */
+}
+
+.iconoBlanco {
+  color: white;
+}
+
+.logoicono {
+  width: 70px;
+}
+
+.burger {
+  font-size: 45px;
 }

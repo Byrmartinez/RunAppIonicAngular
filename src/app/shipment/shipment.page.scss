@@ -1,74 +1,71 @@
-#map {
+/*#map {
     height: 45vh;
-    /* Ocupa la mitad de la pantalla */
+    
     width: 100%;
     border: 1px solid #ccc;
     margin-bottom: 20px;
     border-radius: 5px;
-    /* Esquinas redondeadas para el mapa */
+    
 }
 
 ion-item {
     margin-top: 10px;
-    /* Espacio entre los ítems */
+   
 }
 
 ion-button {
     margin-top: 20px;
     --background: #8c52ff;
-    /* Color de fondo del botón */
+    
     --color: white;
-    /* Color del texto del botón */
+    
 }
 
 input#origin-input {
     padding: 10px;
-    /* Espaciado interno para el campo de autocompletado */
+    
     border: 1px solid #ccc;
-    /* Borde del campo */
     border-radius: 5px;
-    /* Esquinas redondeadas */
     width: 100%;
-    /* Ancho completo */
 }
 
 input#destination-input {
     padding: 10px;
-    /* Espaciado interno para el campo de autocompletado */
+    
     border: 1px solid #ccc;
-    /* Borde del campo */
+
     border-radius: 5px;
-    /* Esquinas redondeadas */
+    
     width: 100%;
-    /* Ancho completo */
+    
 }
 
 ion-label {
     padding: 10px;
-    /* Espaciado interno para el campo de autocompletado */
+    
     border: 1px solid #ccc;
-    /* Borde del campo */
+    
     border-radius: 5px;
-    /* Esquinas redondeadas */
+    
     width: 100%;
-    /* Ancho completo */
+    
 }
 
 ion-textarea {
     min-height: 100px;
-    /* Altura mínima para el textarea */
+    
     border-radius: 5px;
-    /* Esquinas redondeadas para el textarea */
+    
     resize: none;
-    /* Deshabilitar redimensionamiento */
+    
 }
 
 .map {
     position: relative;
     height: 400px;
-    /* Altura del contenedor */
+    
     background-color: #f0f0f0;
-    /* Color de fondo mientras carga */
+    
     display: flex;
     justify-content: center;
     align-items: center;
@@ -98,4 +95,138 @@ ion-textarea {
     to {
         transform: rotate(360deg);
     }
+}*/
+ion-content {
+    --background: #e5e5e9; // Fondo blanco para el contenido principal
+    padding: 20px;
+
+    .map {
+        background-color: #f9f9f9; // Fondo más claro para el mapa
+        height: 300px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        position: relative;
+        border: 1px solid #e0e0e0; // Bordes claros para el mapa
+
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+
+            p {
+                font-size: 16px;
+                color: #888; // Texto en gris más suave
+                margin-bottom: 10px;
+            }
+
+            .spinner {
+                width: 30px;
+                height: 30px;
+                border: 4px solid #f3f3f3;
+                border-top: 4px solid #3498db; // Spinner en azul claro
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+            }
+
+            @keyframes spin {
+                0% {
+                    transform: rotate(0deg);
+                }
+
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+        }
+    }
+
+    // Estilos de ion-item y etiquetas
+    ion-item {
+        --background: #ffffff; // Fondo blanco para cada item
+        --border-color: #ddd; // Bordes sutiles y claros
+        margin-bottom: 15px; // Espacio entre cada item
+
+        ion-label {
+            background: #ffffff;
+            font-size: 16px;
+            color: #000000; // Color gris oscuro para las etiquetas
+        }
+
+        input,
+        textarea,
+        select {
+            --border-color: #ccc; // Borde claro para inputs y selects
+            --background: #a8a8a8; // Fondo claro para los inputs
+            padding: 10px;
+            font-size: 14px;
+            color: #333; // Texto oscuro en los campos de entrada
+            border-radius: 6px;
+        }
+    }
+
+    // Botón principal
+    ion-button {
+        --background: #8c52ff; // Color principal para botones
+        --color: white; // Texto blanco en los botones
+        --border-radius: 8px; // Bordes redondeados para botones
+        margin-bottom: 20px; // Espacio debajo de los botones
+
+        &:hover {
+            --background: #7a46e7; // Color ligeramente más oscuro en hover
+        }
+    }
+
+    // Botón "Usar ubicación actual"
+    ion-button[color="tertiary"] {
+        --background: #7c5cff; // Un tono más claro de púrpura para el botón
+        --color: white;
+        margin-top: 10px;
+    }
+
+    // Botones secundarios para la creación de envío
+    ion-button[color="secondary"] {
+        --background: #f4a261; // Color naranja suave para botón secundario
+        --color: white;
+    }
+
+    // Estilos para la selección de tipo de envío
+    select {
+        --background: #fafafa; // Fondo claro para los selects
+        --color: #333; // Color oscuro para texto
+        padding: 10px;
+        border-radius: 6px;
+    }
+
+    // Estilo para el campo de descripción
+    textarea {
+        --background: #fafafa;
+        --border-color: #ddd;
+        color: #333;
+        padding: 10px;
+        border-radius: 6px;
+        font-size: 14px;
+    }
+
+    // Label del valor final y sugerido
+    ion-item ion-label {
+        font-weight: bold;
+        color: #333;
+    }
+
+    // Estilo del valor sugerido y final
+    ion-item ion-label:last-child {
+        font-size: 16px;
+        color: #000000; // Color púrpura para valores finales y sugeridos
+    }
+}
+
+.fondoLabel {
+    background: #cdcdcd;
+    color: black;
+}
+
+.botonTexto {
+    color: white;
 }

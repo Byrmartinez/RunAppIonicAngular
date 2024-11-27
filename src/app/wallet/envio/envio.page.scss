@@ -42,7 +42,7 @@ ion-content {
 
 ion-footer {
     ion-toolbar {
-        --background: #8c52ff;
+        --background: #1200af;
         /* Barra inferior amarilla */
     }
 
@@ -88,4 +88,12 @@ ion-footer {
     justify-content: center;
     align-items: center;
     overflow: hidden;
+}
+
+.logoicono {
+    width: 70px;
+}
+
+.burger {
+    font-size: 45px;
 }

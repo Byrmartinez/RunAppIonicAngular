@@ -26,28 +26,33 @@
   <!-- Input para dirección de origen -->
   <ion-item>
     <ion-label>ORIGEN</ion-label>
-    <input id="origin-input" [(ngModel)]="direccionOrigen" placeholder="Ingresa dirección Origen" />
+    <input id="origin-input" class="fondoLabel" [(ngModel)]="direccionOrigen" placeholder="Ingresa dirección Origen" />
   </ion-item>
 
 
   <!-- Botón para usar ubicación actual como origen -->
-  <ion-button expand="block" color="tertiary" (click)="usarUbicacionActual()">Usar Ubicación Actual</ion-button>
+  <ion-button expand="block" color="primary" (click)="usarUbicacionActual()">
+    <ion-label class="botonTexto">
+      Usar Ubicación Actual
+    </ion-label> </ion-button>
 
   <!-- Input para dirección de destino -->
   <ion-item>
     <ion-label>DESTINO</ion-label>
-    <input id="destination-input" [(ngModel)]="direccionDestino" placeholder="Ingresa dirección Destino" />
+    <input id="destination-input" class="fondoLabel" [(ngModel)]="direccionDestino"
+      placeholder="Ingresa dirección Destino" />
   </ion-item>
   <!-- Campo de descripción -->
   <ion-item>
     <ion-label>Descripción:</ion-label>
-    <textarea maxlength="200" placeholder="Describe el envío..." [(ngModel)]="descripcion"></textarea>
+    <textarea maxlength="200" class="fondoLabel" placeholder="Describe el envío..."
+      [(ngModel)]="descripcion"></textarea>
   </ion-item>
 
   <!-- Selección de tipo de envío -->
   <ion-item>
     <ion-label>Tipo de Envío:</ion-label>
-    <select [(ngModel)]="tipo_envio">
+    <select [(ngModel)]="tipo_envio" class="fondoLabel">
       <option value="documento">Documento</option>
       <option value="caja_pequena" [disabled]="tipo_envio === 'documento'">Caja Pequeña</option>
     </select>
@@ -60,7 +65,7 @@
   <!-- Campo de costo inicial -->
   <ion-item>
     <ion-label>Valor Inicial:</ion-label>
-    <input type="number" [(ngModel)]="costo">
+    <input type="number" [(ngModel)]="costo" class="fondoLabel">
   </ion-item>
 
   <!-- Montos relacionados -->
@@ -83,5 +88,9 @@
 
 
   <!-- Botón para crear el envío -->
-  <ion-button expand="block" color="secondary" (click)="crearEnvio()">Crear Envío</ion-button>
+  <ion-button expand="block" color="primary" (click)="crearEnvio()">
+    <ion-label class="botonTexto">
+      Crear Envío
+    </ion-label>
+  </ion-button>
 </ion-content>

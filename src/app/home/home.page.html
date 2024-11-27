@@ -1,14 +1,14 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>RUN-APP</ion-title>
+    <ion-img src="/assets/logo.png" class="logoicono"></ion-img>
     <ion-buttons slot="end">
-      <ion-button (click)="toggleMenu()">Menú</ion-button>
+      <ion-button (click)="toggleMenu()"><ion-icon name="menu" class="burger"></ion-icon></ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 
-<ion-content class="ion-padding">
+<ion-content class="ion-padding background">
 
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
@@ -20,23 +20,23 @@
   <!-- Tabs for Envíos -->
   <ion-segment [(ngModel)]="selectedTab">
     <ion-segment-button value="pendientes">
-      <ion-label>Pendientes</ion-label>
+      <ion-icon name="hourglass-outline" class="iconoBlanco"></ion-icon>
     </ion-segment-button>
     <ion-segment-button value="aceptados">
-      <ion-label>Aceptados</ion-label>
+      <ion-icon name="checkmark-circle-outline" class="iconoBlanco"></ion-icon>
     </ion-segment-button>
     <ion-segment-button value="enCamino">
-      <ion-label>En Camino</ion-label>
+      <ion-icon name="car-outline" class="iconoBlanco"></ion-icon>
     </ion-segment-button>
     <ion-segment-button value="entregados">
-      <ion-label>Entregados</ion-label>
+      <ion-icon name="checkmark-done-outline" class="iconoBlanco"></ion-icon>
     </ion-segment-button>
   </ion-segment>
 
   <!-- Sección de Envíos Pendientes -->
   <ion-list *ngIf="selectedTab === 'pendientes'">
     <ion-item-divider>
-      <ion-label>Envíos Pendientes</ion-label>
+      <ion-label>Pendientes</ion-label>
     </ion-item-divider>
     <div *ngIf="envios && envios.length > 0 && pendingCount > 0; else noPendingMessage">
       <div *ngFor="let envio of enviosPendientes">
@@ -85,7 +85,7 @@
   <!-- Sección de Envíos Aceptados -->
   <ion-list *ngIf="selectedTab === 'aceptados'">
     <ion-item-divider>
-      <ion-label>Envíos Aceptados</ion-label>
+      <ion-label>Aceptados</ion-label>
     </ion-item-divider>
     <div *ngIf="envios && envios.length > 0 && acceptedCount > 0; else noAcceptedMessage">
       <div *ngFor="let envio of enviosAceptados">
@@ -134,7 +134,7 @@
   <!-- Sección de Envíos en Camino -->
   <ion-list *ngIf="selectedTab === 'enCamino'">
     <ion-item-divider>
-      <ion-label>Envíos en Camino</ion-label>
+      <ion-label>En Camino</ion-label>
     </ion-item-divider>
     <div *ngIf="envios && envios.length > 0 && inTransitCount > 0; else noInTransitMessage">
       <div *ngFor="let envio of enviosEncamino">
@@ -184,7 +184,7 @@
   <!-- Sección de Envíos Entregados -->
   <ion-list *ngIf="selectedTab === 'entregados'">
     <ion-item-divider>
-      <ion-label>Envíos Entregados</ion-label>
+      <ion-label>Entregados</ion-label>
     </ion-item-divider>
     <div *ngIf="envios && envios.length > 0 && deliveredCount > 0; else noDeliveredCountMessage ">
       <div *ngFor="let envio of enviosEntregados">
@@ -241,22 +241,23 @@
 </ion-list>
 
 <ion-footer>
-  <ion-button expand="block" color="tertiary" size="large" shape="round" [routerLink]="['shipment']">
-    Crear Envio
+  <ion-button class="crear" color="tertiary" size="large" shape="round" [routerLink]="['shipment']">
+    <ion-label class="texto">Crear Envio</ion-label>
+
   </ion-button>
   <ion-toolbar>
     <ion-segment>
       <ion-segment-button value="home" (click)="navigate('home')">
-        <ion-label>Home</ion-label>
+        <ion-icon name="home"></ion-icon>
       </ion-segment-button>
       <ion-segment-button value="wallet" (click)="navigate('wallet')">
-        <ion-label>Wallet</ion-label>
+        <ion-icon name="wallet"></ion-icon>
       </ion-segment-button>
       <ion-segment-button value="indicadores" (click)="navigate('indicadores')">
-        <ion-label>Indicadores</ion-label>
+        <ion-icon name="analytics"></ion-icon>
       </ion-segment-button>
       <ion-segment-button value="mi-cuenta" (click)="navigate('myacc')">
-        <ion-label>Mi cuenta</ion-label>
+        <ion-icon name="person"></ion-icon>
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>

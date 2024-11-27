@@ -33,6 +33,7 @@
     "@ionic/angular": "^8.0.0",
     "@ionic/storage": "^4.0.0",
     "@ionic/storage-angular": "^4.0.0",
+    "chart.js": "^4.4.6",
     "ionicons": "^7.0.0",
     "ngx-cookie-service": "^18.0.0",
     "rxjs": "~7.8.0",

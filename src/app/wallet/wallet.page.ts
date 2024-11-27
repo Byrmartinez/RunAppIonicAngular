@@ -81,7 +81,7 @@ export class WalletPage implements OnInit, OnDestroy {
     }, (error) => {
       console.log(error);
     });
-    // Aquí harías la solicitud a la base de datos
+
   }
 
   // Método para redirigir a la página de renovación

@@ -1,70 +1,131 @@
+/* Establece el fondo blanco para el encabezado */
 ion-header {
   --background: white;
 }
 
+/* Botón con fondo claro y texto blanco */
 ion-button {
-  --background: #8c52ff;
-  /* Amarillo para el botón "Menú" */
-  --color: black;
+  --background: #3b9aff;
+  /* Mantén el color morado claro */
+  --color: #ffffff;
+  /* Texto blanco */
 }
 
+/* Estilo para el contenido del card */
 ion-content {
+
+
   ion-card {
     background-color: #ffffff;
+    /* Fondo blanco */
+    border-radius: 10px;
+    /* Bordes suaves */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Sombra ligera para el card */
 
     ion-card-header {
       ion-card-title {
         font-size: 18px;
-        color: #333;
+        color: #ffffff;
+        /* Título con un tono gris claro */
       }
     }
 
     ion-card-content {
       p {
-        color: #888;
+        color: #777;
+        /* Texto más claro */
       }
 
       ion-button {
-        --background: #a8b8ff;
+        --background: #2240c9;
+        /* Fondo del botón con un color suave */
         --color: white;
+        /* Texto blanco */
       }
     }
   }
 }
 
-/* Menú desplegable */
+/* Menú desplegable con color claro */
 .menu-list {
   ion-item {
     --background: white;
-    --color: black;
+    /* Fondo blanco */
+    --color: #000000;
+    /* Texto en gris oscuro */
+    --border-color: #e0e0e0;
+    /* Borde sutil para los ítems */
   }
 }
 
+/* Barra inferior con fondo morado claro */
 ion-footer {
   ion-toolbar {
-    --background: #8c52ff;
-    /* Barra inferior amarilla */
+    --background: #1200af;
+    /* Mantén el morado claro */
+  }
+
+  ion-button {
+    --background: #06a7d8;
+    /* Fondo del botón con un color suave */
+    --color: white;
+    /* Texto blanco */
   }
 
   ion-segment-button {
-    --color: black;
+    --color: white;
     --indicator-color: black;
+    /* Indicador oscuro para los botones */
   }
 }
 
+/* Fab button con color primario */
 ion-fab {
   --background: var(--ion-color-primary);
   --color: white;
+  /* Texto blanco */
 }
 
-
-
+/* Formulario con fondo rojo más suave */
 .form {
   --color: #ffffff;
-  --background-color: #af0d0d;
+  --background-color: #ffcccc;
+  /* Fondo rojo claro */
 }
 
+/* Modal con fondo suave */
 ion-modal {
   --color: #ffffff;
-  --background-color: #af0d0d;
+  --background-color: #ffcccc;
+  /* Fondo rojo claro */
+}
+
+.crear {
+  display: block;
+  --background: #06a7d8;
+  /* Fondo del botón con un color suave */
+  --color: white;
+  /* Texto blanco */
+}
+
+.texto {
+  color: white;
+}
+
+.iconoBlanco {
+  color: white;
+}
+
+.background {
+  background: #2240c9;
+  color: white;
+}
+
+.logoicono {
+  width: 70px;
+}
+
+.burger {
+  font-size: 45px;
 }

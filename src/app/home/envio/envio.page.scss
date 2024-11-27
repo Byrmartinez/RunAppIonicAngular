@@ -3,9 +3,9 @@ ion-header {
 }
 
 ion-button {
-    --background: #8c52ff;
+    --background: #5500ff;
     /* Amarillo para el botón "Menú" */
-    --color: black;
+    --color: rgb(255, 255, 255);
 }
 
 ion-content {
@@ -15,6 +15,15 @@ ion-content {
         ion-card-header {
             ion-card-title {
                 font-size: 18px;
+                color: #333;
+            }
+        }
+
+        ion-item {
+            background: whitesmoke;
+
+            ion-label {
+                background: white;
                 color: #333;
             }
         }
@@ -78,14 +87,40 @@ ion-footer {
 }
 
 .map {
+    background-color: #f9f9f9; // Fondo más claro para el mapa
+    height: 300px;
+    margin-bottom: 20px;
+    border-radius: 8px;
     position: relative;
-    height: 400px;
-    width: auto;
-    /* Altura del contenedor */
-    background-color: #f0f0f0;
-    /* Color de fondo mientras carga */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+    border: 1px solid #e0e0e0; // Bordes claros para el mapa
+}
+
+.fondoTexto {
+    background: whitesmoke;
+    background-color: whitesmoke;
+    color: black;
+}
+
+ion-item {
+    --background: #ffffff; // Fondo blanco para cada item
+    --border-color: #ddd; // Bordes sutiles y claros
+    margin-bottom: 15px; // Espacio entre cada item
+
+    ion-label {
+        background: #ffffff;
+        font-size: 16px;
+        color: #000000; // Color gris oscuro para las etiquetas
+    }
+}
+
+.textoBlanco {
+    color: white;
+}
+
+.logoicono {
+    width: 70px;
+}
+
+.burger {
+    font-size: 45px;
 }

@@ -1,8 +1,8 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>RUN-APP</ion-title>
+    <ion-img src="/assets/logo.png" class="logoicono"></ion-img>
     <ion-buttons slot="end">
-      <ion-button (click)="toggleMenu()">Menú</ion-button>
+      <ion-button (click)="toggleMenu()"><ion-icon name="menu" class="burger"></ion-icon></ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -24,34 +24,27 @@
 
   <ion-card>
     <ion-card-header>
-      <ion-card-title>Saldo</ion-card-title>
+      <ion-card-title>$</ion-card-title>
     </ion-card-header>
-    <ion-card-content>
-      <p>{{ saldo }}</p>
-    </ion-card-content>
-  </ion-card>
 
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Deuda</ion-card-title>
-    </ion-card-header>
     <ion-card-content>
-      <p>{{ deuda }}</p>
+      <p>Saldo Actual: <strong>{{ saldo | currency:'CLP' }}</strong></p>
+      <p>Deuda: <strong>{{ deuda | currency:'CLP' }}</strong></p>
     </ion-card-content>
   </ion-card>
   <!-- Tabs for Envíos -->
   <ion-segment [(ngModel)]="selectedTab">
     <ion-segment-button value="pendientes">
-      <ion-label>Pendientes</ion-label>
+      <ion-icon name="hourglass-outline" class="iconoBlanco"></ion-icon>
     </ion-segment-button>
     <ion-segment-button value="aceptados">
-      <ion-label>Aceptados</ion-label>
+      <ion-icon name="checkmark-circle-outline" class="iconoBlanco"></ion-icon>
     </ion-segment-button>
-    <ion-segment-button value="enCamino">
-      <ion-label>En Camino</ion-label>
+    <ion-segment-button value="enCamino" class="iconoBlanco">
+      <ion-icon name="car-outline"></ion-icon>
     </ion-segment-button>
     <ion-segment-button value="entregados">
-      <ion-label>Entregados</ion-label>
+      <ion-icon name="checkmark-done-outline" class="iconoBlanco"></ion-icon>
     </ion-segment-button>
   </ion-segment>
 
@@ -59,6 +52,7 @@
   <ion-list *ngIf="selectedTab === 'pendientes'">
     <ion-item-divider>
       <ion-label>Envíos Pendientes</ion-label>
+
     </ion-item-divider>
     <div *ngIf="envios && envios.length > 0 && pendingCount > 0; else noPendingMessage">
       <div *ngFor="let envio of enviosPendientes">
@@ -272,46 +266,17 @@
   <ion-toolbar>
     <ion-segment>
       <ion-segment-button value="home" (click)="navigate('home')">
-        <ion-label>Home</ion-label>
+        <ion-icon name="home"></ion-icon>
       </ion-segment-button>
       <ion-segment-button value="wallet" (click)="navigate('wallet')">
-        <ion-label>Wallet</ion-label>
+        <ion-icon name="wallet"></ion-icon>
       </ion-segment-button>
       <ion-segment-button value="indicadores" (click)="navigate('indicadores')">
-        <ion-label>Indicadores</ion-label>
+        <ion-icon name="analytics"></ion-icon>
       </ion-segment-button>
       <ion-segment-button value="mi-cuenta" (click)="navigate('myacc')">
-        <ion-label>Mi cuenta</ion-label>
+        <ion-icon name="person"></ion-icon>
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
 </ion-footer>
-
-
-<!--ion-card>
-    <ion-card-header>
-      <ion-card-title>Total de Viajes</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <p>{{ totalViajes }}</p>
-    </ion-card-content>
-  </ion-card>
-
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Saldo</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <p>{{ saldo | currency }}</p>
-    </ion-card-content>
-  </ion-card>
-
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Deuda</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <p>{{ deuda | currency }}</p>
-    </ion-card-content>
-  </ion-card>
-</ion-content-->
