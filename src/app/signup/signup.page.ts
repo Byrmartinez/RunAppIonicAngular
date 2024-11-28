@@ -123,7 +123,7 @@ export class SignupPage implements OnInit {
       console.log(error);
     });
     this.presentAlert('Éxito', 'Rider registrado correctamente.');
-    this.router.navigate(['home']);
+    this.router.navigate(['login']);
   }
 
 
