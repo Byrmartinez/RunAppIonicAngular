@@ -54,6 +54,7 @@ export class IndicadoresPage implements OnInit {
   constructor(private cookieService: CookieService, private router: Router, private api: ApiRestService, private autenthicationService: AutenthicationService) { }
 
   async ngOnInit() {
+
     this.cargarEnvios();
     let cookieValue = this.cookieService.get('idRider');
     console.log("este es el contenido de la cockie: " + cookieValue);
@@ -156,6 +157,8 @@ export class IndicadoresPage implements OnInit {
 
   doRefresh(event: any) {
     this.cargarEnvios();
+    this.cargarGraficoEnvios();
+    this.updateEnviosCount();
   }
   cargarGraficoEnvios() {
     const ctx = document.getElementById('gananciasChart') as HTMLCanvasElement;
@@ -163,12 +166,12 @@ export class IndicadoresPage implements OnInit {
     new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: ['Hoy', 'Semana', 'Mes'],
+        labels: ['Semana', 'Mes'],
         datasets: [{
           label: 'Ganancias por Intervalo',
-          data: [this.gananciasHoy, this.gananciasSemana, this.gananciasMes],
-          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-          hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+          data: [this.gananciasSemana, this.gananciasMes],
+          backgroundColor: ['#36A2EB', '#FFCE56'],
+          hoverBackgroundColor: ['#36A2EB', '#FFCE56']
         }]
       },
       options: {

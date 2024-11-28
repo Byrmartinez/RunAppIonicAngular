@@ -236,8 +236,8 @@ export class ShipmentPage implements AfterViewInit, OnInit {
     if (this.costo > 0) {
 
       const costo = this.costo;
-      this.comision_aplicacion = Math.round(costo * 0.05); // 5% de comisión
-      this.comision_rider = Math.round(costo * 0.15); // 15% de comisión
+      this.comision_aplicacion = Math.round(costo * 0.20); // 20% de comisión
+      this.comision_rider = Math.round(costo * 0.10); // 10% de comisión
       this.valorFinal = Math.round((costo - this.comision_aplicacion) - this.comision_rider);
     }
 
@@ -338,7 +338,7 @@ export class ShipmentPage implements AfterViewInit, OnInit {
         const distanceInKilometers = distanceInMeters / 1000; // Convertir a kilómetros
         this.distanciaFinal = distanceInKilometers;
         console.log(`La distancia es: ${distanceInKilometers} km`);
-        const tarifaBase = 1200;
+        const tarifaBase = 1800;
         const costoPorKM = 500;
         const calculoCostoSugerido = Math.round(tarifaBase + (costoPorKM * this.distanciaFinal));
         this.costoSugerido = calculoCostoSugerido;
