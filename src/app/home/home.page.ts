@@ -35,6 +35,8 @@ export class HomePage implements OnInit, OnDestroy {
   acceptedCount = 0;
   inTransitCount = 0;
   deliveredCount = 0;
+  saldo: any;
+  deuda: any;
 
   //nuevo
 
@@ -57,6 +59,7 @@ export class HomePage implements OnInit, OnDestroy {
         }
       }
     });
+
     /*this.routeSub = this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.cargarEnvios();
@@ -108,8 +111,20 @@ export class HomePage implements OnInit, OnDestroy {
     if (!this.refreshInterval) {
       this.refreshInterval = setInterval(() => {
         this.cargarEnvios();
+        this.cargaSaldoDeuda();
       }, 5000);
     }
+  }
+  cargaSaldoDeuda(): void {
+    this.api.getDatosRidersById(this.riderId).subscribe((response) => {
+      this.saldo = response.saldo;
+      this.deuda = response.deuda;
+      console.log("la deuda despues de la consulta es> " + this.deuda)
+
+
+    }, (error) => {
+      console.log(error);
+    });
   }
 
   detenerCargaDeEnvios(): void {

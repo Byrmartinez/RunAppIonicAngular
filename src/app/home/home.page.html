@@ -19,6 +19,9 @@
 
   <!-- Tabs for Envíos -->
   <ion-segment [(ngModel)]="selectedTab">
+    <ion-segment-button value="indicador">
+      <ion-icon name="podium-outline" class="iconoBlanco"></ion-icon>
+    </ion-segment-button>
     <ion-segment-button value="pendientes">
       <ion-icon name="hourglass-outline" class="iconoBlanco"></ion-icon>
     </ion-segment-button>
@@ -33,6 +36,34 @@
     </ion-segment-button>
   </ion-segment>
 
+  <!-- Sección de Indicador -->
+  <ion-list *ngIf="selectedTab === 'indicador'">
+    <ion-item-divider>
+      <ion-label>Indicadores</ion-label>
+
+    </ion-item-divider>
+    <ion-card>
+      <ion-card-header class="textoGrande">
+        <ion-card-title class="textoGrande">Envios Entregados</ion-card-title>
+      </ion-card-header>
+      <ion-card-content class="textoGrande back3">
+        <p class="textoGrande">{{ deliveredCount }}</p>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title class="textoGrande">$</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content class="textoGrande back3">
+        <p class="textoGrande">Saldo Actual: <strong>{{ saldo | currency:'CLP' }}</strong></p>
+        <p class="textoGrande">Deuda: <strong>{{ deuda | currency:'CLP' }}</strong></p>
+      </ion-card-content>
+    </ion-card>
+
+
+  </ion-list>
   <!-- Sección de Envíos Pendientes -->
   <ion-list *ngIf="selectedTab === 'pendientes'">
     <ion-item-divider>
