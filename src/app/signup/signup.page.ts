@@ -23,6 +23,7 @@ export class SignupPage implements OnInit {
   ModeloVehiculo: string = '';
   Saldo: number = 0;
   Deuda: number = 0;
+  showPassword: boolean = false;
 
   // Constructor
   constructor(private api: ApiRestService, private alertController: AlertController, private router: Router) { }
@@ -176,5 +177,8 @@ export class SignupPage implements OnInit {
     });
 
     await alert.present();
+  }
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
 }

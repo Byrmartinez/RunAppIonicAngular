@@ -39,7 +39,18 @@ export class HomePage implements OnInit, OnDestroy {
   deuda: any;
 
   //nuevo
+  // Variable para las ganancias totales
+  gananciasTotales: number = 0;
 
+  gananciasSemana: number = 0;
+  gananciasMes: number = 0;
+  // Nuevas variables para los gráficos
+  gananciasPorFecha = [];
+
+  // Variables para envíos filtrados por fecha
+  enviosHoy: any[] = [];
+  enviosSemana: any[] = [];
+  enviosMes: any[] = [];
 
   constructor(private cookieService: CookieService, private cd: ChangeDetectorRef, private router: Router, private api: ApiRestService, private autenthicationService: AutenthicationService) { }
 
@@ -81,8 +92,9 @@ export class HomePage implements OnInit, OnDestroy {
   cargarEnvios() {
     this.api.getEnvios().subscribe((res: any[]) => {
       this.envios = res.map(data => new Envio(data));
-      console.log(this.envios)
+      console.log(this.envios);
       this.updateEnviosCount();
+      this.cargaSaldoDeuda();
       this.cd.detectChanges();
 
     }, (error) => {
@@ -119,7 +131,7 @@ export class HomePage implements OnInit, OnDestroy {
     this.api.getDatosRidersById(this.riderId).subscribe((response) => {
       this.saldo = response.saldo;
       this.deuda = response.deuda;
-      console.log("la deuda despues de la consulta es> " + this.deuda)
+      console.log("la deuda despues de la consulta es " + this.deuda)
 
 
     }, (error) => {
@@ -150,6 +162,27 @@ export class HomePage implements OnInit, OnDestroy {
     console.log("estos son los acceptedCount: " + this.acceptedCount)
     console.log("estos son los inTransitCount: " + this.inTransitCount)
     console.log("estos son los deliveredCount: " + this.deliveredCount)
+    // Calcular ganancias del rider
+    const gananciasArray = this.enviosEntregados.map(envio => Number(envio.valorFinal) || 0); // Devuelve 0 si valorFinal es nulo o undefined
+
+    // Sumar el array de ganancias
+    this.gananciasTotales = gananciasArray.reduce((total, ganancia) => total + ganancia, 0);
+
+    console.log("Estas son las ganancias totales: " + this.gananciasTotales);
+
+
+    console.log("Ganancias Totales: ", this.gananciasTotales);
+
+
+    this.cargaSaldoDeuda();
+
+  }
+  // Filtrar las ganancias según el intervalo de fechas
+  filtrarGananciasPorFecha(fechaInicio: Date, fechaFin: Date): number {
+    return this.enviosEntregados.filter(envio => {
+      const fechaEnvio = new Date(envio.fechaEnvio);
+      return fechaEnvio >= fechaInicio && fechaEnvio <= fechaFin;
+    }).reduce((total, envio) => total + (Number(envio.valorFinal) || 0), 0);
   }
   //aceptarEnvio(id: number) {
   //console.log(`Envio ${id} aceptado`);

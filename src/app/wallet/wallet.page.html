@@ -40,8 +40,17 @@
 
     </ion-item-divider>
     <ion-card>
+
+      <ion-card-header>
+        <ion-card-title class="textoGrande">$ Tu saldo actual es de : </ion-card-title>
+      </ion-card-header>
+      <ion-card-content class="back3">
+        <p class="textoGrande">Saldo Actual: <strong>{{ saldo | currency:'CLP' }}</strong></p>
+      </ion-card-content>
+    </ion-card>
+    <ion-card>
       <ion-card-header class="textoGrande">
-        <ion-card-title class="textoGrande">Envios Entregados</ion-card-title>
+        <ion-card-title class="textoGrande">Tus envíos creados ya entregados son :</ion-card-title>
       </ion-card-header>
       <ion-card-content class="textoGrande back3">
         <p class="textoGrande">{{ deliveredCount }}</p>
@@ -50,14 +59,21 @@
 
     <ion-card>
       <ion-card-header>
-        <ion-card-title class="textoGrande">$</ion-card-title>
+        <ion-card-title class="textoGrande">$ Ganancias por envios creados</ion-card-title>
       </ion-card-header>
-
       <ion-card-content class="textoGrande back3">
-        <p class="textoGrande texto2 texto4">Saldo Actual: <strong>{{ saldo | currency:'CLP' }}</strong></p>
-        <p class="textoGrande texto2 texto4">Deuda: <strong>{{ deuda | currency:'CLP' }}</strong></p>
+        <p class="textoGrande">Total Semanal: <strong>{{ gananciasTotales | currency:'CLP' }}</strong></p>
       </ion-card-content>
+
+      <ion-card-header>
+        <ion-card-title class="textoGrande">$ Deuda por envios creados</ion-card-title>
+      </ion-card-header>
+      <ion-card-content class="back3">
+        <p class="textoGrande">Deuda : <strong>{{ deuda | currency:'CLP' }}</strong></p>
+      </ion-card-content>
+
     </ion-card>
+
 
 
   </ion-list>

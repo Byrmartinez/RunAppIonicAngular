@@ -35,10 +35,14 @@ export class EnvioPage implements OnInit {
   saldoRiderFinal: any;
   deudaUsuario: any;
   deudaUsuarioFinal: any;
+  saldoUsuario: any;
+  saldoUsuarioFinal: any;
   rolUsuario: any;
   usuario = [];
   res = [];
   body = {};
+  body2 = {};
+
   mostrarMenu = false; // Para controlar la visibilidad del menú
   map: any;
   direccionOrigen: any;
@@ -54,6 +58,8 @@ export class EnvioPage implements OnInit {
   mostrarMapa: boolean = false;
   directionsService = new google.maps.DirectionsService();
   valorRound: Number = 0;
+  comisionRider: Number = 0;
+  idEnvio: string = "";
 
 
 
@@ -66,6 +72,7 @@ export class EnvioPage implements OnInit {
   ngOnInit() {
 
     this.id = this.activateRoute.snapshot.paramMap.get("id");
+    this.idEnvio = this.id.slice(0, 8);
     console.log("leyendo id para pasar a enviopage..id", this.id);
     this.actualizarContadorEntrada();
     let cookieValue = this.cookieService.get('idRider');
@@ -101,9 +108,24 @@ export class EnvioPage implements OnInit {
       this.envio = new Envio(res);
       this.valorRound = Math.round(this.envio.valorFinal);
       //console.log("esta es la res de by id" + this.envio)
+
+      this.usuarioId = this.envio.usuarioId;
+      this.riderId = this.envio.riderId;
+      this.riderId = this.envio.riderId;
+      this.valorEnvio = this.envio.valorFinal;
+      this.costoEnvio = this.envio.costo;
+      this.comisionRider = this.envio.comisionRider;
+      this.api.getUsuarioById(this.usuarioId).subscribe(
+        (res) => {
+          this.rolUsuario = res.idRol;
+          console.log("este es el rolUsuario dentro de entregar envio : " + this.rolUsuario)
+
+        }
+      );
     }, (error: any) => {
       console.log(error);
     });
+
   }
 
   loadMapa() {
@@ -345,104 +367,92 @@ export class EnvioPage implements OnInit {
     }, (error) => {
       console.log(error);
     });
-    this.api.getEnvioById(this.id).subscribe((res) => {
-      this.envioActual = new Envio(res);
-      this.usuarioId = this.envioActual.usuarioId;
-      console.log("este es el usuarioId dentro de entregar envio : " + this.usuarioId)
-      this.riderId = this.envioActual.riderId;
-      console.log("este es el riderId dentro de entregar envio : " + this.riderId)
-      this.riderId = this.envioActual.riderId;
-      console.log("este es el riderId dentro de entregar envio : " + this.riderId)
-      this.valorEnvio = this.envioActual.valorFinal;
-      console.log("este es el valorFinal dentro de entregar envio : " + this.valorEnvio)
-      this.costoEnvio = this.envioActual.costo;
-      console.log("este es el costo dentro de entregar envio : " + this.costoEnvio)
-      this.api.getUsuarioById(this.usuarioId).subscribe(
-        (res) => {
-          this.rolUsuario = res.idRol;
-          console.log("este es el rolUsuario dentro de entregar envio : " + this.rolUsuario)
-          if (this.rolUsuario === '1') {
-            this.api.getDatosRidersById(this.riderId).subscribe((res) => {
-              this.usuarioSaldo = res;
-              this.saldoRider = this.usuarioSaldo.saldo;
-              console.log("este es el saldoRider dentro de entregar envio : " + this.saldoRider)
-              this.saldoRiderFinal = Number(this.saldoRider) + Number(this.valorEnvio);
-              console.log("este es el saldoRiderFinal dentro de entregar envio : " + this.saldoRiderFinal);
-              this.body = { id: this.riderId, saldo: this.saldoRiderFinal };
-              this.api.updateDatosRider(this.body).subscribe((success) => {
-                console.log(success);
-                this.showToast("Felicitaciones tu saldo aumento!");
-                this.loadEnvio();
-
-                this.api.getDatosRidersById(this.usuarioId).subscribe((res) => {
-                  this.usuarioDeuda = res;
-                  this.deudaUsuario = this.usuarioDeuda.deuda;
-                  console.log("este es el deudaUsuario dentro de entregar envio : " + this.deudaUsuario)
-                  this.deudaUsuarioFinal = Number(this.deudaUsuario) + Number(this.costoEnvio);
-                  console.log("este es el deudaUsuarioFinal dentro de entregar envio : " + this.deudaUsuarioFinal);
-                  this.body = { id: this.usuarioId, deuda: this.deudaUsuarioFinal };
-                  this.api.updateDatosRider(this.body).subscribe((success) => {
-                    console.log(success);
-                    console.log("la deuda del usuario ha sido actualizada");
-
-                    this.loadEnvio();
-
-                  },)
-
-                });
-
-              }, (error) => {
-                console.log(error);
-              });
 
 
+    if (this.rolUsuario === '1') {
+      this.api.getDatosRidersById(this.riderId).subscribe((res) => {
+        this.usuarioSaldo = res;
+        this.saldoRider = this.usuarioSaldo.saldo;
+        console.log("este es el saldoRider dentro de entregar envio : " + this.saldoRider)
+        this.saldoRiderFinal = Number(this.saldoRider) + Number(this.valorEnvio);
+        console.log("este es el saldoRiderFinal dentro de entregar envio : " + this.saldoRiderFinal);
+        this.body = { id: this.riderId, saldo: this.saldoRiderFinal };
+        this.api.updateDatosRider(this.body).subscribe((success) => {
+          console.log(success);
+          this.showToast("Felicitaciones tu saldo aumento!");
+          this.loadEnvio();
+
+          this.api.getDatosRidersById(this.usuarioId).subscribe((res) => {
+            this.usuarioDeuda = res;
+            this.deudaUsuario = this.usuarioDeuda.deuda;
+            this.saldoUsuario = this.usuarioDeuda.saldo;
+            console.log("este es el deudaUsuario dentro de entregar envio : " + this.deudaUsuario)
+            console.log("este es el deudaUsuario dentro de entregar envio : " + this.saldoUsuario)
+            this.deudaUsuarioFinal = Number(this.deudaUsuario) + Number(this.costoEnvio);
+            this.saldoUsuarioFinal = Number(this.saldoUsuario) + Number(this.comisionRider);
+            console.log("este es el deudaUsuarioFinal dentro de entregar envio : " + this.deudaUsuarioFinal);
+            console.log("este es el deudaUsuarioFinal dentro de entregar envio : " + this.saldoUsuarioFinal);
+            this.body = { id: this.usuarioId, deuda: this.deudaUsuarioFinal, saldo: this.saldoUsuarioFinal };
+            this.api.updateDatosRider(this.body).subscribe((success) => {
+              console.log(success);
+              console.log("la deuda del usuario ha sido actualizada");
+
+              this.loadEnvio();
 
             },)
-          }
-          if (this.rolUsuario === '2') {
-            this.api.getDatosRidersById(this.riderId).subscribe((res) => {
-              this.usuarioSaldo = res;
-              this.saldoRider = this.usuarioSaldo.saldo;
-              console.log("este es el saldoRider dentro de entregar envio : " + this.saldoRider)
-              this.saldoRiderFinal = Number(this.saldoRider) + Number(this.valorEnvio);
-              console.log("este es el saldoRiderFinal dentro de entregar envio : " + this.saldoRiderFinal);
-              this.body = { id: this.riderId, saldo: this.saldoRiderFinal };
-              this.api.updateDatosRider(this.body).subscribe((success) => {
-                console.log(success);
-                this.showToast("Felicitaciones tu saldo aumento!");
-                this.loadEnvio();
 
-                this.api.getDatosPymesById(this.usuarioId).subscribe((res) => {
-                  this.usuarioDeuda = res;
-                  this.deudaUsuario = this.usuarioDeuda.deuda;
-                  console.log("este es el deudaUsuario dentro de entregar envio : " + this.deudaUsuario)
-                  this.deudaUsuarioFinal = Number(this.deudaUsuario) + Number(this.costoEnvio);
-                  console.log("este es el deudaUsuarioFinal dentro de entregar envio : " + this.deudaUsuarioFinal);
-                  this.body = { id: this.usuarioId, deuda: this.deudaUsuarioFinal };
-                  this.api.updateDatosPyme(this.body).subscribe((success) => {
-                    console.log(success);
-                    console.log("la deuda del usuario ha sido actualizada");
+          });
 
-                    this.loadEnvio();
-
-                  },)
-
-                });
-
-              }, (error) => {
-                console.log(error);
-              });
+        }, (error) => {
+          console.log(error);
+        });
 
 
+
+      },)
+    }
+    if (this.rolUsuario === '2') {
+      this.api.getDatosRidersById(this.riderId).subscribe((res) => {
+        this.usuarioSaldo = res;
+        this.saldoRider = this.usuarioSaldo.saldo;
+        this.saldoRiderFinal = Number(this.saldoRider) + Number(this.valorEnvio);
+        console.log("este es el saldoRider dentro de entregar envio : " + this.saldoRider)
+        console.log("este es el saldoRiderFinal dentro de entregar envio : " + this.saldoRiderFinal);
+        this.body = { id: this.riderId, saldo: this.saldoRiderFinal };
+        this.api.updateDatosRider(this.body).subscribe((success) => {
+          console.log(success);
+          this.showToast("Felicitaciones tu saldo aumento!");
+          this.loadEnvio();
+
+          this.api.getDatosPymesById(this.usuarioId).subscribe((res) => {
+            this.usuarioDeuda = res;
+            this.deudaUsuario = this.usuarioDeuda.deuda;
+            console.log("este es el deudaUsuario dentro de entregar envio : " + this.deudaUsuario)
+            this.deudaUsuarioFinal = Number(this.deudaUsuario) + Number(this.costoEnvio);
+            console.log("este es el deudaUsuarioFinal dentro de entregar envio : " + this.deudaUsuarioFinal);
+            this.body = { id: this.usuarioId, deuda: this.deudaUsuarioFinal };
+            this.api.updateDatosPyme(this.body).subscribe((success) => {
+              console.log(success);
+              console.log("la deuda del usuario ha sido actualizada");
+
+              this.loadEnvio();
 
             },)
-          }
-        }
-      );
 
-    }, (error) => {
-      console.log(error);
-    });
+          });
+
+        }, (error) => {
+          console.log(error);
+        });
+
+
+
+      },)
+    }
+
+
+
+
 
     this.router.navigate(['home']);
   };

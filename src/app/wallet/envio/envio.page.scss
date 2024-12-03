@@ -78,6 +78,7 @@ ion-footer {
 }
 
 .map {
+    border-radius: 25px;
     position: relative;
     height: 400px;
     width: auto;
@@ -96,4 +97,15 @@ ion-footer {
 
 .burger {
     font-size: 45px;
+}
+
+.fondoTexto {
+    border-radius: 25px;
+    background: whitesmoke;
+    background-color: whitesmoke;
+    color: black;
+}
+
+.logo {
+    width: 70px;
 }

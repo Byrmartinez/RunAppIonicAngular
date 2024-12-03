@@ -23,6 +23,7 @@ export class LoginPage implements OnInit {
   password: string = '';
   email: string = '';
   idUsuario: string = '';
+  rolUsuario: any;
 
   authState = new BehaviorSubject(false);
 
@@ -59,28 +60,41 @@ export class LoginPage implements OnInit {
 
   async login() {
 
+
     this.api.login(this.email, this.password).subscribe(
       async (response) => {
-        this.idUsuario = response.id
-        console.log('Login exitosooooooo:', response);
-        console.log('response id:', response.id, this.idUsuario);
-        this.cookieService.set('idRider', this.idUsuario);
-        let cookieValue = this.cookieService.get('idRider');
-        console.log("este es el contenido de la cockie: " + cookieValue); // Muestra el valor de la cookie
+        this.rolUsuario = response.idRol
+        if (this.rolUsuario === "1") {
+          this.idUsuario = response.id
+          console.log('Login exitosooooooo:', response);
+          console.log('response id:', response.id, this.idUsuario);
+          this.cookieService.set('idRider', this.idUsuario);
+          let cookieValue = this.cookieService.get('idRider');
+          console.log("este es el contenido de la cockie: " + cookieValue); // Muestra el valor de la cookie
 
 
-        // Almacenar las credenciales para mantener la sesión
-        await this.storage.set('email', this.email);
-        await this.storage.set('password', this.password);
-        await this.storage.set('UserId', this.idUsuario);
-        this.authState.next(true);
-        this.authenticationService.authState.next(true); // Actualizar el estado de autenticación en el servicio
-        console.log('Intentando navegar al home');
-        console.log(this.storage);
-        console.log("valor austhstate en login page: " + this.authState.value);
+          // Almacenar las credenciales para mantener la sesión
+          await this.storage.set('email', this.email);
+          await this.storage.set('password', this.password);
+          await this.storage.set('UserId', this.idUsuario);
+          this.authState.next(true);
+          this.authenticationService.authState.next(true); // Actualizar el estado de autenticación en el servicio
+          console.log('Intentando navegar al home');
+          console.log(this.storage);
+          console.log("valor austhstate en login page: " + this.authState.value);
 
-        // Redirigir al usuario a la página de inicio
-        this.router.navigate(['home']);
+          // Redirigir al usuario a la página de inicio
+          this.router.navigate(['home']);
+        }
+        if (this.rolUsuario === "2") {
+          const alert = await this.alertController.create({
+            header: 'Error',
+            message: 'Eres usuario Pyme, debes descargar la app version PYME para iniciar sesión.',
+            buttons: ['OK'],
+          });
+          await alert.present();
+        }
+
       },
       async (error) => {
         console.error('Error en el login:', error, this.email, this.password);

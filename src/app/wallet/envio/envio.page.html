@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-img src="/assets/logo.png" class="logoicono"></ion-img>
+    <ion-img class="logo" src="../../assets/LOGO3.png"></ion-img>
     <ion-buttons slot="end">
       <ion-button (click)="toggleMenu()"><ion-icon name="menu" class="burger"></ion-icon></ion-button>
     </ion-buttons>
@@ -35,47 +35,32 @@
           <div class="spinner"></div>
         </div>
       </div>
-      <ion-card-header>
-        <ion-card-subtitle>Estado: {{ envio.estado }}</ion-card-subtitle>
-        <div><br></div>
-        <ion-card-subtitle>Hay {{ contadorActualEntrada }} Riders revisando este envio</ion-card-subtitle>
-        <ion-card-title>
-          Descripción: <b>{{ envio.descripcion }}</b>
-        </ion-card-title>
-      </ion-card-header>
       <ion-card-content>
+        <ion-card-header class="fondoTexto">
 
-
-        <ion-item lines="none">
-          <ion-icon name="location-outline" slot="start"></ion-icon>
-          <ion-label>
+          <ion-card-title>
+            Estado: {{ envio.estado }}
+          </ion-card-title>
+          <ion-card-title>
+            ID ENVÍO : <b>{{ idEnvio }}</b>
+          </ion-card-title>
+          <ion-card-title>
+            Descripción: <b>{{ envio.descripcion }}</b>
+          </ion-card-title>
+          <ion-card-title>
             <b>Desde:</b> {{ envio.direccionOrigen }}
-          </ion-label>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-icon name="flag-outline" slot="start"></ion-icon>
-          <ion-label>
+          </ion-card-title>
+          <ion-card-title>
             <b>Hasta:</b> {{ envio.direccionDestino }}
-          </ion-label>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-icon name="document-text-outline" slot="start"></ion-icon>
-          <ion-label>
+          </ion-card-title>
+          <ion-card-title>
             <b>Tipo de Envío:</b> {{ envio.tipoEnvio }}
-          </ion-label>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-icon name="cash-outline" slot="start"></ion-icon>
-          <ion-label>
-            <b>Distancia :</b> {{ envio.distanciaKM }}
-          </ion-label>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-icon name="cash-outline" slot="start"></ion-icon>
-          <ion-label>
+          </ion-card-title>
+          <ion-card-title>
             <b>Valor:</b> ${{ envio.valorFinal }}
-          </ion-label>
-        </ion-item>
+          </ion-card-title>
+
+        </ion-card-header>
         <ion-button expand="block" color="danger" size="large" shape="round" (click)="toggleFormularioCancelar()">
           CANCELAR
         </ion-button>
@@ -86,7 +71,8 @@
             <ion-label position="floating">Motivo de la cancelación</ion-label>
             <ion-textarea [(ngModel)]="motivoCancelacion"></ion-textarea>
           </ion-item>
-          <ion-button expand="block" color="danger" (click)="cancelarEnvio()">Confirmar Cancelación</ion-button>
+          <ion-button expand="block" color="danger" size="large" shape="round" (click)="cancelarEnvio()">Confirmar
+            Cancelación</ion-button>
         </div>
         <div><br><br></div>
       </ion-card-content>
@@ -110,46 +96,36 @@
           <div class="spinner"></div>
         </div>
       </div>
-      <ion-card-header>
-        <ion-card-subtitle>Estado: {{ envio.estado }}</ion-card-subtitle>
-        <ion-card-title>
-          Descripción: <b>{{ envio.descripcion }}</b>
-        </ion-card-title>
-      </ion-card-header>
       <ion-card-content>
-        <div id="map" class="map">
-          <div class="loading">
-            <p>Cargando...</p>
-            <div class="spinner"></div>
-          </div>
-        </div>
-        <ion-item lines="none">
-          <ion-icon name="location-outline" slot="start"></ion-icon>
-          <ion-label>
+        <ion-card-header class="fondoTexto">
+
+          <ion-card-title>
+            Estado: {{ envio.estado }}
+          </ion-card-title>
+          <ion-card-title>
+            ID ENVÍO : <b>{{ idEnvio }}</b>
+          </ion-card-title>
+          <ion-card-title>
+            Descripción: <b>{{ envio.descripcion }}</b>
+          </ion-card-title>
+          <ion-card-title>
             <b>Desde:</b> {{ envio.direccionOrigen }}
-          </ion-label>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-icon name="flag-outline" slot="start"></ion-icon>
-          <ion-label>
+          </ion-card-title>
+          <ion-card-title>
             <b>Hasta:</b> {{ envio.direccionDestino }}
-          </ion-label>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-icon name="document-text-outline" slot="start"></ion-icon>
-          <ion-label>
+          </ion-card-title>
+          <ion-card-title>
             <b>Tipo de Envío:</b> {{ envio.tipoEnvio }}
-          </ion-label>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-icon name="cash-outline" slot="start"></ion-icon>
-          <ion-label>
+          </ion-card-title>
+          <ion-card-title>
             <b>Valor:</b> ${{ envio.valorFinal }}
-          </ion-label>
-        </ion-item>
+          </ion-card-title>
+
+        </ion-card-header>
 
       </ion-card-content>
     </ion-card>
+    <div><br><br><br></div>
   </ng-container>
   <ng-container *ngIf="envio.estado === 'enCamino'">
     <ion-toolbar>
@@ -169,46 +145,36 @@
         </div>
       </div>
 
-      <ion-card-header>
-        <ion-card-subtitle>Estado: {{ envio.estado }}</ion-card-subtitle>
-        <ion-card-title>
-          Descripción: <b>{{ envio.descripcion }}</b>
-        </ion-card-title>
-      </ion-card-header>
       <ion-card-content>
-        <div id="map" class="map">
-          <div class="loading">
-            <p>Cargando...</p>
-            <div class="spinner"></div>
-          </div>
-        </div>
-        <ion-item lines="none">
-          <ion-icon name="location-outline" slot="start"></ion-icon>
-          <ion-label>
+        <ion-card-header class="fondoTexto">
+
+          <ion-card-title>
+            Estado: {{ envio.estado }}
+          </ion-card-title>
+          <ion-card-title>
+            ID ENVÍO : <b>{{ idEnvio }}</b>
+          </ion-card-title>
+          <ion-card-title>
+            Descripción: <b>{{ envio.descripcion }}</b>
+          </ion-card-title>
+          <ion-card-title>
             <b>Desde:</b> {{ envio.direccionOrigen }}
-          </ion-label>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-icon name="flag-outline" slot="start"></ion-icon>
-          <ion-label>
+          </ion-card-title>
+          <ion-card-title>
             <b>Hasta:</b> {{ envio.direccionDestino }}
-          </ion-label>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-icon name="document-text-outline" slot="start"></ion-icon>
-          <ion-label>
+          </ion-card-title>
+          <ion-card-title>
             <b>Tipo de Envío:</b> {{ envio.tipoEnvio }}
-          </ion-label>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-icon name="cash-outline" slot="start"></ion-icon>
-          <ion-label>
+          </ion-card-title>
+          <ion-card-title>
             <b>Valor:</b> ${{ envio.valorFinal }}
-          </ion-label>
-        </ion-item>
+          </ion-card-title>
+
+        </ion-card-header>
 
       </ion-card-content>
     </ion-card>
+    <div><br><br><br></div>
   </ng-container>
   <ng-container *ngIf="envio.estado === 'entregado'">
     <ion-toolbar>
@@ -227,43 +193,39 @@
           <div class="spinner"></div>
         </div>
       </div>
-
-      <ion-card-header>
-        <ion-card-subtitle>Estado: {{ envio.estado }}</ion-card-subtitle>
-        <ion-card-title>
-          Descripción: <b>{{ envio.descripcion }}</b>
-        </ion-card-title>
-      </ion-card-header>
       <ion-card-content>
+        <ion-card-header class="fondoTexto">
 
-        <ion-item lines="none">
-          <ion-icon name="location-outline" slot="start"></ion-icon>
-          <ion-label>
+          <ion-card-title>
+            Estado: {{ envio.estado }}
+          </ion-card-title>
+          <ion-card-title>
+            ID ENVÍO : <b>{{ idEnvio }}</b>
+          </ion-card-title>
+          <ion-card-title>
+            Descripción: <b>{{ envio.descripcion }}</b>
+          </ion-card-title>
+          <ion-card-title>
             <b>Desde:</b> {{ envio.direccionOrigen }}
-          </ion-label>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-icon name="flag-outline" slot="start"></ion-icon>
-          <ion-label>
+          </ion-card-title>
+          <ion-card-title>
             <b>Hasta:</b> {{ envio.direccionDestino }}
-          </ion-label>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-icon name="document-text-outline" slot="start"></ion-icon>
-          <ion-label>
+          </ion-card-title>
+          <ion-card-title>
             <b>Tipo de Envío:</b> {{ envio.tipoEnvio }}
-          </ion-label>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-icon name="cash-outline" slot="start"></ion-icon>
-          <ion-label>
+          </ion-card-title>
+          <ion-card-title>
             <b>Valor:</b> ${{ envio.valorFinal }}
-          </ion-label>
-        </ion-item>
+          </ion-card-title>
+
+        </ion-card-header>
+
         <div *ngIf="confirmado === true">
+          <div><br><br></div>
           <ion-label>
             <b> Ya haz confirmado este envio!</b>
           </ion-label>
+          <div><br><br></div>
         </div>
         <div *ngIf="confirmado === false">
           <ion-button expand="block" color="success" size="large" shape="round" (click)="toggleFormularioConfirmar()">
@@ -293,7 +255,8 @@
           </ion-item>
 
           <!-- Botón para confirmar -->
-          <ion-button expand="block" color="success" (click)="confirmarEnvio()">Confirmar</ion-button>
+          <ion-button expand="block" color="success" size="large" shape="round"
+            (click)="confirmarEnvio()">Confirmar</ion-button>
         </div>
         <div><br><br></div>
 

@@ -41,6 +41,17 @@ export class WalletPage implements OnInit, OnDestroy {
   saldo: any;
   deuda: any;
   response = [];
+  // Variable para las ganancias totales
+  gananciasTotales: number = 0;
+  gananciasSemana: number = 0;
+  gananciasMes: number = 0;
+  // Nuevas variables para los gráficos
+  gananciasPorFecha = [];
+
+  // Variables para envíos filtrados por fecha
+  enviosHoy: any[] = [];
+  enviosSemana: any[] = [];
+  enviosMes: any[] = [];
 
 
   constructor(private alertController: AlertController, private cookieService: CookieService, private cd: ChangeDetectorRef, private router: Router, private api: ApiRestService, private autenthicationService: AutenthicationService) { }
@@ -93,7 +104,21 @@ export class WalletPage implements OnInit, OnDestroy {
       this.envios = res.map(data => new Envio(data));
       console.log(this.envios)
       this.updateEnviosCount();
+      this.cargarSaldoDeuda();
       this.cd.detectChanges();
+
+    }, (error) => {
+      console.log(error);
+    });
+  }
+  cargarSaldoDeuda() {
+    this.api.getDatosRidersById(this.riderId).subscribe((response) => {
+      this.saldo = response.saldo;
+      console.log("el saldo despues de la consulta es> " + this.saldo)
+      console.log("el saldo despues de la consulta es> " + this.response)
+      this.deuda = response.deuda;
+      console.log("la deuda despues de la consulta es> " + this.deuda)
+
 
     }, (error) => {
       console.log(error);
@@ -147,6 +172,26 @@ export class WalletPage implements OnInit, OnDestroy {
     console.log("estos son los acceptedCount: " + this.acceptedCount)
     console.log("estos son los inTransitCount: " + this.inTransitCount)
     console.log("estos son los deliveredCount: " + this.deliveredCount)
+    // Calcular ganancias del rider
+    const gananciasArray = this.enviosEntregados.map(envio => Number(envio.comisionRider) || 0); // Devuelve 0 si valorFinal es nulo o undefined
+
+    // Sumar el array de ganancias
+    this.gananciasTotales = gananciasArray.reduce((total, ganancia) => total + ganancia, 0);
+
+    console.log("Estas son las ganancias totales: " + this.gananciasTotales);
+    // Filtrar las ganancias por hoy, semana y mes
+
+
+    console.log("Ganancias Totales: ", this.gananciasTotales);
+
+
+  }
+  // Filtrar las ganancias según el intervalo de fechas
+  filtrarGananciasPorFecha(fechaInicio: Date, fechaFin: Date): number {
+    return this.enviosEntregados.filter(envio => {
+      const fechaEnvio = new Date(envio.fechaEnvio);
+      return fechaEnvio >= fechaInicio && fechaEnvio <= fechaFin;
+    }).reduce((total, envio) => total + (Number(envio.valorFinal) || 0), 0);
   }
   //aceptarEnvio(id: number) {
   //console.log(`Envio ${id} aceptado`);

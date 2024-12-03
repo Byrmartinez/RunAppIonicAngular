@@ -62,6 +62,7 @@ export class EnvioPage implements OnInit {
   calificacion: number = 3; // Valor inicial de calificación
   comentario: string = '';
   confirmado: boolean = false;
+  idEnvio: string = "";
 
 
 
@@ -73,6 +74,7 @@ export class EnvioPage implements OnInit {
   ngOnInit() {
 
     this.id = this.activateRoute.snapshot.paramMap.get("id");
+    this.idEnvio = this.id.slice(0, 8);
     console.log("leyendo id para pasar a enviopage..id", this.id);
     let cookieValue = this.cookieService.get('idRider');
     console.log("este es el contenido de la cockie: " + cookieValue);

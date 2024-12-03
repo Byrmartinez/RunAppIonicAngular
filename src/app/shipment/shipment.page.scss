@@ -172,7 +172,7 @@ ion-content {
             --background: #a8a8a8; // Fondo claro para los inputs
             padding: 10px;
             font-size: 14px;
-            color: #333; // Texto oscuro en los campos de entrada
+            color: #ffffff; // Texto oscuro en los campos de entrada
             border-radius: 6px;
         }
     }
@@ -234,10 +234,44 @@ ion-content {
 }
 
 .fondoLabel {
-    background: #cdcdcd;
-    color: black;
+    font-size: x-large;
+    background: #6d6cdd;
+    color: rgb(255, 255, 255);
 }
 
 .botonTexto {
     color: white;
+}
+
+.textoPorc {
+    color: #7a46e7;
+    font-size: x-large;
+}
+
+.textoBlanco {
+    color: white;
+}
+
+input::placeholder {
+    width: 100%;
+    color: white;
+}
+
+textarea::placeholder {
+    color: white;
+}
+
+input {
+    width: 50%;
+
+}
+
+textarea {
+    width: 50%;
+
+}
+
+select {
+    width: 50%;
+
 }

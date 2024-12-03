@@ -215,6 +215,7 @@ export class ShipmentPage implements AfterViewInit, OnInit {
   comision_aplicacion: number = 0;
   comision_rider: number = 0;
   valorFinal: number = 0;
+  valorDeudaRider: number = 0;
 
 
   constructor(private router: Router, private alertController: AlertController, private cookieService: CookieService, private api: ApiRestService) { }
@@ -239,6 +240,7 @@ export class ShipmentPage implements AfterViewInit, OnInit {
       this.comision_aplicacion = Math.round(costo * 0.20); // 20% de comisión
       this.comision_rider = Math.round(costo * 0.10); // 10% de comisión
       this.valorFinal = Math.round((costo - this.comision_aplicacion) - this.comision_rider);
+      this.valorDeudaRider = Math.round(this.valorFinal + this.comision_aplicacion);
     }
 
   }
@@ -354,11 +356,36 @@ export class ShipmentPage implements AfterViewInit, OnInit {
     try {
       const position = await Geolocation.getCurrentPosition();
       this.currentPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-      this.direccionOrigen = `Lat: ${position.coords.latitude}, Lng: ${position.coords.longitude}`; // Rellenar el campo de origen con las coordenadas
+
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+
+      // Crear el objeto LatLng
+      const latLng = new google.maps.LatLng(lat, lng);
+
+      // Inicializar el servicio de geocodificación
+      const geocoder = new google.maps.Geocoder();
+
+      // Convertir las coordenadas en dirección
+      geocoder.geocode({ location: latLng }, (results: any, status: any) => {
+        if (status === "OK") {
+          if (results[0]) {
+            // Mostrar la dirección en formato de texto
+            this.direccionOrigen = results[0].formatted_address;
+            console.log("Dirección:", this.direccionOrigen);
+          } else {
+            console.error("No se encontraron resultados.");
+          }
+        } else {
+          console.error("Error al geocodificar: " + status);
+        }
+      });
+      //this.direccionOrigen2 = `Lat: ${position.coords.latitude}, Lng: ${position.coords.longitude}`; // Rellenar el campo de origen con las coordenadas
+      this.direccionOrigen2 = { lat: lat, lng: lng };
       console.log(`Ubicación actual: ${position.coords.latitude}, ${position.coords.longitude}`);
       if (this.direccionDestino) {
 
-        this.renderizarMapa(this.direccionOrigen, this.direccionDestino2); // Mostrar mapa cuando ambos campos estén llenos
+        this.renderizarMapa(this.direccionOrigen2, this.direccionDestino2); // Mostrar mapa cuando ambos campos estén llenos
       }
     } catch (error) {
       console.error('Error obteniendo la ubicación:', error);
